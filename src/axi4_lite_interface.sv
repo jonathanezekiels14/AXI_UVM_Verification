@@ -1,4 +1,4 @@
-interface axi_interface(input bit ACLK);
+interface axi4_lite_interface(input bit ACLK);
 
 	logic ARESETn;
 
