@@ -42,7 +42,44 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 	endtask
 
 	virtual task drive_write(axi4_lite_transaction req);
+		fork
+			begin
+				repeat(req.aw_delay) @(posedge vif.ACLK);
+				vif.AWADDR <= req.AWADDR;
+				vif.AWPROT <= req.AWPROT;
+				vif.AWVALID <= 1;
 
+				do begin 
+					@(posedge vif.ACLK);
+				end while (!vif.AWREADY);
+
+				vif.AWVALID <= 0;
+				vif.AWADDR <= 0;
+			end
+
+			begin
+				repeat (req.w_delay) @(posedge vif.ACLK);
+				vif.WDATA <= req.WDATA;
+				vif.WSTRB <= req.WSTRB;
+				vif.WVALID <= 1;
+
+				do begin
+					@(posedge vif.ACLK);
+				end while (!vif.WREADY);
+
+				vif.WVALID <= 0;
+				vif.WDATA <= 0;
+			end
+		join
+
+		repeat (req.bready_delay) @(posedge vif.ACLK);
+		vif.BREADY <= 1;
+		do begin
+			@(posedge vif.ACLK);
+		end while (!vif.BVALID);
+
+		req.BRESP = vif.BRESP;
+		vif.BREADY <= 0;
 	endtask
 
 
@@ -55,8 +92,28 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 	endtask
 
 	virtual task drive_read(axi4_lite_transaction req);
+		repeat (req.ar_delay) @(posedge vif.ACLK);
 
+		vif.ARADDR <= req.ARADDR;
+		vif.ARPROT <= req.ARPROT;
+		vif.ARVALID <= 1;
 
+		do begin
+			@(posedge vif.ACLK);
+		end while (!vif.ARREADY);
+
+		vif.ARVALID <= 0;
+		vif.ARADDR <= 0;
+
+		repeat (req.rready_delay) @(posedge vif.ACLK);
+		vif.ARREADY <= 1;
+
+		do begin
+			@(posedge vif.ACLK);
+		end while (!vif.RVALID);
+		req.RDATA = vif.RDATA;
+		req.RRESP = vif.RRESP;
+		vif.RREADY <= 0;
 	endtask
 endclass
 
