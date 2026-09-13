@@ -1,11 +1,11 @@
 class axi4_lite_write_test extends uvm_test;
-	`uvm_componentt_utils(axi4_lite_base_test)
+	`uvm_component_utils(axi4_lite_write_test)
 
 	axi4_lite_environment env;
 	axi4_lite_config cfg;
 
 	function new(string name = "axi4_lite_write_test", uvm_component parent = null);
-		super.new(name,parennt);
+		super.new(name,parent);
 	endfunction
 
 	virtual function void build_phase(uvm_phase phase);
@@ -28,7 +28,6 @@ class axi4_lite_write_test extends uvm_test;
 		wseq.start(env.agt.sqr_wr);
 
 		phase.drop_objection(this);
-
 	endtask
 endclass
 

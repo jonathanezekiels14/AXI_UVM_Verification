@@ -15,7 +15,7 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 
 	function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
-		if (!uvm_config#(axi4_lite_config)::get(this,"","axi4_lite_config",cfg)) begin
+		if (!uvm_config_db#(axi4_lite_config)::get(this,"","axi4_lite_config",cfg)) begin
 			`uvm_fatal("DRV", $sformatf("Driver Failed to get Config"));
 		end
 	endfunction

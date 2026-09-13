@@ -7,13 +7,15 @@ class axi4_lite_agent extends uvm_agent;
 	axi4_lite_sequencer sqr_wr;
 	uvm_analysis_port #(axi4_lite_transaction) ap;
 
+	axi4_lite_config cfg;
+
 	function new(string name = "axi4_lite_agent", uvm_component parent = null);
 		super.new(name, parent);
 	endfunction
 
 	virtual function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
-		if(!uvm_config_db #(axi4_lite_config)::get(this,"","axi4_lite_config",cfg))
+		if(!uvm_config_db#(axi4_lite_config)::get(this,"","axi4_lite_config",cfg))
                         `uvm_fatal(get_name(),"Agent Failed to get Config_db");
                 mon = axi4_lite_monitor::type_id::create("mon",this);
                 ap  = new("ap", this);
@@ -26,7 +28,7 @@ class axi4_lite_agent extends uvm_agent;
 
 	virtual function void connect_phase(uvm_phase phase);
 		super.connect_phase(phase);
-		mon.ap.connect(this.ap);
+		mon.mon_ap.connect(this.ap);
 		if (get_is_active() == UVM_ACTIVE) begin
 			drv.rd_seq_item_port.connect(sqr_rd.seq_item_export);
 			drv.wr_seq_item_port.connect(sqr_wr.seq_item_export);

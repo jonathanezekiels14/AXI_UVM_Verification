@@ -3,16 +3,16 @@ class axi4_lite_monitor extends uvm_monitor;
 
 	virtual axi4_lite_interface.MON vif;
 	axi4_lite_config cfg;
-	uvm_analysis_port #(axi4_lite_transaction) mon_port;
+	uvm_analysis_port #(axi4_lite_transaction) mon_ap;
 
 	function new(string name = "axi4_lite_monitor", uvm_component parent = null);
 		super.new(name,parent);
-		mon_port = new("mon_port",this);
+		mon_ap = new("mon_port",this);
 	endfunction
 
 	function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
-		if (!uvm_config#(axi4_lite_config)::get(this,"","axi4_lite_config",cfg)) begin
+		if (!uvm_config_db#(axi4_lite_config)::get(this,"","axi4_lite_config",cfg)) begin
 			`uvm_fatal("MON", $sformatf("Monitor Failed to get Config"));
 		end
 	endfunction
@@ -34,7 +34,7 @@ class axi4_lite_monitor extends uvm_monitor;
 	virtual task  write();
 		forever begin
 			axi4_lite_transaction tx = axi4_lite_transaction::type_id::create("tx");
-			tx.axi_dir = WRITE;
+			tx.direction = WRITE;
 
 			fork
 				begin
@@ -58,19 +58,19 @@ class axi4_lite_monitor extends uvm_monitor;
 			end while (!(vif.BVALID && vif.BREADY));
 
 			tx.BRESP = vif.BRESP;
-			`uvm_info("MON_WRITE",$sformatf("Captured: %s",tx.convert2string),UVM_MED);
-			mon_port.write(tx);
+			`uvm_info("MON_WRITE",$sformatf("Captured: %s",tx.convert2string),UVM_MEDIUM);
+			mon_ap.write(tx);
 		end
 	endtask
 
 	virtual task read();
 		forever begin
 			axi4_lite_transaction tx = axi4_lite_transaction::type_id::create("tx");
-			tx.axi_dir = READ;
+			tx.direction = READ;
 
 			do begin
 				@(posedge vif.mon_cb);
-			end while (!(vif.ARVALID && ARREADY));
+			end while (!(vif.ARVALID && vif.ARREADY));
 
 			tx.ARADDR = vif.ARADDR;
 			tx.ARPROT = vif.ARPROT;
@@ -86,4 +86,4 @@ class axi4_lite_monitor extends uvm_monitor;
 			mon_ap.write(tx);
 		end
 	endtask
-
+endclass

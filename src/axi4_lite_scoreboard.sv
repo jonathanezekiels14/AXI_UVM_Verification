@@ -47,7 +47,7 @@ class axi4_lite_scoreboard extends uvm_scoreboard;
 		end
 
 		else if(tx.direction == READ) begin
-			reg_type == access_type(tx.ARADDR);
+			reg_type = access_type(tx.ARADDR);
 			if(reg_type == INVALID || reg_type == WO) begin
 				if(tx.BRESP != 2'b10)
 					`uvm_error("SCB_ERR", $sformatf("Expected SLVERR for invalid read at %0h, got %0b", tx.ARADDR, tx.RRESP))
@@ -68,7 +68,7 @@ class axi4_lite_scoreboard extends uvm_scoreboard;
 				if(tx.RDATA !== exp_data)
 					`uvm_error("SCB_FAIL", $sformatf("Data Mismatch at Addr: %h | Expected: %h, Actual: %h",tx.ARADDR, exp_data,tx.RDATA))
 				else
-					`uvm_info("SCB_PASS" $sformatf("Data Match at Addr: %h | Data: %h",tx.ARADDR,tx.RDATA), UVM_LOW)
+					`uvm_info("SCB_PASS", $sformatf("Data Match at Addr: %h | Data: %h",tx.ARADDR,tx.RDATA), UVM_LOW)
 			end
 		end
 	endfunction

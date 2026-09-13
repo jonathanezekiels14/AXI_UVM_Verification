@@ -7,7 +7,7 @@ class axi4_lite_environment extends uvm_env;
 	axi4_lite_config cfg;
 
 	function new(string name = "axi4_lite_environment", uvm_component parent);
-		super.name(name,parent);
+		super.new(name,parent);
 	endfunction
 
 	function void build_phase(uvm_phase phase);
