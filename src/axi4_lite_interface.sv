@@ -53,12 +53,14 @@ interface axi4_lite_interface(input bit ACLK);
 		// Write Response
 		BREADY,BRESP,BVALID,
 		// Read Address
-		ARADDR,ARPROT,ARVALID, ARREADY
+		ARADDR,ARPROT,ARVALID, ARREADY,
 		// Read Data
 		RREADY, RRESP, RVALID, RDATA;
 	endclocking
 
 
+	modport DRV (clocking drv_cb, input ARESETn);
+	modport MON (clocking mon_cb, input ARESETn);
 endinterface
 
 
