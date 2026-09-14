@@ -1,3 +1,4 @@
+`include "defines.svh"
 interface axi4_lite_interface(input bit ACLK);
 
 	logic ARESETn;

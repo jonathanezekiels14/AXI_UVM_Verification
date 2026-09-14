@@ -19,7 +19,7 @@ class axi4_lite_monitor extends uvm_monitor;
 
 	function void connect_phase(uvm_phase phase);
 		super.connect_phase(phase);
-		this.vif=cfg.vif;
+		this.vif = cfg.vif;
 	endfunction
 
 	task run_phase (uvm_phase phase);
@@ -31,7 +31,7 @@ class axi4_lite_monitor extends uvm_monitor;
 		join
 	endtask
 
-	virtual task  write();
+	virtual task write();
 		forever begin
 			axi4_lite_transaction tx = axi4_lite_transaction::type_id::create("tx");
 			tx.direction = WRITE;
@@ -39,26 +39,26 @@ class axi4_lite_monitor extends uvm_monitor;
 			fork
 				begin
 					do begin
-						@(posedge vif.mon_cb);
-					end while (!(vif.AWVALID && vif.AWREADY));
-					tx.AWADDR = vif.AWADDR;
-					tx.AWPROT = vif.AWPROT;
+						@(vif.mon_cb);
+					end while (!(vif.mon_cb.AWVALID && vif.mon_cb.AWREADY));
+					tx.AWADDR = vif.mon_cb.AWADDR;
+					tx.AWPROT = vif.mon_cb.AWPROT;
 				end
 				begin
 					do begin
-						@(posedge vif.mon_cb);
-					end while(!(vif.WVALID && vif.WREADY));
-					tx.WDATA = vif.WDATA;
-					tx.WSTRB = vif.WSTRB;
+						@(vif.mon_cb);
+					end while(!(vif.mon_cb.WVALID && vif.mon_cb.WREADY));
+					tx.WDATA = vif.mon_cb.WDATA;
+					tx.WSTRB = vif.mon_cb.WSTRB;
 				end
 			join
 
 			do begin
-				@(posedge vif.mon_cb);
-			end while (!(vif.BVALID && vif.BREADY));
+				@(vif.mon_cb);
+			end while (!(vif.mon_cb.BVALID && vif.mon_cb.BREADY));
 
-			tx.BRESP = vif.BRESP;
-			`uvm_info("MON_WRITE",$sformatf("Captured: %s",tx.convert2string),UVM_MEDIUM);
+			tx.BRESP = vif.mon_cb.BRESP;
+			`uvm_info("MON_WRITE",$sformatf("Captured: %s",tx.convert2string()),UVM_MEDIUM);
 			mon_ap.write(tx);
 		end
 	endtask
@@ -69,18 +69,18 @@ class axi4_lite_monitor extends uvm_monitor;
 			tx.direction = READ;
 
 			do begin
-				@(posedge vif.mon_cb);
-			end while (!(vif.ARVALID && vif.ARREADY));
+				@(vif.mon_cb);
+			end while (!(vif.mon_cb.ARVALID && vif.mon_cb.ARREADY));
 
-			tx.ARADDR = vif.ARADDR;
-			tx.ARPROT = vif.ARPROT;
+			tx.ARADDR = vif.mon_cb.ARADDR;
+			tx.ARPROT = vif.mon_cb.ARPROT;
 
 			do begin
-				@(posedge vif.mon_cb);
-			end while(!(vif.RVALID && vif.RREADY));
+				@(vif.mon_cb);
+			end while(!(vif.mon_cb.RVALID && vif.mon_cb.RREADY));
 
-			tx.RDATA = vif.RDATA;
-			tx.RRESP = vif.RRESP;
+			tx.RDATA = vif.mon_cb.RDATA;
+			tx.RRESP = vif.mon_cb.RRESP;
 
 			`uvm_info("MON_READ",$sformatf("Captured: %s ",tx.convert2string()),UVM_HIGH);
 			mon_ap.write(tx);

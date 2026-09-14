@@ -1,0 +1,93 @@
+Command: /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/./simv +UVM_TESTNAME=axi4_lite_write_test +UVM_VERBOSITY=UVM_HIGH -l sim_run.log
+Chronologic VCS simulator copyright 1991-2020
+Contains Synopsys proprietary information.
+Compiler version Q-2020.03-SP2-8_Full64; Runtime version Q-2020.03-SP2-8_Full64;  Sep 14 15:55 2026
+----------------------------------------------------------------
+UVM-1.1d.Synopsys
+(C) 2007-2013 Mentor Graphics Corporation
+(C) 2007-2013 Cadence Design Systems, Inc.
+(C) 2006-2013 Synopsys, Inc.
+(C) 2011-2013 Cypress Semiconductor Corp.
+----------------------------------------------------------------
+
+  ***********       IMPORTANT RELEASE NOTES         ************
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_NO_DEPRECATED undefined.
+  See http://www.eda.org/svdb/view.php?id=3313 for more details.
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+  See http://www.eda.org/svdb/view.php?id=3770 for more details.
+
+      (Specify +UVM_NO_RELNOTES to turn off this notice)
+
+UVM_INFO @ 0: reporter [RNTST] Running test axi4_lite_write_test...
+UVM_INFO axi4_lite_write_test.sv(24) @ 0: uvm_test_top [BASE_TEST] Printing UVM Topology:
+UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
+--------------------------------------------------------------
+Name                       Type                    Size  Value
+--------------------------------------------------------------
+uvm_test_top               axi4_lite_write_test    -     @462 
+  env                      axi4_lite_environment   -     @476 
+    agt                    axi4_lite_agent         -     @489 
+      ap                   uvm_analysis_port       -     @656 
+      drv                  axi4_lite_driver        -     @665 
+        rd_seq_item_port   uvm_seq_item_pull_port  -     @700 
+        rsp_port           uvm_analysis_port       -     @682 
+        seq_item_port      uvm_seq_item_pull_port  -     @673 
+        wr_seq_item_port   uvm_seq_item_pull_port  -     @691 
+      mon                  axi4_lite_monitor       -     @639 
+        mon_port           uvm_analysis_port       -     @647 
+      sqr_rd               axi4_lite_sequencer     -     @709 
+        rsp_export         uvm_analysis_export     -     @717 
+        seq_item_export    uvm_seq_item_pull_imp   -     @823 
+        arbitration_queue  array                   0     -    
+        lock_queue         array                   0     -    
+        num_last_reqs      integral                32    'd1  
+        num_last_rsps      integral                32    'd1  
+      sqr_wr               axi4_lite_sequencer     -     @832 
+        rsp_export         uvm_analysis_export     -     @840 
+        seq_item_export    uvm_seq_item_pull_imp   -     @946 
+        arbitration_queue  array                   0     -    
+        lock_queue         array                   0     -    
+        num_last_reqs      integral                32    'd1  
+        num_last_rsps      integral                32    'd1  
+    scb                    axi4_lite_scoreboard    -     @497 
+      ap_imp               uvm_analysis_imp        -     @505 
+    vsqr                   axi4_lite_vsqr          -     @514 
+      rsp_export           uvm_analysis_export     -     @522 
+      seq_item_export      uvm_seq_item_pull_imp   -     @628 
+      arbitration_queue    array                   0     -    
+      lock_queue           array                   0     -    
+      num_last_reqs        integral                32    'd1  
+      num_last_rsps        integral                32    'd1  
+--------------------------------------------------------------
+
+UVM_INFO top.sv(53) @ 25000: reporter [TOP] Initial Reset Released
+UVM_INFO axi4_lite_monitor.sv(61) @ 65000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h30 P:'b10 V:x R:x] W[D:'d2364251263 S:'b1111 V:x R:x] B[Rsp:'b0 V:x R:x] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'dx Rsp:'bxx V:x R:x]
+UVM_INFO axi4_lite_monitor.sv(61) @ 105000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h3ec467ad P:'b111 V:x R:x] W[D:'d260257153 S:'b100 V:x R:x] B[Rsp:'b0 V:x R:x] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'dx Rsp:'bxx V:x R:x]
+UVM_ERROR axi4_lite_scoreboard.sv(34) @ 105000: uvm_test_top.env.scb [SCB_ERR] Expected SLVERR for invalid write at 3ec467ad, got 00
+UVM_INFO /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/base/uvm_objection.svh(1274) @ 605000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :    7
+UVM_WARNING :    0
+UVM_ERROR :    1
+UVM_FATAL :    0
+** Report counts by id
+[BASE_TEST]     1
+[MON_WRITE]     2
+[RNTST]     1
+[SCB_ERR]     1
+[TEST_DONE]     1
+[TOP]     1
+[UVMTOP]     1
+$finish called from file "/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/base/uvm_root.svh", line 437.
+$finish at simulation time               605000
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 605000 ps
+CPU Time:      0.570 seconds;       Data structure size:   0.6Mb
+Mon Sep 14 15:55:42 2026

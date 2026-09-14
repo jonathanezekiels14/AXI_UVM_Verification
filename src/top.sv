@@ -1,7 +1,5 @@
-`include "defines.svh"
-`include "axi4_lite_interface.sv"
-`include "axi4_lite_pkg.sv"
 `include "axi4_lite.v"
+`include "defines.svh"
 
 module top;
 	import uvm_pkg::*;
@@ -21,7 +19,7 @@ module top;
 	axi4_lite_slave #(
 		.DATA_WIDTH(`DATA_WIDTH),
 		.ADDR_WIDTH(`ADDR_WIDTH),
-		.MEM_WIDTH(`MEM_WIDTH),
+		.MEM_DEPTH(`MEM_DEPTH),
 		.DEFAULT_PROT(`DEFAULT_PROT))
 	dut (
 		.ACLK(ACLK),
@@ -51,7 +49,7 @@ module top;
 		@(posedge ACLK);
 		vif.ARESETn = 0;
 		repeat (2) @(posedge ACLK);
-		vif.ARESETm = 1;
+		vif.ARESETn = 1;
 		`uvm_info("TOP",$sformatf("Initial Reset Released"), UVM_LOW)
 	end
 

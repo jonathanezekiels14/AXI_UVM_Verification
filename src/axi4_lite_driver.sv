@@ -9,8 +9,8 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 
 	function new(string name = "axi4_lite_driver", uvm_component parent = null);
 		super.new(name,parent);
-		wr_seq_item_port= new("wr_seq_item_port",this);
-		rd_seq_item_port= new("rd_seq_item_port",this);
+		wr_seq_item_port = new("wr_seq_item_port",this);
+		rd_seq_item_port = new("rd_seq_item_port",this);
 	endfunction
 
 	function void build_phase(uvm_phase phase);
@@ -22,12 +22,12 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 
 	function void connect_phase(uvm_phase phase);
 		super.connect_phase(phase);
-		this.vif=cfg.vif;
+		this.vif = cfg.vif;
 	endfunction
 
 	task run_phase(uvm_phase phase);
 		reset();
-		wait(vif.ARESETn == 1);
+		wait(vif.ARESETn == 1); 
 
 		fork
 			write();
@@ -36,20 +36,21 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 	endtask
 
 	virtual task reset();
-		vif.AWVALID <= 0;
-		vif.AWADDR <= 0;
-		vif.AWPROT <= 0;
-		vif.WVALID <= 0;
-		vif.WDATA <= 0;
-		vif.WSTRB <= 0;
-		vif.BREADY <= 0;
-		vif.ARVALID <= 0;
-		vif.ARADDR <= 0;
-		vif.ARPORT <= 0;
-		vif.RREADY <= 0;
+		vif.drv_cb.AWVALID <= 0;
+		vif.drv_cb.AWADDR <= 0;
+		vif.drv_cb.AWPROT <= 0;
+		vif.drv_cb.WVALID <= 0;
+		vif.drv_cb.WDATA <= 0;
+		vif.drv_cb.WSTRB <= 0;
+		vif.drv_cb.BREADY <= 0;
+		vif.drv_cb.ARVALID <= 0;
+		vif.drv_cb.ARADDR <= 0;
+		vif.drv_cb.ARPROT <= 0; 
+		vif.drv_cb.RREADY <= 0;
 	endtask
 
 	virtual task write();
+		axi4_lite_transaction req; 
 		forever begin
 			wr_seq_item_port.get_next_item(req);
 			drive_write(req);
@@ -60,46 +61,47 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 	virtual task drive_write(axi4_lite_transaction req);
 		fork
 			begin
-				repeat(req.aw_delay) @(posedge vif.drv_cb);
-				vif.AWADDR <= req.AWADDR;
-				vif.AWPROT <= req.AWPROT;
-				vif.AWVALID <= 1;
+				repeat(req.aw_delay) @(vif.drv_cb);
+				vif.drv_cb.AWADDR <= req.AWADDR;
+				vif.drv_cb.AWPROT <= req.AWPROT;
+				vif.drv_cb.AWVALID <= 1;
 
-				do begin 
-					@(posedge vif.drv_cb);
-				end while (!vif.AWREADY);
+				do begin
+					@(vif.drv_cb);
+				end while (!vif.drv_cb.AWREADY);
 
-				vif.AWVALID <= 0;
-				vif.AWADDR <= 0;
+				vif.drv_cb.AWVALID <= 0;
+				vif.drv_cb.AWADDR <= 0;
 			end
 
 			begin
-				repeat (req.w_delay) @(posedge vif.drv_cb);
-				vif.WDATA <= req.WDATA;
-				vif.WSTRB <= req.WSTRB;
-				vif.WVALID <= 1;
+				repeat (req.w_delay) @(vif.drv_cb);
+				vif.drv_cb.WDATA <= req.WDATA;
+				vif.drv_cb.WSTRB <= req.WSTRB;
+				vif.drv_cb.WVALID <= 1;
 
 				do begin
-					@(posedge vif.drv_cb);
-				end while (!vif.WREADY);
+					@(vif.drv_cb);
+				end while (!vif.drv_cb.WREADY);
 
-				vif.WVALID <= 0;
-				vif.WDATA <= 0;
+				vif.drv_cb.WVALID <= 0;
+				vif.drv_cb.WDATA <= 0;
 			end
 		join
 
-		repeat (req.bready_delay) @(posedge vif.drv_cb);
-		vif.BREADY <= 1;
+		repeat (req.bready_delay) @(vif.drv_cb);
+		vif.drv_cb.BREADY <= 1;
+		
 		do begin
-			@(posedge vif.drv_cb);
-		end while (!vif.BVALID);
+			@(vif.drv_cb);
+		end while (!vif.drv_cb.BVALID);
 
-		req.BRESP = vif.BRESP;
-		vif.BREADY <= 0;
+		req.BRESP = vif.drv_cb.BRESP;
+		vif.drv_cb.BREADY <= 0;
 	endtask
 
-
 	virtual task read();
+		axi4_lite_transaction req; 
 		forever begin
 			rd_seq_item_port.get_next_item(req);
 			drive_read(req);
@@ -108,33 +110,28 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 	endtask
 
 	virtual task drive_read(axi4_lite_transaction req);
-		repeat (req.ar_delay) @(posedge vif.drv_cb);
+		repeat (req.ar_delay) @(vif.drv_cb);
 
-		vif.ARADDR <= req.ARADDR;
-		vif.ARPROT <= req.ARPROT;
-		vif.ARVALID <= 1;
-
-		do begin
-			@(posedge vif.drv_cb);
-		end while (!vif.ARREADY);
-
-		vif.ARVALID <= 0;
-		vif.ARADDR <= 0;
-
-		repeat (req.rready_delay) @(posedge vif.drv_cb);
-		vif.ARREADY <= 1;
+		vif.drv_cb.ARADDR <= req.ARADDR;
+		vif.drv_cb.ARPROT <= req.ARPROT;
+		vif.drv_cb.ARVALID <= 1;
 
 		do begin
-			@(posedge vif.drv_cb);
-		end while (!vif.RVALID);
-		req.RDATA = vif.RDATA;
-		req.RRESP = vif.RRESP;
-		vif.RREADY <= 0;
+			@(vif.drv_cb);
+		end while (!vif.drv_cb.ARREADY);
+
+		vif.drv_cb.ARVALID <= 0;
+		vif.drv_cb.ARADDR <= 0;
+
+		repeat (req.rready_delay) @(vif.drv_cb);
+		vif.drv_cb.RREADY <= 1; 
+
+		do begin
+			@(vif.drv_cb);
+		end while (!vif.drv_cb.RVALID);
+		
+		req.RDATA = vif.drv_cb.RDATA;
+		req.RRESP = vif.drv_cb.RRESP;
+		vif.drv_cb.RREADY <= 0;
 	endtask
 endclass
-
-
-
-
-
-

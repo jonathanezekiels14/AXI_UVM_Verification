@@ -10,8 +10,14 @@ class axi4_lite_write_test extends uvm_test;
 
 	virtual function void build_phase(uvm_phase phase);
 		super.build_phase(phase);
-		env = axi4_lite_environment::type_id::create("env",this);
-	endfunction
+		cfg = axi4_lite_config::type_id::create("cfg");
+		cfg.is_active = UVM_ACTIVE;
+		if(!uvm_config_db#(virtual axi4_lite_interface)::get(this, "", "vif", cfg.vif)) begin
+			`uvm_fatal("TEST", "Failed to get virtual interface from top.sv!");
+		end
+		uvm_config_db#(axi4_lite_config)::set(this, "*", "axi4_lite_config", cfg);
+		env = axi4_lite_environment::type_id::create("env", this);
+	endfunction	
 	
 	virtual function void end_of_elaboration_phase(uvm_phase phase);
 		super.end_of_elaboration_phase(phase);

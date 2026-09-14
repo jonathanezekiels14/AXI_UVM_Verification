@@ -17,18 +17,15 @@ class axi4_lite_scoreboard extends uvm_scoreboard;
 	endfunction
 
 	virtual function reg_access access_type(bit [31:0] addr);
-		if(addr >= 32'h00001000 && addr <= 32'h00001FFF)
+		if(addr >= 32'h00000000 && addr <= 32'h0000003C)
 			return RW;
-		else if (addr >= 32'h00002000 && addr <= 32'h000020FF)
-			return RO;
-		else if (addr == 32'h00003000)
-			return WO;
 		else
 			return INVALID;
 	endfunction
 
 	virtual function void write(axi4_lite_transaction tx);
 		reg_access reg_type;
+		
 		if(tx.direction == WRITE) begin
 			reg_type = access_type(tx.AWADDR);
 
@@ -39,29 +36,31 @@ class axi4_lite_scoreboard extends uvm_scoreboard;
 			else begin
 				if(tx.BRESP !== 2'b00)
 					`uvm_error("SCB_ERR", $sformatf("Expected OKAY for valid write at %0h, got %b",tx.AWADDR, tx.BRESP))
+				
 				for(int i = 0; i < (`DATA_WIDTH/8); i++) begin
 					if(tx.WSTRB[i] == 1)
-						mem[tx.AWADDR + i] = tx.WDATA[8*i+8];
+						mem[tx.AWADDR + i] = tx.WDATA[8*i +: 8]; 
 				end
 			end
 		end
 
 		else if(tx.direction == READ) begin
 			reg_type = access_type(tx.ARADDR);
+			
 			if(reg_type == INVALID || reg_type == WO) begin
-				if(tx.BRESP != 2'b10)
+				if(tx.RRESP != 2'b10) 
 					`uvm_error("SCB_ERR", $sformatf("Expected SLVERR for invalid read at %0h, got %0b", tx.ARADDR, tx.RRESP))
 			end
 			else begin
 				logic [`DATA_WIDTH-1:0] exp_data;
 
-				if(tx.BRESP != 2'b00)
+				if(tx.RRESP != 2'b00) 
 					`uvm_error("SCB_ERR", $sformatf("Expected OKAY for valid read at %0h, got %0b",tx.ARADDR, tx.RRESP))
 
 				for(int i = 0; i < (`DATA_WIDTH/8); i++) begin
 					if(mem.exists(tx.ARADDR + i))
 						exp_data[8*i +: 8] = mem[tx.ARADDR + i];
-					else 
+					else
 						exp_data[8*i +: 8] = 0;
 				end
 
