@@ -1,5 +1,6 @@
 `include "axi4_lite.v"
 `include "defines.svh"
+`include "axi4_lite_assertions.sv"
 
 module top;
 	import uvm_pkg::*;

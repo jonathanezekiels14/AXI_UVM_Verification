@@ -20,6 +20,7 @@ package axi4_lite_pkg;
 	`include "axi4_lite_agent.sv"
 
 	`include "axi4_lite_scoreboard.sv"
+	`include "axi4_lite_subscriber.sv"
 
 	`include "axi4_lite_environment.sv"
 
