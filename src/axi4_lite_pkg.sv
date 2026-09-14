@@ -6,12 +6,14 @@ package axi4_lite_pkg;
 	`include "axi4_lite_transaction.sv"
 	`include "axi4_lite_config.sv"
 
-	`include "axi4_lite_base_sequence.sv"
-	`include "axi4_lite_write_seq.sv"
-	
 	`include "axi4_lite_sequencer.sv"
 	`include "axi4_lite_virtual_sequencer.sv"
 
+	`include "axi4_lite_base_sequence.sv"
+	`include "axi4_lite_write_seq.sv"
+	`include "axi4_lite_read_sequence.sv"
+	`include "axi4_lite_sanity_vseq.sv"
+	
 	`include "axi4_lite_driver.sv"
 	`include "axi4_lite_monitor.sv"
 
@@ -21,5 +23,5 @@ package axi4_lite_pkg;
 
 	`include "axi4_lite_environment.sv"
 
-	`include "axi4_lite_write_test.sv"
+	`include "axi4_lite_sanity_test.sv"
 endpackage

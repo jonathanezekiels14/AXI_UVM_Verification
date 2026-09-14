@@ -157,11 +157,13 @@
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_interface.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_monitor.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_pkg.sv
+/fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_read_sequence.sv
+/fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_sanity_test.sv
+/fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_sanity_vseq.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_scoreboard.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_sequencer.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_transaction.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_virtual_sequencer.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_write_seq.sv
-/fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_write_test.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/defines.svh
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/top.sv

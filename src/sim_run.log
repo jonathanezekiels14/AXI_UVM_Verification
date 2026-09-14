@@ -1,7 +1,7 @@
-Command: /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/./simv +UVM_TESTNAME=axi4_lite_write_test +UVM_VERBOSITY=UVM_HIGH -l sim_run.log
+Command: /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/./simv +UVM_TESTNAME=axi4_lite_sanity_test +UVM_VERBOSITY=UVM_HIGH -l sim_run.log
 Chronologic VCS simulator copyright 1991-2020
 Contains Synopsys proprietary information.
-Compiler version Q-2020.03-SP2-8_Full64; Runtime version Q-2020.03-SP2-8_Full64;  Sep 14 15:55 2026
+Compiler version Q-2020.03-SP2-8_Full64; Runtime version Q-2020.03-SP2-8_Full64;  Sep 14 20:48 2026
 ----------------------------------------------------------------
 UVM-1.1d.Synopsys
 (C) 2007-2013 Mentor Graphics Corporation
@@ -22,13 +22,13 @@ UVM-1.1d.Synopsys
 
       (Specify +UVM_NO_RELNOTES to turn off this notice)
 
-UVM_INFO @ 0: reporter [RNTST] Running test axi4_lite_write_test...
-UVM_INFO axi4_lite_write_test.sv(24) @ 0: uvm_test_top [BASE_TEST] Printing UVM Topology:
+UVM_INFO @ 0: reporter [RNTST] Running test axi4_lite_sanity_test...
+UVM_INFO axi4_lite_sanity_test.sv(24) @ 0: uvm_test_top [BASE_TEST] Printing UVM Topology:
 UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
 --------------------------------------------------------------
 Name                       Type                    Size  Value
 --------------------------------------------------------------
-uvm_test_top               axi4_lite_write_test    -     @462 
+uvm_test_top               axi4_lite_sanity_test   -     @462 
   env                      axi4_lite_environment   -     @476 
     agt                    axi4_lite_agent         -     @489 
       ap                   uvm_analysis_port       -     @656 
@@ -64,30 +64,32 @@ uvm_test_top               axi4_lite_write_test    -     @462
       num_last_rsps        integral                32    'd1  
 --------------------------------------------------------------
 
+UVM_INFO axi4_lite_sanity_vseq.sv(17) @ 0: uvm_test_top.env.vsqr@@vseq [VSEQ] Starting Write-then-Read sequence...
 UVM_INFO top.sv(53) @ 25000: reporter [TOP] Initial Reset Released
-UVM_INFO axi4_lite_monitor.sv(61) @ 65000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h30 P:'b10 V:x R:x] W[D:'d2364251263 S:'b1111 V:x R:x] B[Rsp:'b0 V:x R:x] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'dx Rsp:'bxx V:x R:x]
-UVM_INFO axi4_lite_monitor.sv(61) @ 105000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h3ec467ad P:'b111 V:x R:x] W[D:'d260257153 S:'b100 V:x R:x] B[Rsp:'b0 V:x R:x] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'dx Rsp:'bxx V:x R:x]
-UVM_ERROR axi4_lite_scoreboard.sv(34) @ 105000: uvm_test_top.env.scb [SCB_ERR] Expected SLVERR for invalid write at 3ec467ad, got 00
-UVM_INFO /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/base/uvm_objection.svh(1274) @ 605000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+UVM_INFO axi4_lite_monitor.sv(67) @ 65000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h38 P:'b101 V:1 R:1] W[D:'d3315282752 S:'b1101 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'dx Rsp:'bxx V:x R:x]
+UVM_INFO axi4_lite_monitor.sv(91) @ 85000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'dx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h38 P:'b1 V:x R:x] R[D:'d0 Rsp:'b10 V:x R:x] 
+UVM_INFO axi4_lite_sanity_vseq.sv(23) @ 85000: uvm_test_top.env.vsqr@@vseq [VSEQ] Write-then-Read sequence complete.
+UVM_INFO /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/base/uvm_objection.svh(1274) @ 185000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
 
 --- UVM Report Summary ---
 
 ** Report counts by severity
-UVM_INFO :    7
+UVM_INFO :    9
 UVM_WARNING :    0
-UVM_ERROR :    1
+UVM_ERROR :    0
 UVM_FATAL :    0
 ** Report counts by id
 [BASE_TEST]     1
-[MON_WRITE]     2
+[MON_READ]     1
+[MON_WRITE]     1
 [RNTST]     1
-[SCB_ERR]     1
 [TEST_DONE]     1
 [TOP]     1
 [UVMTOP]     1
+[VSEQ]     2
 $finish called from file "/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/base/uvm_root.svh", line 437.
-$finish at simulation time               605000
+$finish at simulation time               185000
            V C S   S i m u l a t i o n   R e p o r t 
-Time: 605000 ps
-CPU Time:      0.570 seconds;       Data structure size:   0.6Mb
-Mon Sep 14 15:55:42 2026
+Time: 185000 ps
+CPU Time:      0.600 seconds;       Data structure size:   0.6Mb
+Mon Sep 14 20:48:48 2026

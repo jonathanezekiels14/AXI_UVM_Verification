@@ -45,6 +45,21 @@ module top;
 		.RREADY(vif.RREADY)
 	);
 
+	bind axi4_lite_slave axi4_lite_assertions sva (
+		.ACLK(ACLK),
+		.ARESETn(ARESETn),
+		.AWVALID(AWVALID),
+		.AWREADY(AWREADY),
+		.WVALID(WVALID),
+		.WREADY(WREADY),
+		.BVALID(BVALID),
+		.BREADY(BREADY),
+		.ARVALID(ARVALID),
+		.ARREADY(ARREADY),
+		.RVALID(RVALID),
+		.RREADY(RREADY)
+	);
+
 	initial begin
 		@(posedge ACLK);
 		vif.ARESETn = 0;

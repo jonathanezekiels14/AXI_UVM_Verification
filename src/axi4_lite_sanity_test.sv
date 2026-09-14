@@ -1,10 +1,10 @@
-class axi4_lite_write_test extends uvm_test;
-	`uvm_component_utils(axi4_lite_write_test)
+class axi4_lite_sanity_test extends uvm_test;
+	`uvm_component_utils(axi4_lite_sanity_test)
 
 	axi4_lite_environment env;
 	axi4_lite_config cfg;
 
-	function new(string name = "axi4_lite_write_test", uvm_component parent = null);
+	function new(string name = "axi4_lite_sanity_test", uvm_component parent = null);
 		super.new(name,parent);
 	endfunction
 
@@ -24,15 +24,15 @@ class axi4_lite_write_test extends uvm_test;
 		`uvm_info("BASE_TEST", "Printing UVM Topology:", UVM_NONE)
 		uvm_top.print_topology();
 	endfunction
-
-	virtual task run_phase(uvm_phase phase);
-		axi4_lite_write_seq wseq;
-		phase.phase_done.set_drain_time(this,500ns);
+	
+	task run_phase(uvm_phase phase);
+		axi4_lite_sanity_vseq vseq;
+		phase.phase_done.set_drain_time(this,100ns);
 		phase.raise_objection(this);
-		wseq = axi4_lite_write_seq::type_id::create("wseq");
-
-		wseq.start(env.agt.sqr_wr);
-
+		vseq = axi4_lite_sanity_vseq::type_id::create("vseq");
+		
+		// Start the virtual sequence on the virtual sequencer
+		vseq.start(env.vsqr); 
 		phase.drop_objection(this);
 	endtask
 endclass

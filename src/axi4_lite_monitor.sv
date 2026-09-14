@@ -43,6 +43,8 @@ class axi4_lite_monitor extends uvm_monitor;
 					end while (!(vif.mon_cb.AWVALID && vif.mon_cb.AWREADY));
 					tx.AWADDR = vif.mon_cb.AWADDR;
 					tx.AWPROT = vif.mon_cb.AWPROT;
+					tx.AWVALID = vif.mon_cb.AWVALID;
+					tx.AWREADY = vif.mon_cb.AWREADY;
 				end
 				begin
 					do begin
@@ -50,6 +52,8 @@ class axi4_lite_monitor extends uvm_monitor;
 					end while(!(vif.mon_cb.WVALID && vif.mon_cb.WREADY));
 					tx.WDATA = vif.mon_cb.WDATA;
 					tx.WSTRB = vif.mon_cb.WSTRB;
+					tx.WVALID = vif.mon_cb.WVALID;
+					tx.WREADY = vif.mon_cb.WREADY;
 				end
 			join
 
@@ -58,6 +62,8 @@ class axi4_lite_monitor extends uvm_monitor;
 			end while (!(vif.mon_cb.BVALID && vif.mon_cb.BREADY));
 
 			tx.BRESP = vif.mon_cb.BRESP;
+			tx.BVALID = vif.mon_cb.BVALID;
+			tx.BREADY = vif.mon_cb.BREADY;
 			`uvm_info("MON_WRITE",$sformatf("Captured: %s",tx.convert2string()),UVM_MEDIUM);
 			mon_ap.write(tx);
 		end

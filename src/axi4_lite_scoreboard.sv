@@ -16,12 +16,19 @@ class axi4_lite_scoreboard extends uvm_scoreboard;
 		ap_imp = new("ap_imp",this);
 	endfunction
 
+
 	virtual function reg_access access_type(bit [31:0] addr);
-		if(addr >= 32'h00000000 && addr <= 32'h0000003C)
-			return RW;
+		if (addr >= 32'h00 && addr <= 32'h24)
+			return RW; // Normal registers
+		else if (addr >= 32'h28 && addr <= 32'h30)
+			return RO; // Status registers
+		else if (addr >= 32'h34 && addr <= 32'h38)
+			return WO; // Command registers
+		else if (addr == 32'h3C)
+			return RW; // Reserved / normal
 		else
 			return INVALID;
-	endfunction
+	endfunction	
 
 	virtual function void write(axi4_lite_transaction tx);
 		reg_access reg_type;
