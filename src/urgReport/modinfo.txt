@@ -1,0 +1,3381 @@
+===============================================================================
+Module : uvm_pkg
+===============================================================================
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+  0.00 --     --     --     --     --       0.00 
+
+Source File(s) : 
+
+/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/uvm_pkg.sv
+
+Module self-instances :
+
+SCORE LINE COND TOGGLE FSM BRANCH ASSERT NAME 
+
+
+
+-------------------------------------------------------------------------------
+Assert Coverage for Module : uvm_pkg
+                 Total Attempted Percent Succeeded/Matched Percent 
+Assertions       2     0         0.00    0                 0.00    
+Cover properties 0     0                 0                         
+Cover sequences  0     0                 0                         
+Total            2     0         0.00    0                 0.00    
+
+
+
+-------------------------------------------------------------------------------
+
+Assertion Details
+
+Name                                            Attempts Real Successes Failures Incomplete 
+\uvm_reg_map::do_read .unnamed$$_0.unnamed$$_1  0        0              0        0          
+\uvm_reg_map::do_write .unnamed$$_0.unnamed$$_1 0        0              0        0          
+
+
+===============================================================================
+Module : uvm_custom_install_verdi_recording
+===============================================================================
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+  8.41   4.76 --       0.00 --      20.45 --     
+
+Source File(s) : 
+
+/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/verdi/uvm_custom_install_verdi_recorder.sv
+
+Module self-instances :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME                               
+  8.41   4.76 --       0.00 --      20.45 --     uvm_custom_install_verdi_recording 
+
+
+
+-------------------------------------------------------------------------------
+Line Coverage for Module : uvm_custom_install_verdi_recording
+
+             Line No.   Total   Covered  Percent
+TOTAL                      399       19     4.76
+ROUTINE           106        1        0     0.00
+INITIAL           121       73       19    26.03
+ROUTINE            60        9        0     0.00
+ROUTINE            77        9        0     0.00
+ROUTINE            37        1        0     0.00
+ROUTINE            38        1        0     0.00
+ROUTINE            39        1        0     0.00
+ROUTINE            41        1        0     0.00
+ROUTINE            19        5        0     0.00
+ROUTINE            34        8        0     0.00
+ROUTINE            98        4        0     0.00
+ROUTINE           110       14        0     0.00
+ROUTINE           139        1        0     0.00
+ROUTINE           147        1        0     0.00
+ROUTINE           157        1        0     0.00
+ROUTINE           173        1        0     0.00
+ROUTINE           350       36        0     0.00
+ROUTINE           433       67        0     0.00
+ROUTINE           564       88        0     0.00
+ROUTINE           723       30        0     0.00
+ROUTINE           786       47        0     0.00
+
+105                     `ifdef VCS
+106        0/1     ==>  import "DPI-C" function string getenv(input string env_name);
+107                     `endif
+108                        `include "uvm_verdi_pli.svh" //Hide dumper tasks inside this module
+109                        static uvm_cmdline_processor clp;
+110                        string tr_args[$];
+111                        process p;
+112                        string rand_state;
+113                     `ifdef VCS
+114                        string env_str,vc_env_str="",sanity_file_name="";
+115                        int file_handle=0, is_sanity_exist=0, is_vpd_record = 0;
+116                        string env_vcs_home = "", env_vcs_uvm_home ="";
+117                        int is_vcs_home_exist = 0, is_vcs_uvm_home_exist = 0;
+118                     `endif
+119                     
+120                        initial begin
+121        1/1               p = process::self();
+122        1/1               if (p != null)
+123        1/1                   rand_state = p.get_randstate();
+                   ==>  MISSING_ELSE
+124        1/1               verdi_clp = verdi_cmdline_processor::get_inst();
+125        1/1               clp = uvm_cmdline_processor::get_inst();
+126                     `ifdef VCS
+127        1/1               env_vcs_home = getenv("VCS_HOME");
+128        1/1               if (env_vcs_home!="")
+129        1/1                   is_vcs_home_exist = 1; 
+                   ==>  MISSING_ELSE
+130        1/1               env_vcs_uvm_home = getenv("VCS_UVM_HOME");
+131        1/1               if (env_vcs_uvm_home!="")
+132        0/1     ==>           is_vcs_uvm_home_exist = 1;
+                        MISSING_ELSE
+133        1/1               if (clp.get_arg_matches("+UVM_VPD_RECORD", tr_args))
+134        0/1     ==>           is_vpd_record = 1; 
+                        MISSING_ELSE
+135        1/1               env_str = getenv("SNPS_SIM_DEFAULT_GUI");
+136        1/1               vc_env_str = getenv("VC_HOME");
+137        1/1               if (vc_env_str!="")begin
+138        0/1     ==>           sanity_file_name = {vc_env_str,"/etc/.sanity"};
+139        0/1     ==>           file_handle = $fopen(sanity_file_name,"r");
+140        0/1     ==>           if (file_handle!=0) begin
+141        0/1     ==>               if (is_vpd_record)
+142        0/1     ==>                   is_sanity_exist = 0;
+143                                  else
+144        0/1     ==>                   is_sanity_exist = 1;
+145        0/1     ==>               $fclose(file_handle);
+146                              end
+                   ==>  MISSING_ELSE
+147                          end
+                        MISSING_ELSE
+148                     `endif
+149                     
+150                     `ifndef UVM_NO_VERDI_RECORD
+151        1/1               if(verdi_clp.is_verdi_trace_ral()) begin
+152                             uvm_root r_obj;
+153                             // 9001338477
+154                             string verb_settings[$];
+155                             string verb_string;
+156                             int verb_count;
+157                             //
+158                     
+159                             // 9001338477
+160        0/1     ==>          verb_count = clp.get_arg_values("+UVM_VERBOSITY=",verb_settings);
+161        0/1     ==>          if (verb_count > 0) begin
+162        0/1     ==>              verb_string = verb_settings[0];
+163        0/1     ==>              case(verb_string)
+164        0/1     ==>                "UVM_NONE"    : user_verbosity = UVM_NONE;
+165        0/1     ==>                "NONE"        : user_verbosity = UVM_NONE;
+166        0/1     ==>                "UVM_LOW"     : user_verbosity = UVM_LOW;
+167        0/1     ==>                "LOW"         : user_verbosity = UVM_LOW;
+168        0/1     ==>                "UVM_MEDIUM"  : user_verbosity = UVM_MEDIUM;
+169        0/1     ==>                "MEDIUM"      : user_verbosity = UVM_MEDIUM;
+170        0/1     ==>                "UVM_HIGH"    : user_verbosity = UVM_HIGH;
+171        0/1     ==>                "HIGH"        : user_verbosity = UVM_HIGH;
+172        0/1     ==>                "UVM_FULL"    : user_verbosity = UVM_FULL;
+173        0/1     ==>                "FULL"        : user_verbosity = UVM_FULL;
+174        0/1     ==>                "UVM_DEBUG"   : user_verbosity = UVM_DEBUG;
+175        0/1     ==>                "DEBUG"       : user_verbosity = UVM_DEBUG;
+176                                   default       : begin
+177        0/1     ==>                 user_verbosity = verb_string.atoi();
+178        0/1     ==>                  if(user_verbosity > 0)
+179        0/1     ==>                     uvm_report_info("NSTVERB", $sformatf("Non-standard verbosity value, using provided '%0d'.", user_verbosity), UVM_NONE);
+                   ==>  MISSING_ELSE
+180        0/1     ==>                  if(user_verbosity == 0) begin
+181        0/1     ==>                     user_verbosity = UVM_MEDIUM;
+182        0/1     ==>                     uvm_report_warning("ILLVERB", "Illegal verbosity value, using default of UVM_MEDIUM.", UVM_NONE);
+183                                     end
+                   ==>  MISSING_ELSE
+184                                   end
+185                                 endcase
+186                             end
+                   ==>  MISSING_ELSE
+187                             //
+188        0/1     ==>          r_obj = uvm_root::get();
+189        0/1     ==>          r_obj.set_report_id_verbosity("RegModel", UVM_HIGH);
+190        0/1     ==>          r_obj.set_report_id_verbosity("uvm_reg_map", UVM_FULL); 
+191                          end
+                        MISSING_ELSE
+192                     `endif
+193                     
+194                          // Register the verdi_catcher to dump messages into FSDB
+195                     `ifdef VCS
+196        1/1               if ((clp.get_arg_matches("+UVM_LOG_RECORD", tr_args)&&clp.get_arg_matches("+UVM_VERDI_TRACE", tr_args))
+197                              ||(clp.get_arg_matches("+UVM_LOG_RECORD", tr_args)&&(env_str=="verdi"))
+198                              ||verdi_clp.is_verdi_trace_fac()||verdi_clp.is_verdi_trace_msg()||verdi_clp.is_verdi_trace_uvm_aware()
+199                              ||verdi_clp.is_verdi_trace_ral()||verdi_clp.is_verdi_trace_dht()
+200                              ||(clp.get_arg_matches("+UVM_LOG_RECORD", tr_args)&&verdi_clp.is_minus_gui_verdi())
+201                              ||(clp.get_arg_matches("+UVM_LOG_RECORD", tr_args)&&is_sanity_exist)
+202                              ||verdi_clp.is_verdi_trace_ralwave()||verdi_clp.is_verdi_trace_compwave())
+203                          begin
+204                     `else
+205                          if ((clp.get_arg_matches("+UVM_LOG_RECORD", tr_args)&&clp.get_arg_matches("+UVM_VERDI_TRACE", tr_args))
+206                              ||verdi_clp.is_verdi_trace_fac()||verdi_clp.is_verdi_trace_msg()
+207                              ||verdi_clp.is_verdi_trace_uvm_aware()||verdi_clp.is_verdi_trace_ral()
+208                              ||verdi_clp.is_verdi_trace_dht())
+209                          begin
+210                     `endif
+211                            static verdi_report_catcher _verdi_catcher;
+212                     
+213        0/1     ==>         _verdi_catcher = new();
+214        0/1     ==>         uvm_report_cb::add(null,_verdi_catcher);
+215        0/1     ==>         pli_inst = uvm_verdi_pli::get_inst();
+216        0/1     ==>         if (verdi_clp.is_verdi_trace_compwave()||verdi_clp.is_verdi_trace_dht()
+217                                ||verdi_clp.is_verdi_trace_uvm_aware()||verdi_clp.is_verdi_trace_ral()) begin
+218                                uvm_dhier_component dhier_comp;
+219                     
+220        0/1     ==>             dhier_comp = new("DHIER_COMP", uvm_root::get());
+221                            end
+                   ==>  MISSING_ELSE
+222                     `ifdef UVM_VERDI_RALWAVE
+223                            // 9001375412 Allow user to set dumping level
+224                            if (verdi_clp.is_verdi_trace_ralwave()) begin
+225                                string val_str="";
+226                     
+227                                void'(verdi_clp.get_arg_value("+UVM_REG_DUMP_LEVEL=", val_str)); 
+228                                if (is_vcs_uvm_home_exist)
+229                                    pli_inst.dump_class_object_by_file("${VCS_UVM_HOME}/verdi/register.config",val_str);
+230                                else if (is_vcs_home_exist)
+231                                    pli_inst.dump_class_object_by_file("${VCS_HOME}/etc/uvm-1.1/verdi/register.config",val_str); 
+232                            end
+233                            //
+234                     `endif
+235                     `ifndef UVM_VERDI_NO_COMPWAVE
+236                     `ifdef VCS
+237                            // 9001375412 Allow user to set dumping level
+238        0/1     ==>         if (verdi_clp.is_verdi_trace_compwave()) begin
+239                                static string val_str="";
+240                     
+241        0/1     ==>             void'(verdi_clp.get_arg_value("+UVM_COMP_DUMP_LEVEL=", val_str));
+242        0/1     ==>             if (is_vcs_uvm_home_exist)
+243        0/1     ==>                 pli_inst.dump_comp_object_by_file("${VCS_UVM_HOME}/verdi/component.config",val_str);
+244        0/1     ==>             else if (is_vcs_home_exist)
+245        0/1     ==>                 pli_inst.dump_comp_object_by_file("${VCS_HOME}/etc/uvm-1.1/verdi/component.config",val_str);
+                   ==>  MISSING_ELSE
+246                            end
+                   ==>  MISSING_ELSE
+247                            //
+248                     `endif
+249                     `endif
+250                          end
+                        MISSING_ELSE
+251                     
+252                          // Register the uvm_verdi_recorder to record transactions into FSDB
+253                     `ifdef VCS
+254        1/1               if ((clp.get_arg_matches("+UVM_TR_RECORD", tr_args)&&clp.get_arg_matches("+UVM_VERDI_TRACE", tr_args))
+255                              ||(clp.get_arg_matches("+UVM_TR_RECORD", tr_args)&&(env_str=="verdi"))
+256                              ||verdi_clp.is_verdi_trace_tlm()
+257                              ||(clp.get_arg_matches("+UVM_TR_RECORD", tr_args)&&verdi_clp.is_minus_gui_verdi())
+258                              ||(clp.get_arg_matches("+UVM_TR_RECORD", tr_args)&&is_sanity_exist)) 
+259                          begin
+260                     `else
+261                          if ((clp.get_arg_matches("+UVM_TR_RECORD", tr_args)&&clp.get_arg_matches("+UVM_VERDI_TRACE", tr_args))
+262                              ||verdi_clp.is_verdi_trace_tlm()) 
+263                          begin
+264                     `endif
+265                            static uvm_verdi_recorder verdi_recorder;
+266                     
+267        0/1     ==>         verdi_recorder = new();
+268        0/1     ==>         uvm_default_recorder = verdi_recorder;
+269        0/1     ==>         pli_inst = uvm_verdi_pli::get_inst();
+270        0/1     ==>        if (clp.get_arg_matches("+UVM_DISABLE_AUTO_COMPONENT", tr_args)) begin
+271        0/2     ==>  	 `uvm_info("VERDI_TR_AUTO", "+UVM_DISABLE_AUTO_COMPONENT enabled but transaction recording enabled, usage model requires user to explicitly set recording_detail on components", UVM_MEDIUM)
+uvm_info("VERDI_TR_AUTO", "+UVM_DISABLE_AUTO_COMPONENT enabled but transaction recording enabled, usage model requires user to explicitly set recording_detail on components", UVM_MEDIUM):
+271.1                   `ifdef ZEMI4UVM 
+271.2                         (* zemi4_uvm_attribute=1 *) 
+271.3                      `endif 
+271.4                      begin 
+271.5      0/1     ==>       if (uvm_report_enabled(UVM_MEDIUM,UVM_INFO,"VERDI_TR_AUTO")) 
+271.6      0/1     ==>         uvm_report_info ("VERDI_TR_AUTO", "+UVM_DISABLE_AUTO_COMPONENT enabled but transaction recording enabled, usage model requires user to explicitly set recording_detail on components", UVM_MEDIUM, "/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/verdi/uvm_custom_install_verdi_recorder.sv", 271); 
+271.7                      end
+                   ==>  MISSING_ELSE
+272                           end
+273                           else begin
+274        0/2     ==>  	 `uvm_info("VERDI_TR_AUTO", "+UVM_TR_RECORD implicitly enables recording_details to UVM_FULL for all components. For explicit control use +UVM_DISABLE_AUTO_COMPONENT and set recording_detail on components accordingly", UVM_MEDIUM)
+uvm_info("VERDI_TR_AUTO", "+UVM_TR_RECORD implicitly enables recording_details to UVM_FULL for all components. For explicit control use +UVM_DISABLE_AUTO_COMPONENT and set recording_detail on components accordingly", UVM_MEDIUM):
+274.1                   `ifdef ZEMI4UVM 
+274.2                         (* zemi4_uvm_attribute=1 *) 
+274.3                      `endif 
+274.4                      begin 
+274.5      0/1     ==>       if (uvm_report_enabled(UVM_MEDIUM,UVM_INFO,"VERDI_TR_AUTO")) 
+274.6      0/1     ==>         uvm_report_info ("VERDI_TR_AUTO", "+UVM_TR_RECORD implicitly enables recording_details to UVM_FULL for all components. For explicit control use +UVM_DISABLE_AUTO_COMPONENT and set recording_detail on components accordingly", UVM_MEDIUM, "/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/verdi/uvm_custom_install_verdi_recorder.sv", 274); 
+274.7                      end
+                   ==>  MISSING_ELSE
+275        0/1     ==>  	  uvm_config_db#(uvm_bitstream_t)::set(uvm_root::get(), "*", "recording_detail", UVM_FULL);
+276                           end
+277                          end
+                        MISSING_ELSE
+278        1/1               if (p != null)
+279        1/1                   p.set_randstate(rand_state);
+                   ==>  MISSING_ELSE
+
+  FILE: /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/verdi/uvm_verdi_recorder.svh
+60         0/1     ==>      if (!plusargs_tested) begin
+61         0/1     ==>          if (verdi_clp.is_verdi_trace_tlm()) begin
+62         0/1     ==>              enable_port_recording = 1;
+63         0/1     ==>              if (verdi_clp.is_verdi_trace_imp())
+64         0/1     ==>                  enable_imp_port_recording = 1 ;
+                   ==>  MISSING_ELSE
+65                              end
+                   ==>  MISSING_ELSE
+66         0/1     ==>          if (clp.get_arg_matches("+verdi_recorder_debug",trace_args)) 
+67         0/1     ==>              enable_verdi_debug = 1;
+                   ==>  MISSING_ELSE
+68         0/1     ==>          plusargs_tested = 1;
+69                          end
+                   ==>  MISSING_ELSE
+70         0/1     ==>      return plusargs_tested;
+71                      endfunction
+72                      
+73                      function bit test_tlm2_port_plusargs ();
+74                          static verdi_cmdline_processor verdi_clp = verdi_cmdline_processor::get_inst();
+75                          static uvm_cmdline_processor clp = uvm_cmdline_processor::get_inst();
+76                          string trace_args[$];
+77         0/1     ==>      if (!plusargs_tested) begin
+78         0/1     ==>          if (verdi_clp.is_verdi_trace_tlm2()) begin
+79         0/1     ==>              enable_tlm2_port_recording = 1;
+80         0/1     ==>              if (verdi_clp.is_verdi_trace_imp())
+81         0/1     ==>                  enable_imp_port_recording = 1 ;
+                   ==>  MISSING_ELSE
+82                              end
+                   ==>  MISSING_ELSE
+83         0/1     ==>          if (clp.get_arg_matches("+verdi_recorder_debug",trace_args))
+84         0/1     ==>              enable_verdi_debug = 1;
+                   ==>  MISSING_ELSE
+85         0/1     ==>          plusargs_tested = 1;
+86                          end
+                   ==>  MISSING_ELSE
+87         0/1     ==>      return plusargs_tested;
+
+  FILE: /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/verdi/./dpi/uvm_verdi_dpi.svh
+37         0/1     ==>     import "DPI-C" context function void retrieve_reg_def_class(input string var_name, input int _handle, input int is_objid_only=0);
+38         0/1     ==>     import "DPI-C" context function string retrieve_def_class(input string var_name, output int objid);
+39         0/1     ==>     import "DPI-C" context function int record_reg_decl_name(input int handle, input string parent_var_name, input string var_name, input string obj_name);
+40                         import "DPI-C" context function int check_is_sequencer();
+41         0/1     ==>     import "DPI-C" context function string remove_array_index(input string name_w_ary_idx, output chandle name_c_ptr);
+
+  FILE: /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/verdi/uvm_verdi_reg_recording.sv
+19         0/1     ==>     new_reg_name = remove_array_index(reg_name, _ptr);
+20                      
+21         0/1     ==>     if(g_visited_regname.exists(parent_handle) &&
+22                            g_visited_regname[parent_handle].exists(new_reg_name))
+23         0/1     ==>        return;
+                   ==>  MISSING_ELSE
+24                       
+25         0/1     ==>     g_visited_regname[parent_handle][new_reg_name] = 1'b1;
+26                      
+27         0/1     ==>     g_refclass_id[class_name][new_reg_name] = id; 
+28                      endfunction
+29                      
+30                      function automatic int find_refclass_id(input uvm_object parent_handle, input string class_name, input string reg_name);
+31                         string _reg_name_wo_range;
+32                         chandle _ptr;
+33                      
+34         0/1     ==>     _reg_name_wo_range = remove_array_index(reg_name, _ptr);
+35                      
+36         0/1     ==>     if(g_visited_regname.exists(parent_handle) &&
+37                            g_visited_regname[parent_handle].exists(_reg_name_wo_range)) begin
+38                      
+39         0/1     ==>        if(g_refclass_id.exists(class_name) &&
+40                               g_refclass_id[class_name].exists(_reg_name_wo_range))
+41         0/1     ==>           g_refclass_id[class_name].delete(_reg_name_wo_range);
+                   ==>  MISSING_ELSE
+42                      
+43         0/1     ==>        return 0;
+44                         end
+                   ==>  MISSING_ELSE
+45                      
+46                      
+47         0/1     ==>     if(g_refclass_id.exists(class_name) && g_refclass_id[class_name].exists(_reg_name_wo_range)) begin
+48         0/1     ==>        return g_refclass_id[class_name][_reg_name_wo_range];
+49                         end
+                   ==>  MISSING_ELSE
+50                      
+51         0/1     ==>     return 0;
+52                      endfunction
+53                      
+54                      function automatic uvm_reg_map_info retrieve_mem_map_info(uvm_reg_map _map, uvm_mem _mem);
+55                         uvm_reg_map _parent_map;
+56                         uvm_reg_map_info _map_info;
+57                      
+58                         _map_info = null;
+59                         _parent_map = _map.get_parent_map();
+60                      
+61                         while(_parent_map!= null) begin
+62                            _map = _parent_map;
+63                            _map_info = _map.get_mem_map_info(_mem, 0);
+64                      
+65                            if(_map_info)
+66                               return _map_info;
+67                      
+68                            _parent_map = _map.get_parent_map();
+69                         end
+70                         
+71                         return null;
+72                      endfunction
+73                      
+74                      function automatic uvm_reg_map_info retrieve_reg_map_info(uvm_reg_map _map, uvm_reg _reg);
+75                         uvm_reg_map _parent_map;
+76                         uvm_reg_map_info _map_info;
+77                      
+78                         _map_info = null;
+79                         _parent_map = _map.get_parent_map();
+80                      
+81                         while(_parent_map!= null) begin
+82                            _map = _parent_map;
+83                            _map_info = _map.get_reg_map_info(_reg, 0);
+84                      
+85                            if(_map_info)
+86                               return _map_info;
+87                      
+88                            _parent_map = _map.get_parent_map();
+89                         end
+90                         
+91                         return null;
+92                      endfunction
+93                      
+94                      
+95                      function automatic bit has_blk_hdl_path(uvm_reg_block _blk);
+96                         uvm_reg_block _parent_blk;
+97                      
+98         0/1     ==>     _parent_blk = _blk.get_parent();
+99                      
+100        0/1     ==>     if(_parent_blk == null)
+101        0/1     ==>        return _blk.has_hdl_path();
+102                        else
+103        0/1     ==>        return has_blk_hdl_path(_parent_blk) & _blk.has_hdl_path();
+104                     endfunction
+105                     
+106                     function int pli_reghier_begin_event(input string streamN);
+107                        string comp_stream, des_str;
+108                        longint unsigned streamId, handle; 
+109                     
+110        0/1     ==>     streamId = 0;
+111        0/1     ==>     handle = 0;
+112        0/1     ==>     $sformat(comp_stream, "UVM.REG_HIER.%0s", streamN);
+113                     
+114        0/1     ==>     if (!streamArrByName.exists(comp_stream)) begin
+115                     // 9001353389
+116                     `ifdef VERDI_REPLACE_DPI_WITH_PLI
+117                            des_str = "+description+type=register";
+118                     `else
+119        0/1     ==>         des_str = "type=register";
+120                     `endif
+121        0/1     ==>         streamId = pli_inst.create_stream_begin(comp_stream,des_str);
+122        0/1     ==>         streamArrByName[comp_stream] = streamId;
+123        0/1     ==>         pli_inst.create_stream_end(streamId);
+124                        end else begin
+125        0/1     ==>         streamId = streamArrByName[comp_stream];
+126                        end
+127                     
+128        0/1     ==>     handle = pli_inst.begin_tr(streamId,"+type+message");
+129                     
+130        0/1     ==>     if (handle==0) begin
+131        0/1     ==>         $display("Failed to create transaction!\n");
+132        0/1     ==>         return 0;
+133                        end
+                   ==>  MISSING_ELSE
+134                     
+135        0/1     ==>     return handle;
+136                     endfunction
+137                     
+138                     function void pli_reghier_set_label(input int handle, input string label);
+139        0/1     ==>     pli_inst.set_label(handle, label);
+140                     endfunction
+141                     
+142                     function void pli_reghier_add_attribute_string(input int handle, input string attrName, input string valName);
+143                     // 6000025017
+144                     `ifdef VERDI_REPLACE_DPI_WITH_PLI
+145                        pli_inst.add_attribute_string(handle, $sformatf("%0s", valName), $sformatf("+name+%0s", attrName), "+numbit+0");
+146                     `else
+147        0/1     ==>     pli_inst.add_attribute_string(handle, $sformatf("%0s", valName), $sformatf("%0s", attrName), "");
+148                     `endif
+149                     //
+150                     endfunction
+151                     
+152                     function void pli_reghier_add_attribute_int(input int handle, input string attr_name, input int attr_value);
+153                     // 6000025017
+154                     `ifdef VERDI_REPLACE_DPI_WITH_PLI
+155                        pli_inst.add_attribute_int(handle, attr_value, $sformatf("+name+%0s", attr_name));
+156                     `else
+157        0/1     ==>     pli_inst.add_attribute_int(handle, attr_value, $sformatf("%0s", attr_name));
+158                     `endif
+159                     //
+160                     endfunction
+161                     
+162                     function void pli_reghier_add_attribute_logic(input int handle, input string attr_name, input logic [1023:0] attr_value, input string radix, input integer numbits=1024);
+163                     // 6000025017
+164                     `ifdef VERDI_REPLACE_DPI_WITH_PLI
+165                        pli_inst.add_attribute_logic(handle, attr_value, $sformatf("+name+%0s", attr_name), radix, $sformatf("+numbit+%0d", numbits));
+166                     `else
+167                        pli_inst.add_attribute_logic(handle, attr_value, $sformatf("%0s", attr_name), radix, $sformatf("%0d", numbits));
+168                     `endif
+169                     // 
+170                     endfunction
+171                     
+172                     function void pli_reghier_end_event(input int handle); 
+173        0/1     ==>     pli_inst.end_tr(handle);
+174                     
+175                     endfunction
+176                     
+177                     function automatic void record_reghier_map(uvm_reg_map _map); begin
+178                        uvm_reg _regs[$], _reg;
+179                        uvm_reg_field _fields[$], _field;
+180                        uvm_mem _mems[$], _mem;
+181                        int _handle;
+182                        string _full_name, _address, _regid, _label_name;
+183                        uvm_sequencer_base _sequencer;
+184                        uvm_reg_map _parent_map;
+185                        uvm_reg_block _parent_blk;
+186                        uvm_reg_addr_t _base_addr;
+187                        int _decl;
+188                        bit _need_end_event;
+189                        int g_policy_id[string]; 
+190                     
+191                        _need_end_event = 1'b0;
+192                        _decl = 0;
+193                        _full_name = _map.get_full_name();
+194                        _handle = pli_reghier_begin_event(_full_name);
+195                     
+196                        _parent_map = _map.get_parent_map();
+197                        _parent_blk = _map.get_parent();
+198                     
+199                        if(_parent_blk) 
+200                           $sformat(_label_name, "MAP_%0d_%0d", _map.get_inst_id(), _parent_blk.get_inst_id());
+201                        else
+202                           $sformat(_label_name, "MAP_%0d_", _map.get_inst_id());
+203                     
+204                        pli_reghier_set_label(_handle, _label_name);
+205                     
+206                        pli_reghier_add_attribute_string(_handle, "name", _full_name);
+207                        if(_parent_blk) begin
+208                           if (!verdi_clp.is_verdi_trace_no_decl())
+209                               _decl = record_reg_decl_name(_handle, "_parent_blk", "_map", _map.get_name());
+210                        end
+211                     
+212                        if(_parent_map) begin
+213                           pli_reghier_add_attribute_int(_handle, "parent_map_id", _parent_map.get_inst_id());
+214                        end
+215                     
+216                        retrieve_reg_def_class("_map", _handle);
+217                     
+218                        pli_reghier_add_attribute_int(_handle, "bus_width_in_bytes", _map.get_n_bytes());
+219                     
+220                        _base_addr = _map.get_base_addr();
+221                        pli_reghier_add_attribute_logic(_handle, "base_address",  _base_addr, "+radix+hex", $size(_base_addr));
+222                     
+223                        _sequencer = _map.get_sequencer();
+224                     
+225                        if(_sequencer !=null)
+226                           pli_reghier_add_attribute_string(_handle, "sequencer", _sequencer.get_full_name());
+227                     
+228                        pli_reghier_end_event(_handle);
+229                        
+230                        _map.get_registers(_regs, UVM_NO_HIER);
+231                     
+232                        _need_end_event = 1'b0;
+233                        if(_regs.size()>0) begin
+234                           _need_end_event = 1'b1;
+235                           _handle = pli_reghier_begin_event(_full_name);
+236                           pli_reghier_set_label(_handle, _label_name);
+237                           //pli_reghier_add_attribute_int(_handle, "inst_id", _map.get_inst_id());
+238                        end
+239                       
+240                        while(_regs.size() > 0) begin
+241                           uvm_reg_addr_t _addr, _offset;
+242                           uvm_reg_map_info _map_info;
+243                           string _right;
+244                           uvm_map_access_recorder _inst;
+245                     
+246                           _reg = _regs.pop_front();
+247                     
+248                           if(_map) 
+249                              _map_info = _map.get_reg_map_info(_reg, 0); 
+250                           
+251                           if(_map_info==null) 
+252                              _map_info = retrieve_reg_map_info(_map, _reg);
+253                     
+254                           if(_map_info!=null && !_map_info.unmapped) begin
+255                     
+256                              _right = _reg.get_rights(_map);
+257                     
+258                              if(!g_policy_id.exists(_right)) begin
+259                                 int _policy_size;
+260                     
+261                                 _policy_size = g_policy_id.size();
+262                                 pli_reghier_add_attribute_string(_handle, $sformatf("policy_%0d", (_policy_size+1)), _right);
+263                                 g_policy_id[_right] = _policy_size+1;
+264                              end
+265                              pli_reghier_add_attribute_int(_handle, $sformatf("reg_%0d_access_policy_id", _reg.get_inst_id()), g_policy_id[_right]);
+266                     
+267                              _addr = _reg.get_address(_map);
+268                              _inst = uvm_map_access_recorder::get_inst();
+269                              _inst.insert_register(_addr, _map.get_full_name(), _reg);
+270                     
+271                              pli_reghier_add_attribute_logic(_handle, $sformatf("reg_%0d_address", _reg.get_inst_id()),  _addr, "+radix+hex", $size(_addr));
+272                     
+273                              _offset = _reg.get_offset(_map);
+274                              pli_reghier_add_attribute_logic(_handle, $sformatf("reg_%0d_offset", _reg.get_inst_id()), _offset, "+radix+hex", $size(_offset));
+275                     
+276                              _reg.get_fields(_fields);
+277                              while(_fields.size() > 0) begin
+278                           
+279                                 _field = _fields.pop_front(); 
+280                                 _right = _field.get_access(_map);
+281                      
+282                                 if(!g_policy_id.exists(_right)) begin
+283                                    int _policy_size;
+284                     
+285                                    _policy_size = g_policy_id.size();
+286                                    pli_reghier_add_attribute_string(_handle, $sformatf("policy_%0d", (_policy_size+1)), _right);
+287                                    g_policy_id[_right] = _policy_size+1;
+288                                 end
+289                                 pli_reghier_add_attribute_int(_handle, $sformatf("field_%0d_access_policy_id", _field.get_inst_id()), g_policy_id[_right]);
+290                           
+291                              end
+292                           end
+293                        end
+294                        
+295                        if(_need_end_event==1'b1)
+296                           pli_reghier_end_event(_handle);
+297                        
+298                        _map.get_memories(_mems, UVM_NO_HIER);
+299                        _need_end_event =1'b0;
+300                        if(_mems.size() > 0) begin
+301                           _need_end_event =1'b1;
+302                           _handle = pli_reghier_begin_event(_full_name);
+303                           pli_reghier_set_label(_handle, _label_name);
+304                           //pli_reghier_add_attribute_int(_handle, "inst_id", _map.get_inst_id());
+305                        end
+306                     
+307                        while(_mems.size() > 0) begin
+308                           uvm_reg_addr_t _addr, _offset;
+309                           uvm_reg_map_info _map_info;
+310                           uvm_map_access_recorder _inst;
+311                     
+312                           _mem = _mems.pop_front(); 
+313                     
+314                           if(_map)
+315                              _map_info = _map.get_mem_map_info(_mem, 0);
+316                     
+317                           if(_map_info==null)
+318                              _map_info = retrieve_mem_map_info(_map, _mem);
+319                     
+320                           if(_map_info!=null && !_map_info.unmapped) begin
+321                              $sformat(_regid, "mem_%0d_access_policy", _mem.get_inst_id()); 
+322                              pli_reghier_add_attribute_string(_handle, _regid, _mem.get_access(_map));
+323                     
+324                              _addr = _mem.get_address(0, _map); // base address
+325                              _inst = uvm_map_access_recorder::get_inst();
+326                              _inst.insert_register(_addr, _map.get_full_name(), _mem);
+327                      
+328                              $sformat(_regid, "mem_%0d_address", _mem.get_inst_id()); 
+329                              pli_reghier_add_attribute_logic(_handle, _regid,  _addr, "+radix+hex", $size(_addr));
+330                        
+331                        
+332                              _offset = _mem.get_offset(0, _map); // base offset 
+333                              $sformat(_regid, "mem_%0d_offset", _mem.get_inst_id()); 
+334                              pli_reghier_add_attribute_logic(_handle, _regid,  _offset, "+radix+hex", $size(_offset));
+335                           end
+336                        end
+337                     
+338                        if(_need_end_event==1'b1)
+339                           pli_reghier_end_event(_handle);
+340                     
+341                     end
+342                     endfunction
+343                     
+344                     function automatic void record_reghier_field(uvm_reg_field _field, string _stream_name, int refId); begin
+345                        int _handle, _objid;
+346                        uvm_reg _parent_reg;
+347                        uvm_reg_block _parent_blk;
+348                        uvm_reg_file _parent_regfile;
+349                     
+350        0/1     ==>     int _decl, _classRefId=0;
+351                        string _field_class_name;
+352                        uvm_reg_field _cur_field;
+353                        static verdi_cmdline_processor verdi_clp = verdi_cmdline_processor::get_inst();
+354                        static int g_fieldclass_bit_lsb[string][int][int];
+355                     
+356        0/1     ==>     _handle = pli_reghier_begin_event(_stream_name);
+357                     
+358        0/1     ==>     _parent_reg = _field.get_parent();
+359                     
+360        0/1     ==>     _decl = 0;
+361        0/1     ==>     if(refId!=0) begin
+362        0/1     ==>        _decl= 1;
+363                        end
+                   ==>  MISSING_ELSE
+364                       
+365        0/1     ==>     if((_parent_reg!=null) && refId==0) begin
+366        0/1     ==>        if (!verdi_clp.is_verdi_trace_no_decl())
+367        0/1     ==>            _decl = record_reg_decl_name(_handle, "_parent_reg", "_field", _field.get_name());
+                   ==>  MISSING_ELSE
+368                        end
+                   ==>  MISSING_ELSE
+369                     
+370        0/1     ==>     if(_parent_reg)
+371        0/1     ==>        pli_reghier_set_label(_handle, $sformatf("FIELD_%0d_%0d", _field.get_inst_id(), _parent_reg.get_inst_id()));
+372                        else
+373        0/1     ==>        pli_reghier_set_label(_handle, $sformatf("FIELD_%0d_", _field.get_inst_id()));
+374                     
+375        0/1     ==>     _cur_field = _field;
+376        0/1     ==>     _field_class_name = retrieve_def_class("_cur_field", _objid);
+377                     
+378        0/1     ==>     if(_field_class_name.len()>0 && 
+379                           g_fieldclass_bit_lsb.exists(_field_class_name) &&
+380                           g_fieldclass_bit_lsb[_field_class_name].exists(_field.get_n_bits()) &&
+381                           g_fieldclass_bit_lsb[_field_class_name][_field.get_n_bits()].exists(_field.get_lsb_pos())) begin
+382                     
+383        0/1     ==>        _classRefId = g_fieldclass_bit_lsb[_field_class_name][_field.get_n_bits()][_field.get_lsb_pos()];
+384                     
+385                        end else begin
+386        0/1     ==>        g_fieldclass_bit_lsb[_field_class_name][_field.get_n_bits()][_field.get_lsb_pos()] = _field.get_inst_id();
+387                        end 
+388                     
+389        0/1     ==>     if(refId!=0 && refId!=_classRefId) 
+390        0/1     ==>        pli_reghier_add_attribute_int(_handle, "reference_declaration_inst_id", refId);
+                   ==>  MISSING_ELSE
+391        0/1     ==>     if(_classRefId!=0 && _classRefId!=refId)
+392        0/1     ==>        pli_reghier_add_attribute_int(_handle, "reference_class_inst_id", _classRefId);
+                   ==>  MISSING_ELSE
+393        0/1     ==>     if(refId!=0 && refId==_classRefId)
+394        0/1     ==>        pli_reghier_add_attribute_int(_handle, "reference_class_declaration_inst_id", _classRefId);
+                   ==>  MISSING_ELSE
+395                       
+396                     
+397        0/1     ==>     if(_classRefId==0) begin
+398        0/1     ==>        pli_reghier_add_attribute_int(_handle, "num_bits", _field.get_n_bits());
+399        0/1     ==>        pli_reghier_add_attribute_int(_handle, "lsb_pos", _field.get_lsb_pos());
+400                        end
+                   ==>  MISSING_ELSE
+401                     
+402        0/1     ==>     pli_reghier_add_attribute_string(_handle, "name", $sformatf("%s.%s.%s", _stream_name, _parent_reg.get_name(), _field.get_name()));
+403                     
+404        0/1     ==>     if(_decl==0 && _parent_reg!=null) begin
+405        0/1     ==>        _parent_blk = _parent_reg.get_parent();
+406        0/1     ==>        if (!verdi_clp.is_verdi_trace_no_decl())
+407        0/1     ==>           _decl = record_reg_decl_name(_handle, "_parent_blk", "_field", _field.get_name());
+                   ==>  MISSING_ELSE
+408                        end
+                   ==>  MISSING_ELSE
+409                     
+410        0/1     ==>     if(_classRefId==0)
+411        0/1     ==>        retrieve_reg_def_class("_field", _handle);
+412                     `ifdef VCS
+413        0/1     ==>     else if(_objid!=0)
+414        0/1     ==>        pli_reghier_add_attribute_string(_handle, "snps_object_id", $sformatf("\\%s @%0d", _field_class_name, _objid));
+                   ==>  MISSING_ELSE
+415                     `endif
+416                     
+417        0/1     ==>     pli_reghier_end_event(_handle);
+418                     
+419                     end
+420                     endfunction
+421                     
+422                     function automatic string record_reghier_regfile(uvm_reg_file _regfile); begin
+423                        uvm_reg_block _top_blk;
+424                        uvm_reg_file _parent_regfile;
+425                        int _handle, _num_hdl;
+426                        string _full_name;
+427                        string _hdl_paths[$], _hdl, _hdl_attr, _blk_class_name, _regfile_class_name, _cur_regfile_class_name;
+428                        int _decl, _refId, _objid;
+429                        uvm_reg_file _cur_regfile;
+430                        static verdi_cmdline_processor verdi_clp = verdi_cmdline_processor::get_inst();
+431                        static int g_regfile_class[string];
+432                     
+433        0/1     ==>     _decl = 0;   
+434        0/1     ==>     _num_hdl = 0;
+435        0/1     ==>     _regfile_class_name = "";
+436                     
+437        0/1     ==>     if(g_visited_regfile.exists(_regfile)) begin
+438        0/1     ==>        return g_visited_regfile[_regfile];
+439                        end
+                   ==>  MISSING_ELSE
+440                     
+441        0/1     ==>     _parent_regfile = _regfile.get_regfile();
+442        0/1     ==>     _top_blk = _regfile.get_parent();
+443                     
+444                        
+445        0/1     ==>     _refId = 0;
+446        0/1     ==>     if(_parent_regfile!=null && g_regfile_handle_class_name.exists(_parent_regfile)) begin
+447        0/1     ==>        _regfile_class_name = g_regfile_handle_class_name[_parent_regfile];
+448                        end
+                   ==>  MISSING_ELSE
+449                     
+450        0/1     ==>     if(_parent_regfile!=null && _regfile_class_name.len()==0) begin
+451        0/1     ==>        _regfile_class_name = retrieve_def_class("_parent_regfile", _objid);
+452        0/1     ==>        if(_regfile_class_name.len() > 0)
+453        0/1     ==>           g_regfile_handle_class_name[_parent_regfile] = _regfile_class_name;
+                   ==>  MISSING_ELSE
+454                        end
+                   ==>  MISSING_ELSE
+455                     
+456        0/1     ==>     if(_regfile_class_name.len() > 0)
+457        0/1     ==>        _refId = find_refclass_id(uvm_object'(_parent_regfile), _regfile_class_name, _regfile.get_name());
+                   ==>  MISSING_ELSE
+458                     
+459        0/1     ==>     _blk_class_name = "";
+460        0/1     ==>     if(_refId==0) begin
+461        0/1     ==>        _blk_class_name = retrieve_def_class("_top_blk", _objid);
+462        0/1     ==>        _refId = find_refclass_id(uvm_object'(_top_blk), _blk_class_name, _regfile.get_name());
+463                        end
+                   ==>  MISSING_ELSE
+464                     
+465        0/1     ==>     if(_parent_regfile) begin
+466                     
+467        0/1     ==>        _full_name = record_reghier_regfile(_parent_regfile);
+468        0/1     ==>        _full_name = {_full_name, ".", _regfile.get_name()};
+469                     
+470        0/1     ==>        g_visited_regfile[_regfile] = _full_name;
+471        0/1     ==>        _handle = pli_reghier_begin_event(_full_name);
+472                     
+473        0/1     ==>        if (!verdi_clp.is_verdi_trace_no_decl() && _refId==0) begin
+474        0/1     ==>            _decl = record_reg_decl_name(_handle, "_parent_regfile", "_regfile", _regfile.get_name());
+475        0/1     ==>            if(_decl) 
+476        0/1     ==>               insert_refclass_id(uvm_object'(_parent_regfile), _regfile_class_name, _regfile.get_name(), _regfile.get_inst_id());
+                   ==>  MISSING_ELSE
+477                               
+478        0/1     ==>            if(_decl==0 && _top_blk!=null) begin
+479        0/1     ==>               _decl = record_reg_decl_name(_handle, "_top_blk", "_regfile", _regfile.get_name());
+480        0/1     ==>               if(_decl)
+481        0/1     ==>                  insert_refclass_id(uvm_object'(_top_blk), _blk_class_name, _regfile.get_name(), _regfile.get_inst_id());
+                   ==>  MISSING_ELSE
+482                               end
+                   ==>  MISSING_ELSE
+483                     
+484                           end
+                   ==>  MISSING_ELSE
+485                        end else begin
+486        0/1     ==>        _full_name = _regfile.get_full_name();
+487        0/1     ==>        g_visited_regfile[_regfile] = _full_name;
+488        0/1     ==>        _handle = pli_reghier_begin_event(_full_name);
+489                     
+490        0/1     ==>        if(_top_blk) begin
+491        0/1     ==>           if (!verdi_clp.is_verdi_trace_no_decl() && _refId==0) begin
+492        0/1     ==>               _decl = record_reg_decl_name(_handle, "_top_blk", "_regfile", _regfile.get_name());
+493        0/1     ==>               if(_decl)
+494        0/1     ==>                  insert_refclass_id(uvm_object'(_top_blk), _blk_class_name, _regfile.get_name(), _regfile.get_inst_id());
+                   ==>  MISSING_ELSE
+495                              end
+                   ==>  MISSING_ELSE
+496                           end
+                   ==>  MISSING_ELSE
+497                        end
+498                        
+499        0/1     ==>     if(_parent_regfile) begin
+500        0/1     ==>        pli_reghier_set_label(_handle, $sformatf("REGFILE_%0d_%0d", _regfile.get_inst_id(), _parent_regfile.get_inst_id()));
+501        0/1     ==>     end else if(_top_blk) begin
+502        0/1     ==>        pli_reghier_set_label(_handle, $sformatf("REGFILE_%0d_%0d", _regfile.get_inst_id(), _top_blk.get_inst_id()));
+503                        end else begin
+504        0/1     ==>        pli_reghier_set_label(_handle, $sformatf("REGFILE_%0d_", _regfile.get_inst_id()));
+505                        end
+506                     
+507        0/1     ==>     pli_reghier_add_attribute_string(_handle, "name", _full_name);
+508                     
+509        0/1     ==>     _objid = 0;
+510        0/1     ==>     if(_refId!=0) begin
+511        0/1     ==>        pli_reghier_add_attribute_int(_handle, "reference_class_declaration_inst_id", _refId);
+512        0/1     ==>        retrieve_reg_def_class("_regfile", _handle, 1);
+513                        end else begin
+514                     
+515        0/1     ==>        _cur_regfile = _regfile;
+516        0/1     ==>        _cur_regfile_class_name = retrieve_def_class("_cur_regfile", _objid); 
+517                     
+518        0/1     ==>        if(_cur_regfile_class_name.len()>0 && g_regfile_class.exists(_cur_regfile_class_name)) begin
+519                     
+520        0/1     ==>           pli_reghier_add_attribute_int(_handle, "reference_class_inst_id", g_regfile_class[_cur_regfile_class_name]);
+521        0/1     ==>           pli_reghier_add_attribute_string(_handle, "snps_object_id", $sformatf("\\%s @%0d", _cur_regfile_class_name, _objid));
+522                     
+523                           end else begin
+524                     
+525        0/1     ==>           g_regfile_class[_cur_regfile_class_name] = _regfile.get_inst_id();
+526        0/1     ==>           retrieve_reg_def_class("_regfile", _handle);
+527                     
+528                           end
+529                        end
+530                     
+531        0/1     ==>     if (_regfile.has_hdl_path())
+532        0/1     ==>         _regfile.get_hdl_path(_hdl_paths);
+                   ==>  MISSING_ELSE
+533                     
+534        0/1     ==>     while(_hdl_paths.size() > 0 ) begin
+535        0/1     ==>        _hdl = _hdl_paths.pop_front();
+536        0/1     ==>        if(_hdl.len()>0) begin
+537        0/1     ==>           $sformat(_hdl_attr, "hdl_path_%0d", _num_hdl++);
+538        0/1     ==>           pli_reghier_add_attribute_string(_handle, _hdl_attr, _hdl);
+539                           end
+                   ==>  MISSING_ELSE
+540                        end
+                   ==>  WHILE_FALSE
+541        0/1     ==>     pli_reghier_end_event(_handle);
+542                     
+543        0/1     ==>     return _full_name;
+544                     end
+545                     endfunction
+546                     
+547                     function automatic void record_reghier_reg(uvm_reg _reg); begin
+548                        uvm_reg _cur_reg;
+549                        uvm_reg_file _parent_regfile;
+550                        uvm_reg_block _parent_blk;
+551                        string _stream_name, _reg_name, _label_name, _class_name;
+552                        uvm_reg_field _fields[$], _field;
+553                        uvm_reg_map _default_map;
+554                     
+555                        uvm_hdl_path_concat _hdl_paths[$], _hdl_path;
+556                        uvm_hdl_path_slice _hdl_slice;
+557                        string _hdl, _hdl_attr_name, _reg_class_name, _blk_class_name, _regfile_class_name;
+558                        int _hdl_offset, _hdl_size, _hdl_idx, _slice_idx;
+559                        int _handle, _inst_id;
+560                        int _decl, _refId, _classRefId, _objid;
+561                        static verdi_cmdline_processor verdi_clp = verdi_cmdline_processor::get_inst();
+562                        static int g_regclass_bits[string][int];
+563                     
+564        0/1     ==>     _hdl_idx = 0;
+565        0/1     ==>     _slice_idx = 0;
+566        0/1     ==>     _decl = 0;
+567        0/1     ==>     _regfile_class_name = "";
+568        0/1     ==>     _blk_class_name = "";
+569                     
+570                        // Handle regfiles
+571        0/1     ==>     _parent_regfile = _reg.get_regfile();
+572        0/1     ==>     _parent_blk = _reg.get_parent();
+573                     
+574        0/1     ==>     _refId = 0;
+575        0/1     ==>     _inst_id = _reg.get_inst_id(); 
+576                     
+577        0/1     ==>     if(_parent_regfile!=null && g_regfile_handle_class_name.exists(_parent_regfile)) begin
+578        0/1     ==>        _regfile_class_name = g_regfile_handle_class_name[_parent_regfile];
+579                        end
+                   ==>  MISSING_ELSE
+580                     
+581        0/1     ==>     if(_parent_regfile!=null && _regfile_class_name.len()==0) begin
+582        0/1     ==>        _regfile_class_name = retrieve_def_class("_parent_regfile", _objid);
+583        0/1     ==>        g_regfile_handle_class_name[_parent_regfile] = _regfile_class_name;
+584                        end
+                   ==>  MISSING_ELSE
+585                     
+586        0/1     ==>     if(_regfile_class_name.len() > 0) 
+587        0/1     ==>        _refId = find_refclass_id(uvm_object'(_parent_regfile), _regfile_class_name, _reg.get_name());
+                   ==>  MISSING_ELSE
+588                     
+589        0/1     ==>     if(_refId==0 && (_parent_blk!=null)) begin
+590        0/1     ==>        if(g_regblk_handle_class_name.exists(_parent_blk)) begin
+591        0/1     ==>           _blk_class_name = g_regblk_handle_class_name[_parent_blk];
+592                           end else begin
+593        0/1     ==>           _blk_class_name = retrieve_def_class("_parent_blk", _objid);
+594        0/1     ==>           g_regblk_handle_class_name[_parent_blk] = _blk_class_name;
+595                           end
+596        0/1     ==>        _refId = find_refclass_id(uvm_object'(_parent_blk), _blk_class_name, _reg.get_name());
+597                        end
+                   ==>  MISSING_ELSE
+598                     
+599        0/1     ==>     if(_parent_regfile) begin
+600                     
+601        0/1     ==>        _stream_name = record_reghier_regfile(_parent_regfile);
+602        0/1     ==>        _handle = pli_reghier_begin_event(_stream_name);
+603                     
+604        0/1     ==>        if (!verdi_clp.is_verdi_trace_no_decl() && _refId==0) begin
+605        0/1     ==>            _decl = record_reg_decl_name(_handle, "_parent_regfile", "_reg", _reg.get_name());
+606        0/1     ==>            if(_decl)
+607        0/1     ==>               insert_refclass_id(uvm_object'(_parent_regfile), _regfile_class_name, _reg.get_name(), _inst_id);
+                   ==>  MISSING_ELSE
+608                           end 
+                   ==>  MISSING_ELSE
+609                     
+610                        end else begin
+611        0/1     ==>        _stream_name = _parent_blk.get_full_name();
+612        0/1     ==>        _handle = pli_reghier_begin_event(_stream_name);
+613                        end
+614                     
+615                     
+616        0/1     ==>     if(_parent_blk!=null && _decl==0 && _refId==0) begin
+617        0/1     ==>        if (!verdi_clp.is_verdi_trace_no_decl()) begin
+618        0/1     ==>            _decl = record_reg_decl_name(_handle, "_parent_blk", "_reg", _reg.get_name());
+619        0/1     ==>            if(_decl)
+620        0/1     ==>               insert_refclass_id(uvm_object'(_parent_blk), _blk_class_name, _reg.get_name(), _inst_id);
+                   ==>  MISSING_ELSE
+621                           end
+                   ==>  MISSING_ELSE
+622                        end
+                   ==>  MISSING_ELSE
+623                     
+624        0/1     ==>     _cur_reg = _reg;
+625        0/1     ==>     _reg_class_name = retrieve_def_class("_cur_reg", _objid);
+626                     
+627        0/1     ==>     _classRefId = 0;
+628        0/1     ==>     if(_reg_class_name.len()>0 && g_regclass_bits.exists(_reg_class_name) && g_regclass_bits[_reg_class_name].exists(_reg.get_n_bits())) begin
+629        0/1     ==>        _classRefId = g_regclass_bits[_reg_class_name][_reg.get_n_bits()];
+630                        end else begin
+631        0/1     ==>        g_regclass_bits[_reg_class_name][_reg.get_n_bits()] = _inst_id;
+632                        end
+633                     
+634        0/1     ==>     if(_refId!=0 && _classRefId!=_refId)
+635        0/1     ==>        pli_reghier_add_attribute_int(_handle, "reference_declaration_inst_id", _refId);
+                   ==>  MISSING_ELSE
+636        0/1     ==>     if(_classRefId!=0 && _classRefId!=_refId)
+637        0/1     ==>        pli_reghier_add_attribute_int(_handle, "reference_class_inst_id", _classRefId);
+                   ==>  MISSING_ELSE
+638        0/1     ==>     if(_refId!=0 && _classRefId==_refId)
+639        0/1     ==>        pli_reghier_add_attribute_int(_handle, "reference_class_declaration_inst_id", _classRefId);
+                   ==>  MISSING_ELSE
+640                     
+641        0/1     ==>     _default_map = _reg.get_default_map();
+642                     
+643        0/1     ==>     if(_parent_regfile) begin
+644        0/1     ==>        $sformat(_label_name, "REG_%0d_%0d_%0d", _inst_id, _parent_regfile.get_inst_id(), _default_map.get_inst_id());
+645        0/1     ==>     end else if(_parent_blk) begin
+646        0/1     ==>        if (_default_map)
+647        0/1     ==>            $sformat(_label_name, "REG_%0d_%0d_%0d", _inst_id, _parent_blk.get_inst_id(), _default_map.get_inst_id());
+648                           else
+649        0/1     ==>            $sformat(_label_name, "REG_%0d_%0d", _inst_id, _parent_blk.get_inst_id());
+650                        end else begin
+651        0/1     ==>        if (_default_map)
+652        0/1     ==>            $sformat(_label_name, "REG_%0d__%0d", _inst_id, _default_map.get_inst_id());
+653                           else
+654        0/1     ==>            $sformat(_label_name, "REG_%0d", _inst_id);
+655                        end
+656                     
+657        0/1     ==>     pli_reghier_set_label(_handle, _label_name);
+658                     
+659        0/1     ==>     if(_classRefId==0)
+660        0/1     ==>        pli_reghier_add_attribute_int(_handle, "num_bits", _reg.get_n_bits());
+                   ==>  MISSING_ELSE
+661                     
+662        0/1     ==>     $sformat(_reg_name, "%s.%s", _stream_name, _reg.get_name());
+663        0/1     ==>     pli_reghier_add_attribute_string(_handle, "name", _reg_name);
+664                     
+665                     
+666        0/1     ==>     if(_classRefId==0)
+667        0/1     ==>        retrieve_reg_def_class("_reg", _handle);
+668                     `ifdef VCS
+669        0/1     ==>     else if(_objid!=0)
+670        0/1     ==>        pli_reghier_add_attribute_string(_handle, "snps_object_id", $sformatf("\\%s @%0d", _reg_class_name, _objid));
+                   ==>  MISSING_ELSE
+671                     `endif
+672                     
+673        0/1     ==>     if (_reg.has_hdl_path())
+674        0/1     ==>         _reg.get_hdl_path(_hdl_paths);
+                   ==>  MISSING_ELSE
+675                     
+676        0/1     ==>     while(_hdl_paths.size() > 0) begin
+677        0/1     ==>        _hdl_path = _hdl_paths.pop_front();
+678        0/1     ==>        for(_slice_idx=0; _slice_idx < _hdl_path.slices.size(); _slice_idx++) begin
+679        0/1     ==>           $sformat(_hdl_attr_name, "hdl_slice_path_%0d_%0d", _hdl_idx, _slice_idx);
+680        0/1     ==>           pli_reghier_add_attribute_string(_handle, _hdl_attr_name, _hdl_path.slices[_slice_idx].path);
+681        0/1     ==>           $sformat(_hdl_attr_name, "hdl_slice_offset_%0d_%0d", _hdl_idx, _slice_idx);
+682        0/1     ==>           pli_reghier_add_attribute_int(_handle, _hdl_attr_name, _hdl_path.slices[_slice_idx].offset);
+683        0/1     ==>           $sformat(_hdl_attr_name, "hdl_slice_size_%0d_%0d", _hdl_idx, _slice_idx);
+684        0/1     ==>           pli_reghier_add_attribute_int(_handle, _hdl_attr_name, _hdl_path.slices[_slice_idx].size);
+685                           end
+686        0/1     ==>        _hdl_idx++;
+687                        end
+                   ==>  WHILE_FALSE
+688                     
+689        0/1     ==>     pli_reghier_end_event(_handle);
+690                     
+691                     
+692                        // Iterate reg fields
+693        0/1     ==>     _refId = 0;
+694                     
+695        0/1     ==>     _reg.get_fields(_fields);
+696                     
+697        0/1     ==>     while(_fields.size() > 0) begin
+698        0/1     ==>        _field = _fields.pop_front(); 
+699                     
+700        0/1     ==>        _refId = find_refclass_id(uvm_object'(_reg), _reg_class_name, _field.get_name());
+701        0/1     ==>        if(_refId==0)
+702        0/1     ==>           insert_refclass_id(uvm_object'(_reg), _reg_class_name, _field.get_name(), _field.get_inst_id());
+                   ==>  MISSING_ELSE
+703        0/1     ==>        record_reghier_field(_field, _stream_name, _refId);
+704                        end
+705                     
+706                       
+707                     end
+708                     endfunction
+709                     
+710                     function automatic void record_reghier_mem(uvm_mem _mem); begin
+711                        string _mem_name, _blk_name;
+712                        int _handle;
+713                        uvm_reg_block _parent_blk;
+714                        uvm_reg_map _default_map;
+715                     
+716                        uvm_hdl_path_concat _hdl_paths[$], _hdl_path;
+717                        uvm_hdl_path_slice _hdl_slice;
+718                        string _hdl, _hdl_attr_name;
+719                        int _hdl_offset, _hdl_size, _hdl_idx, _slice_idx;
+720                        int _decl;
+721                        static verdi_cmdline_processor verdi_clp = verdi_cmdline_processor::get_inst(); 
+722                     
+723        0/1     ==>     _hdl_idx = 0;
+724        0/1     ==>     _slice_idx = 0;
+725        0/1     ==>     _mem_name = _mem.get_full_name();
+726        0/1     ==>     _parent_blk = _mem.get_parent();
+727        0/1     ==>     _blk_name = _parent_blk.get_full_name();
+728        0/1     ==>     _decl = 0;
+729                     
+730        0/1     ==>     _handle = pli_reghier_begin_event(_mem_name);
+731                     
+732        0/1     ==>     if (!verdi_clp.is_verdi_trace_no_decl())
+733        0/1     ==>         _decl = record_reg_decl_name(_handle, "_parent_blk", "_mem", _mem.get_name());
+                   ==>  MISSING_ELSE
+734                       
+735        0/1     ==>     _default_map = _mem.get_default_map();
+736                     
+737        0/1     ==>     if(_parent_blk) begin
+738        0/1     ==>        pli_reghier_set_label(_handle, $sformatf("MEM_%0d_%0d_%0d", _mem.get_inst_id(), _parent_blk.get_inst_id(), _default_map.get_inst_id()));
+739                        end else begin
+740        0/1     ==>        pli_reghier_set_label(_handle, $sformatf("MEM_%0d__%0d", _mem.get_inst_id(), _default_map.get_inst_id()));
+741                        end
+742                     
+743        0/1     ==>     pli_reghier_add_attribute_string(_handle, "name", _mem_name);
+744        0/1     ==>     pli_reghier_add_attribute_int(_handle, "width_in_bits", _mem.get_n_bits());
+745        0/1     ==>     pli_reghier_add_attribute_int(_handle, "memory_size", _mem.get_size());
+746                     
+747        0/1     ==>     retrieve_reg_def_class("_mem", _handle);
+748                     
+749                     
+750        0/1     ==>     if (_mem.has_hdl_path()) 
+751        0/1     ==>         _mem.get_hdl_path(_hdl_paths);
+                   ==>  MISSING_ELSE
+752                     
+753        0/1     ==>     while(_hdl_paths.size() > 0) begin
+754        0/1     ==>        _hdl_path = _hdl_paths.pop_front();
+755        0/1     ==>        for(_slice_idx=0; _slice_idx < _hdl_path.slices.size(); _slice_idx++) begin
+756        0/1     ==>           $sformat(_hdl_attr_name, "hdl_slice_path_%0d_%0d", _hdl_idx, _slice_idx);
+757        0/1     ==>           pli_reghier_add_attribute_string(_handle, _hdl_attr_name, _hdl_path.slices[_slice_idx].path);
+758        0/1     ==>           $sformat(_hdl_attr_name, "hdl_slice_offset_%0d_%0d", _hdl_idx, _slice_idx);
+759        0/1     ==>           pli_reghier_add_attribute_int(_handle, _hdl_attr_name, _hdl_path.slices[_slice_idx].offset);
+760        0/1     ==>           $sformat(_hdl_attr_name, "hdl_slice_size_%0d_%0d", _hdl_idx, _slice_idx);
+761        0/1     ==>           pli_reghier_add_attribute_int(_handle, _hdl_attr_name, _hdl_path.slices[_slice_idx].size);
+762                           end
+763        0/1     ==>        _hdl_idx++;
+764                        end
+                   ==>  WHILE_FALSE
+765                     
+766        0/1     ==>     pli_reghier_end_event(_handle);
+767                      
+768                     end
+769                     endfunction
+770                     
+771                     function automatic void record_reghier_blk(uvm_reg_block _blk); begin
+772                        uvm_reg _regs[$], _reg;
+773                        //uvm_reg_map _maps[$], _map;
+774                        uvm_reg_block  _blks[$], _parent_blk, _sub_blk;
+775                        uvm_mem _mems[$], _mem;
+776                        int _handle, _num_hdl;
+777                        string _hdl_path, _block_name;
+778                        uvm_reg_map _default_map;
+779                        string _hdl_paths[$], _hdl, _hdl_attr;
+780                        int _decl;
+781                        static int max_reg_dump_limit = 5000;
+782                        static int max_reg_dump_limit_check = 0;
+783                        static int dumped_reg_num=0;
+784                        static int is_limit_message_recorded=0;
+785                     
+786        0/1     ==>     _num_hdl = 0;
+787        0/1     ==>     _decl = 0;
+788                     
+789                        // Record Block Attributes
+790        0/1     ==>     _block_name = _blk.get_full_name();
+791        0/1     ==>     _handle = pli_reghier_begin_event(_block_name);
+792                     
+793        0/1     ==>     _default_map = _blk.get_default_map();
+794                     
+795        0/1     ==>     _parent_blk = _blk.get_parent();
+796        0/1     ==>     if(_parent_blk) begin
+797        0/1     ==>        pli_reghier_set_label(_handle, $sformatf("BLOCK_%0d_%0d_%0d", _blk.get_inst_id(), _parent_blk.get_inst_id(), _default_map.get_inst_id()));
+798                        end else begin
+799        0/1     ==>        pli_reghier_set_label(_handle, $sformatf("BLOCK_%0d__%0d", _blk.get_inst_id(), _default_map.get_inst_id()));
+800                        end
+801                     
+802        0/1     ==>     pli_reghier_add_attribute_string(_handle, "name", _block_name);
+803                     
+804        0/1     ==>     _parent_blk = _blk.get_parent();
+805        0/1     ==>     if(_parent_blk) begin
+806                     
+807        0/1     ==>        if (!verdi_clp.is_verdi_trace_no_decl())
+808        0/1     ==>            _decl = record_reg_decl_name(_handle, "_parent_blk", "_blk", _blk.get_name());
+                   ==>  MISSING_ELSE
+809                     
+810                        end
+                   ==>  MISSING_ELSE
+811                     
+812                     
+813        0/1     ==>     retrieve_reg_def_class("_blk", _handle);
+814                     
+815                     
+816        0/1     ==>     if (_blk.is_hdl_path_root() || has_blk_hdl_path(_blk))
+817        0/1     ==>         _blk.get_full_hdl_path(_hdl_paths);
+                   ==>  MISSING_ELSE
+818        0/1     ==>     while(_hdl_paths.size() > 0 ) begin
+819        0/1     ==>        _hdl = _hdl_paths.pop_front();
+820        0/1     ==>        if(_hdl.len()>0) begin 
+821        0/1     ==>           $sformat(_hdl_attr, "hdl_path_%0d", _num_hdl++);
+822        0/1     ==>           pli_reghier_add_attribute_string(_handle, _hdl_attr, _hdl);
+823                           end
+                   ==>  MISSING_ELSE
+824                        end
+                   ==>  WHILE_FALSE
+825                     
+826        0/1     ==>     pli_reghier_end_event(_handle);
+827                     
+828        0/1     ==>     _hdl_path = "";
+829                       
+830                        // Iterate registers
+831        0/1     ==>     if(max_reg_dump_limit_check==0) begin
+832                           uvm_cmdline_processor clp;
+833                           string val_str;
+834                     
+835        0/1     ==>        val_str = "";
+836        0/1     ==>        max_reg_dump_limit_check = 1;
+837        0/1     ==>        clp = uvm_cmdline_processor::get_inst();
+838        0/1     ==>        if (clp.get_arg_value("+UVM_REG_DUMP_LIMIT=", val_str))
+839        0/1     ==>            max_reg_dump_limit = val_str.atoi();
+                   ==>  MISSING_ELSE
+840                     
+841                        end
+                   ==>  MISSING_ELSE
+842                     
+843        0/1     ==>     if(verdi_clp.is_verdi_trace_ral() && (dumped_reg_num < max_reg_dump_limit||max_reg_dump_limit==0)) 
+844        0/1     ==>        _blk.get_registers(_regs, UVM_NO_HIER);
+                   ==>  MISSING_ELSE
+845                     
+846                     
+847        0/1     ==>     while(_regs.size() > 0) begin
+848        0/1     ==>        int _refId=0;
+849                     
+850        0/1     ==>        _reg = _regs.pop_front();
+851                        
+852        0/1     ==>        if(verdi_clp.is_verdi_trace_ral() && (dumped_reg_num < max_reg_dump_limit||max_reg_dump_limit==0)) begin
+853        0/1     ==>           record_reghier_reg(_reg);
+854        0/1     ==>           dumped_reg_num++;
+855        0/1     ==>        end else if(is_limit_message_recorded==0) begin
+856        0/1     ==>           _handle = pli_reghier_begin_event("max_reg_recorded");
+857        0/1     ==>           is_limit_message_recorded = 1;
+858        0/1     ==>          pli_reghier_set_label(_handle, $sformatf("MAX_%0d_REG_RECORDED", max_reg_dump_limit));
+859        0/1     ==>          pli_reghier_end_event(_handle);
+860                              
+861                           end
+                   ==>  MISSING_ELSE
+862                        end
+                   ==>  WHILE_FALSE
+863                     
+864        0/1     ==>     _blk.get_memories(_mems, UVM_NO_HIER);
+865        0/1     ==>     while(_mems.size() > 0) begin
+866        0/1     ==>        _mem = _mems.pop_front();
+867        0/1     ==>        record_reghier_mem(_mem);
+
+-------------------------------------------------------------------------------
+Toggle Coverage for Module : uvm_custom_install_verdi_recording
+                Total Covered Percent 
+Totals          6     0       0.00    
+Total Bits      12    0       0.00    
+Total Bits 0->1 6     0       0.00    
+Total Bits 1->0 6     0       0.00    
+
+                             
+Signals          6  0 0.00   
+Signal Bits      12 0 0.00   
+Signal Bits 0->1 6  0 0.00   
+Signal Bits 1->0 6  0 0.00   
+
+Signal Details
+                           Toggle Toggle 1->0 Toggle 0->1 
+hooks_version_flag         No     No          No          
+plusargs_tested            No     No          No          
+enable_port_recording      No     No          No          
+enable_tlm2_port_recording No     No          No          
+enable_imp_port_recording  No     No          No          
+enable_verdi_debug         No     No          No          
+
+
+-------------------------------------------------------------------------------
+Branch Coverage for Module : uvm_custom_install_verdi_recording
+         Line No. Total Covered Percent 
+Branches          44    9       20.45   
+IF       122      2     1       50.00   
+IF       128      2     1       50.00   
+IF       131      2     1       50.00   
+IF       133      2     1       50.00   
+IF       137      4     1       25.00   
+IF       151      18    1       5.56    
+IF       196      7     1       14.29   
+IF       254      5     1       20.00   
+IF       278      2     1       50.00   
+
+
+122             if (p != null)
+                -1-  
+123                 rand_state = p.get_randstate();
+                    ==>
+                    MISSING_ELSE
+                    ==>
+
+Branches:
+
+-1- Status      
+1   Covered     
+0   Not Covered 
+
+
+128             if (env_vcs_home!="")
+                -1-  
+129                 is_vcs_home_exist = 1; 
+                    ==>
+                    MISSING_ELSE
+                    ==>
+
+Branches:
+
+-1- Status      
+1   Covered     
+0   Not Covered 
+
+
+131             if (env_vcs_uvm_home!="")
+                -1-  
+132                 is_vcs_uvm_home_exist = 1;
+                    ==>
+                    MISSING_ELSE
+                    ==>
+
+Branches:
+
+-1- Status      
+1   Not Covered 
+0   Covered     
+
+
+133             if (clp.get_arg_matches("+UVM_VPD_RECORD", tr_args))
+                -1-  
+134                 is_vpd_record = 1; 
+                    ==>
+                    MISSING_ELSE
+                    ==>
+
+Branches:
+
+-1- Status      
+1   Not Covered 
+0   Covered     
+
+
+137             if (vc_env_str!="")begin
+                -1-  
+138                 sanity_file_name = {vc_env_str,"/etc/.sanity"};
+139                 file_handle = $fopen(sanity_file_name,"r");
+140                 if (file_handle!=0) begin
+                    -2-  
+141                     if (is_vpd_record)
+                        -3-  
+142                         is_sanity_exist = 0;
+                            ==>
+143                     else
+144                         is_sanity_exist = 1;
+                            ==>
+145                     $fclose(file_handle);
+146                 end
+                    MISSING_ELSE
+                    ==>
+147             end
+                MISSING_ELSE
+                ==>
+
+Branches:
+
+-1- -2- -3- Status      
+1   1   1   Not Covered 
+1   1   0   Not Covered 
+1   0   -   Not Covered 
+0   -   -   Covered     
+
+
+151             if(verdi_clp.is_verdi_trace_ral()) begin
+                -1-  
+152                uvm_root r_obj;
+153                // 9001338477
+154                string verb_settings[$];
+155                string verb_string;
+156                int verb_count;
+157                //
+158        
+159                // 9001338477
+160                verb_count = clp.get_arg_values("+UVM_VERBOSITY=",verb_settings);
+161                if (verb_count > 0) begin
+                   -2-  
+162                    verb_string = verb_settings[0];
+163                    case(verb_string)
+                       -3-  
+164                      "UVM_NONE"    : user_verbosity = UVM_NONE;
+                         ==>
+165                      "NONE"        : user_verbosity = UVM_NONE;
+                         ==>
+166                      "UVM_LOW"     : user_verbosity = UVM_LOW;
+                         ==>
+167                      "LOW"         : user_verbosity = UVM_LOW;
+                         ==>
+168                      "UVM_MEDIUM"  : user_verbosity = UVM_MEDIUM;
+                         ==>
+169                      "MEDIUM"      : user_verbosity = UVM_MEDIUM;
+                         ==>
+170                      "UVM_HIGH"    : user_verbosity = UVM_HIGH;
+                         ==>
+171                      "HIGH"        : user_verbosity = UVM_HIGH;
+                         ==>
+172                      "UVM_FULL"    : user_verbosity = UVM_FULL;
+                         ==>
+173                      "FULL"        : user_verbosity = UVM_FULL;
+                         ==>
+174                      "UVM_DEBUG"   : user_verbosity = UVM_DEBUG;
+                         ==>
+175                      "DEBUG"       : user_verbosity = UVM_DEBUG;
+                         ==>
+176                      default       : begin
+177                       user_verbosity = verb_string.atoi();
+178                        if(user_verbosity > 0)
+                           -4-  
+179                           uvm_report_info("NSTVERB", $sformatf("Non-standard verbosity value, using provided '%0d'.", user_verbosity), UVM_NONE);
+                              ==>
+                              MISSING_ELSE
+                              ==>
+180                        if(user_verbosity == 0) begin
+                           -5-  
+181                           user_verbosity = UVM_MEDIUM;
+                              ==>
+182                           uvm_report_warning("ILLVERB", "Illegal verbosity value, using default of UVM_MEDIUM.", UVM_NONE);
+183                        end
+                           MISSING_ELSE
+                           ==>
+184                      end
+185                    endcase
+186                end
+                   MISSING_ELSE
+                   ==>
+187                //
+188                r_obj = uvm_root::get();
+189                r_obj.set_report_id_verbosity("RegModel", UVM_HIGH);
+190                r_obj.set_report_id_verbosity("uvm_reg_map", UVM_FULL); 
+191             end
+                MISSING_ELSE
+                ==>
+
+Branches:
+
+-1- -2- -3-           -4- -5- Status      
+1   1   "UVM_NONE"    -   -   Not Covered 
+1   1   "NONE"        -   -   Not Covered 
+1   1   "UVM_LOW"     -   -   Not Covered 
+1   1   "LOW"         -   -   Not Covered 
+1   1   "UVM_MEDIUM"  -   -   Not Covered 
+1   1   "MEDIUM"      -   -   Not Covered 
+1   1   "UVM_HIGH"    -   -   Not Covered 
+1   1   "HIGH"        -   -   Not Covered 
+1   1   "UVM_FULL"    -   -   Not Covered 
+1   1   "FULL"        -   -   Not Covered 
+1   1   "UVM_DEBUG"   -   -   Not Covered 
+1   1   "DEBUG"       -   -   Not Covered 
+1   1   default       1   -   Not Covered 
+1   1   default       0   -   Not Covered 
+1   1   default       -   1   Not Covered 
+1   1   default       -   0   Not Covered 
+1   0   -             -   -   Not Covered 
+0   -   -             -   -   Covered     
+
+
+196             if ((clp.get_arg_matches("+UVM_LOG_RECORD", tr_args)&&clp.get_arg_matches("+UVM_VERDI_TRACE", tr_args))
+                -1-  
+197                 ||(clp.get_arg_matches("+UVM_LOG_RECORD", tr_args)&&(env_str=="verdi"))
+198                 ||verdi_clp.is_verdi_trace_fac()||verdi_clp.is_verdi_trace_msg()||verdi_clp.is_verdi_trace_uvm_aware()
+199                 ||verdi_clp.is_verdi_trace_ral()||verdi_clp.is_verdi_trace_dht()
+200                 ||(clp.get_arg_matches("+UVM_LOG_RECORD", tr_args)&&verdi_clp.is_minus_gui_verdi())
+201                 ||(clp.get_arg_matches("+UVM_LOG_RECORD", tr_args)&&is_sanity_exist)
+202                 ||verdi_clp.is_verdi_trace_ralwave()||verdi_clp.is_verdi_trace_compwave())
+203             begin
+204        `else
+205             if ((clp.get_arg_matches("+UVM_LOG_RECORD", tr_args)&&clp.get_arg_matches("+UVM_VERDI_TRACE", tr_args))
+206                 ||verdi_clp.is_verdi_trace_fac()||verdi_clp.is_verdi_trace_msg()
+207                 ||verdi_clp.is_verdi_trace_uvm_aware()||verdi_clp.is_verdi_trace_ral()
+208                 ||verdi_clp.is_verdi_trace_dht())
+209             begin
+210        `endif
+211               static verdi_report_catcher _verdi_catcher;
+212        
+213               _verdi_catcher = new();
+214               uvm_report_cb::add(null,_verdi_catcher);
+215               pli_inst = uvm_verdi_pli::get_inst();
+216               if (verdi_clp.is_verdi_trace_compwave()||verdi_clp.is_verdi_trace_dht()
+                  -2-  
+217                   ||verdi_clp.is_verdi_trace_uvm_aware()||verdi_clp.is_verdi_trace_ral()) begin
+218                   uvm_dhier_component dhier_comp;
+219        
+220                   dhier_comp = new("DHIER_COMP", uvm_root::get());
+                      ==>
+221               end
+                  MISSING_ELSE
+                  ==>
+222        `ifdef UVM_VERDI_RALWAVE
+223               // 9001375412 Allow user to set dumping level
+224               if (verdi_clp.is_verdi_trace_ralwave()) begin
+225                   string val_str="";
+226        
+227                   void'(verdi_clp.get_arg_value("+UVM_REG_DUMP_LEVEL=", val_str)); 
+228                   if (is_vcs_uvm_home_exist)
+229                       pli_inst.dump_class_object_by_file("${VCS_UVM_HOME}/verdi/register.config",val_str);
+230                   else if (is_vcs_home_exist)
+231                       pli_inst.dump_class_object_by_file("${VCS_HOME}/etc/uvm-1.1/verdi/register.config",val_str); 
+232               end
+233               //
+234        `endif
+235        `ifndef UVM_VERDI_NO_COMPWAVE
+236        `ifdef VCS
+237               // 9001375412 Allow user to set dumping level
+238               if (verdi_clp.is_verdi_trace_compwave()) begin
+                  -3-  
+239                   static string val_str="";
+240        
+241                   void'(verdi_clp.get_arg_value("+UVM_COMP_DUMP_LEVEL=", val_str));
+242                   if (is_vcs_uvm_home_exist)
+                      -4-  
+243                       pli_inst.dump_comp_object_by_file("${VCS_UVM_HOME}/verdi/component.config",val_str);
+                          ==>
+244                   else if (is_vcs_home_exist)
+                           -5-  
+245                       pli_inst.dump_comp_object_by_file("${VCS_HOME}/etc/uvm-1.1/verdi/component.config",val_str);
+                          ==>
+                          MISSING_ELSE
+                          ==>
+246               end
+                  MISSING_ELSE
+                  ==>
+247               //
+248        `endif
+249        `endif
+250             end
+                MISSING_ELSE
+                ==>
+
+Branches:
+
+-1- -2- -3- -4- -5- Status      
+1   1   -   -   -   Not Covered 
+1   0   -   -   -   Not Covered 
+1   -   1   1   -   Not Covered 
+1   -   1   0   1   Not Covered 
+1   -   1   0   0   Not Covered 
+1   -   0   -   -   Not Covered 
+0   -   -   -   -   Covered     
+
+
+254             if ((clp.get_arg_matches("+UVM_TR_RECORD", tr_args)&&clp.get_arg_matches("+UVM_VERDI_TRACE", tr_args))
+                -1-  
+255                 ||(clp.get_arg_matches("+UVM_TR_RECORD", tr_args)&&(env_str=="verdi"))
+256                 ||verdi_clp.is_verdi_trace_tlm()
+257                 ||(clp.get_arg_matches("+UVM_TR_RECORD", tr_args)&&verdi_clp.is_minus_gui_verdi())
+258                 ||(clp.get_arg_matches("+UVM_TR_RECORD", tr_args)&&is_sanity_exist)) 
+259             begin
+260        `else
+261             if ((clp.get_arg_matches("+UVM_TR_RECORD", tr_args)&&clp.get_arg_matches("+UVM_VERDI_TRACE", tr_args))
+262                 ||verdi_clp.is_verdi_trace_tlm()) 
+263             begin
+264        `endif
+265               static uvm_verdi_recorder verdi_recorder;
+266        
+267               verdi_recorder = new();
+268               uvm_default_recorder = verdi_recorder;
+269               pli_inst = uvm_verdi_pli::get_inst();
+270              if (clp.get_arg_matches("+UVM_DISABLE_AUTO_COMPONENT", tr_args)) begin
+                 -2-  
+271        	 `uvm_info("VERDI_TR_AUTO", "+UVM_DISABLE_AUTO_COMPONENT enabled but transaction recording enabled, usage model requires user to explicitly set recording_detail on components", UVM_MEDIUM)
+           	 -3-                                                                                                                                                                                           
+           	 ==>
+           	 MISSING_ELSE
+           	 ==>
+272              end
+273              else begin
+274        	 `uvm_info("VERDI_TR_AUTO", "+UVM_TR_RECORD implicitly enables recording_details to UVM_FULL for all components. For explicit control use +UVM_DISABLE_AUTO_COMPONENT and set recording_detail on components accordingly", UVM_MEDIUM)
+           	 -4-                                                                                                                                                                                                                                     
+           	 ==>
+           	 MISSING_ELSE
+           	 ==>
+275        	  uvm_config_db#(uvm_bitstream_t)::set(uvm_root::get(), "*", "recording_detail", UVM_FULL);
+276              end
+277             end
+                MISSING_ELSE
+                ==>
+
+Branches:
+
+-1- -2- -3- -4- Status      
+1   1   1   -   Not Covered 
+1   1   0   -   Not Covered 
+1   0   -   1   Not Covered 
+1   0   -   0   Not Covered 
+0   -   -   -   Covered     
+
+
+278             if (p != null)
+                -1-  
+279                 p.set_randstate(rand_state);
+                    ==>
+                    MISSING_ELSE
+                    ==>
+
+Branches:
+
+-1- Status      
+1   Covered     
+0   Not Covered 
+
+
+-------------------------------------------------------------------------------
+===============================================================================
+Module Instance : uvm_custom_install_verdi_recording
+===============================================================================
+
+Instance :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+  8.41   4.76 --       0.00 --      20.45 --     
+
+
+Instance's subtree :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+  8.41   4.76 --       0.00 --      20.45 --     
+
+
+Module : 
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME                               
+  8.41   4.76 --       0.00 --      20.45 --     uvm_custom_install_verdi_recording 
+
+
+Parent : 
+
+none
+----------------
+
+
+Subtrees :
+
+
+no children
+----------------
+
+
+-------------------------------------------------------------------------------
+Since this is the module's only instance, the coverage report is the same as for the module.
+===============================================================================
+Module : uvm_custom_install_recording
+===============================================================================
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 30.22  30.43 --     --     --      30.00 --     
+
+Source File(s) : 
+
+/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/vcs/uvm_custom_install_vcs_recorder.sv
+
+Module self-instances :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME                         
+ 30.22  30.43 --     --     --      30.00 --     uvm_custom_install_recording 
+
+
+
+-------------------------------------------------------------------------------
+Line Coverage for Module : uvm_custom_install_recording
+
+             Line No.   Total   Covered  Percent
+TOTAL                       23        7    30.43
+ROUTINE            41        1        0     0.00
+INITIAL            57       22        7    31.82
+
+40                      
+41         0/1     ==>   import "DPI-C" function string getenv(input string env_name);
+42                      
+43                       `include "uvm_vcs_recorder.svh"
+44                       `include "uvm_vcs_record_interface.sv"
+45                      `endif
+46                      
+47                           uvm_cmdline_processor clp;
+48                           string tr_args[$];
+49                           string env_str,vc_env_str="",sanity_file_name="";
+50                           int file_handle=0, is_sanity_exist=0;
+51                      
+52                           
+53                         initial begin
+54                           string verdi_args[$];
+55                           int    verdi_tracing;
+56                      
+57         1/1               clp = uvm_cmdline_processor::get_inst();
+58                      
+59         1/1               verdi_tracing = clp.get_arg_matches("+UVM_VERDI_TRACE", verdi_args);
+60         1/1               env_str = getenv("SNPS_SIM_DEFAULT_GUI");
+61         1/1               vc_env_str = getenv("VC_HOME");
+62         1/1               if (vc_env_str!="")begin
+63         0/1     ==>           sanity_file_name = {vc_env_str,"/etc/.sanity"};
+64         0/1     ==>           file_handle = $fopen(sanity_file_name,"r");
+65         0/1     ==>           if (file_handle!=0) begin
+66         0/1     ==>               is_sanity_exist = 1;
+67         0/1     ==>               $fclose(file_handle);
+68                               end
+                   ==>  MISSING_ELSE
+69                           end
+                        MISSING_ELSE
+70                      
+71                           // Register the vcs_smartlog_catcher to dump messages into VPD
+72         1/1               if (clp.get_arg_matches("+UVM_LOG_RECORD", tr_args) && (!verdi_tracing && (env_str != "verdi") && !is_sanity_exist)) begin
+73                             vcs_smartlog_catcher _vcs_catcher;
+74         0/1     ==>         _vcs_catcher = new();
+75         0/1     ==>         uvm_report_cb::add(null,_vcs_catcher);
+76                           end
+                        MISSING_ELSE
+77                      
+78                           // Register the uvm_vcs_recorder to record transactions into VPD
+79         1/1               if (clp.get_arg_matches("+UVM_TR_RECORD", tr_args) && (!verdi_tracing && (env_str != "verdi") && !is_sanity_exist)) begin
+80                             uvm_vcs_recorder vcs_recorder;
+81         0/1     ==>         vcs_recorder = new();
+82         0/1     ==>         uvm_default_recorder = vcs_recorder;
+83         0/1     ==>        if (clp.get_arg_matches("+UVM_DISABLE_AUTO_COMPONENT", tr_args)) begin
+84         0/2     ==>  	 `uvm_info("VCS_TR_AUTO", "+UVM_DISABLE_AUTO_COMPONENT enabled but transaction recording enabled, usage model requires user to explicitly set recording_detail on components", UVM_MEDIUM)
+uvm_info("VCS_TR_AUTO", "+UVM_DISABLE_AUTO_COMPONENT enabled but transaction recording enabled, usage model requires user to explicitly set recording_detail on components", UVM_MEDIUM):
+84.1                    `ifdef ZEMI4UVM 
+84.2                          (* zemi4_uvm_attribute=1 *) 
+84.3                       `endif 
+84.4                       begin 
+84.5       0/1     ==>       if (uvm_report_enabled(UVM_MEDIUM,UVM_INFO,"VCS_TR_AUTO")) 
+84.6       0/1     ==>         uvm_report_info ("VCS_TR_AUTO", "+UVM_DISABLE_AUTO_COMPONENT enabled but transaction recording enabled, usage model requires user to explicitly set recording_detail on components", UVM_MEDIUM, "/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/vcs/uvm_custom_install_vcs_recorder.sv", 84); 
+84.7                       end
+                   ==>  MISSING_ELSE
+85                            end
+86                            else begin
+87         0/2     ==>  	 `uvm_info("VCS_TR_AUTO", "+UVM_TR_RECORD implicitly enables recording_details to UVM_FULL for all components. For explicit control use +UVM_DISABLE_AUTO_COMPONENT and set recording_detail on components accordingly", UVM_MEDIUM)
+uvm_info("VCS_TR_AUTO", "+UVM_TR_RECORD implicitly enables recording_details to UVM_FULL for all components. For explicit control use +UVM_DISABLE_AUTO_COMPONENT and set recording_detail on components accordingly", UVM_MEDIUM):
+87.1                    `ifdef ZEMI4UVM 
+87.2                          (* zemi4_uvm_attribute=1 *) 
+87.3                       `endif 
+87.4                       begin 
+87.5       0/1     ==>       if (uvm_report_enabled(UVM_MEDIUM,UVM_INFO,"VCS_TR_AUTO")) 
+87.6       0/1     ==>         uvm_report_info ("VCS_TR_AUTO", "+UVM_TR_RECORD implicitly enables recording_details to UVM_FULL for all components. For explicit control use +UVM_DISABLE_AUTO_COMPONENT and set recording_detail on components accordingly", UVM_MEDIUM, "/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/vcs/uvm_custom_install_vcs_recorder.sv", 87); 
+87.7                       end
+                   ==>  MISSING_ELSE
+88         0/1     ==>  	  uvm_config_db#(uvm_bitstream_t)::set(uvm_root::get(), "*", "recording_detail", UVM_FULL);
+89                            end
+90                           end
+                        MISSING_ELSE
+
+-------------------------------------------------------------------------------
+Branch Coverage for Module : uvm_custom_install_recording
+         Line No. Total Covered Percent 
+Branches          10    3       30.00   
+IF       62       3     1       33.33   
+IF       72       2     1       50.00   
+IF       79       5     1       20.00   
+
+
+62              if (vc_env_str!="")begin
+                -1-  
+63                  sanity_file_name = {vc_env_str,"/etc/.sanity"};
+64                  file_handle = $fopen(sanity_file_name,"r");
+65                  if (file_handle!=0) begin
+                    -2-  
+66                      is_sanity_exist = 1;
+                        ==>
+67                      $fclose(file_handle);
+68                  end
+                    MISSING_ELSE
+                    ==>
+69              end
+                MISSING_ELSE
+                ==>
+
+Branches:
+
+-1- -2- Status      
+1   1   Not Covered 
+1   0   Not Covered 
+0   -   Covered     
+
+
+72              if (clp.get_arg_matches("+UVM_LOG_RECORD", tr_args) && (!verdi_tracing && (env_str != "verdi") && !is_sanity_exist)) begin
+                -1-  
+73                vcs_smartlog_catcher _vcs_catcher;
+74                _vcs_catcher = new();
+                  ==>
+75                uvm_report_cb::add(null,_vcs_catcher);
+76              end
+                MISSING_ELSE
+                ==>
+
+Branches:
+
+-1- Status      
+1   Not Covered 
+0   Covered     
+
+
+79              if (clp.get_arg_matches("+UVM_TR_RECORD", tr_args) && (!verdi_tracing && (env_str != "verdi") && !is_sanity_exist)) begin
+                -1-  
+80                uvm_vcs_recorder vcs_recorder;
+81                vcs_recorder = new();
+82                uvm_default_recorder = vcs_recorder;
+83               if (clp.get_arg_matches("+UVM_DISABLE_AUTO_COMPONENT", tr_args)) begin
+                 -2-  
+84         	 `uvm_info("VCS_TR_AUTO", "+UVM_DISABLE_AUTO_COMPONENT enabled but transaction recording enabled, usage model requires user to explicitly set recording_detail on components", UVM_MEDIUM)
+           	 -3-                                                                                                                                                                                         
+           	 ==>
+           	 MISSING_ELSE
+           	 ==>
+85               end
+86               else begin
+87         	 `uvm_info("VCS_TR_AUTO", "+UVM_TR_RECORD implicitly enables recording_details to UVM_FULL for all components. For explicit control use +UVM_DISABLE_AUTO_COMPONENT and set recording_detail on components accordingly", UVM_MEDIUM)
+           	 -4-                                                                                                                                                                                                                                   
+           	 ==>
+           	 MISSING_ELSE
+           	 ==>
+88         	  uvm_config_db#(uvm_bitstream_t)::set(uvm_root::get(), "*", "recording_detail", UVM_FULL);
+89               end
+90              end
+                MISSING_ELSE
+                ==>
+
+Branches:
+
+-1- -2- -3- -4- Status      
+1   1   1   -   Not Covered 
+1   1   0   -   Not Covered 
+1   0   -   1   Not Covered 
+1   0   -   0   Not Covered 
+0   -   -   -   Covered     
+
+
+-------------------------------------------------------------------------------
+===============================================================================
+Module Instance : uvm_custom_install_recording
+===============================================================================
+
+Instance :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 30.22  30.43 --     --     --      30.00 --     
+
+
+Instance's subtree :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 30.22  30.43 --     --     --      30.00 --     
+
+
+Module : 
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME                         
+ 30.22  30.43 --     --     --      30.00 --     uvm_custom_install_recording 
+
+
+Parent : 
+
+none
+----------------
+
+
+Subtrees :
+
+
+no children
+----------------
+
+
+-------------------------------------------------------------------------------
+Since this is the module's only instance, the coverage report is the same as for the module.
+===============================================================================
+Module : axi4_lite_interface
+===============================================================================
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 37.99 --     --      37.99 --     --     --     
+
+Source File(s) : 
+
+/fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_interface.sv
+
+Module self-instances :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME    
+ 37.99 --     --      37.99 --     --     --     top.vif 
+
+
+
+-------------------------------------------------------------------------------
+Toggle Coverage for Module : axi4_lite_interface
+                Total Covered Percent 
+Totals          21    14      66.67   
+Total Bits      308   117     37.99   
+Total Bits 0->1 154   60      38.96   
+Total Bits 1->0 154   57      37.01   
+
+                          
+Ports          1 1 100.00 
+Port Bits      2 2 100.00 
+Port Bits 0->1 1 1 100.00 
+Port Bits 1->0 1 1 100.00 
+
+                                
+Signals          20  13  65.00  
+Signal Bits      306 115 37.58  
+Signal Bits 0->1 153 59  38.56  
+Signal Bits 1->0 153 56  36.60  
+
+Port Details
+     Toggle Toggle 1->0 Toggle 0->1 Direction 
+ACLK Yes    Yes         Yes         INPUT     
+
+Signal Details
+             Toggle Toggle 1->0 Toggle 0->1 
+ARESETn      No     No          Yes         
+AWADDR[1:0]  No     No          No          
+AWADDR[5:2]  Yes    Yes         Yes         
+AWADDR[31:6] No     No          No          
+AWPROT[2:0]  Yes    Yes         Yes         
+AWVALID      Yes    Yes         Yes         
+AWREADY      Yes    Yes         Yes         
+WDATA[31:0]  Yes    Yes         Yes         
+WSTRB[3:0]   Yes    Yes         Yes         
+WVALID       Yes    Yes         Yes         
+WREADY       Yes    Yes         Yes         
+BRESP[1:0]   No     No          No          
+BVALID       Yes    Yes         Yes         
+BREADY       Yes    Yes         Yes         
+ARADDR[2:0]  No     No          No          
+ARADDR[5:3]  Yes    Yes         Yes         
+ARADDR[31:6] No     No          No          
+ARPROT[0]    No     No          Yes         
+ARPROT[2:1]  No     No          No          
+ARVALID      Yes    Yes         Yes         
+ARREADY      Yes    Yes         Yes         
+RDATA[31:0]  No     No          No          
+RRESP[0]     No     No          No          
+RRESP[1]     No     No          Yes         
+RVALID       Yes    Yes         Yes         
+RREADY       Yes    Yes         Yes         
+
+
+-------------------------------------------------------------------------------
+===============================================================================
+Module Instance : top.vif
+===============================================================================
+
+Instance :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 37.99 --     --      37.99 --     --     --     
+
+
+Instance's subtree :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 37.99 --     --      37.99 --     --     --     
+
+
+Module : 
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME                
+ 37.99 --     --      37.99 --     --     --     axi4_lite_interface 
+
+
+Parent : 
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME 
+ 83.33 100.00 --     100.00 --      50.00 --     top  
+
+
+Subtrees :
+
+
+no children
+----------------
+
+
+-------------------------------------------------------------------------------
+Since this is the module's only instance, the coverage report is the same as for the module.
+===============================================================================
+Module : axi4_lite_slave
+===============================================================================
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 44.19  71.93  35.00  28.87  30.00  55.17 --     
+
+Source File(s) : 
+
+/fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite.v
+
+Module self-instances :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME    
+ 44.19  71.93  35.00  28.87  30.00  55.17 --     top.dut 
+
+
+
+-------------------------------------------------------------------------------
+Line Coverage for Module : axi4_lite_slave
+
+             Line No.   Total   Covered  Percent
+TOTAL                      114       82    71.93
+ALWAYS             78       18       15    83.33
+ALWAYS            108        3        3   100.00
+ALWAYS            114       17        8    47.06
+ALWAYS            132       41       26    63.41
+ALWAYS            216        3        3   100.00
+ALWAYS            222        7        6    85.71
+ALWAYS            233       25       21    84.00
+
+77                      always @(posedge ACLK or negedge ARESETn) begin
+78         1/1              if (!ARESETn) begin
+79         1/1                  aw_done     <= 1'b0;
+80         1/1                  w_done      <= 1'b0;
+81         1/1                  wr_addr_lat <= {ADDR_WIDTH{1'b0}};
+82         1/1                  wr_data_lat <= {DATA_WIDTH{1'b0}};
+83         1/1                  wr_strb_lat <= {(DATA_WIDTH/8){1'b0}};
+84                      
+85         1/1                  wr_prot_lat <= 3'b000;
+86                          end else begin
+87         1/1                  if (wr_state == W_RESP && BVALID && BREADY) begin
+88         1/1                      aw_done <= 1'b0;
+89         1/1                      w_done  <= 1'b0;
+90                              end
+91                      
+92         1/1                 else if (AWVALID && AWREADY) begin
+93         1/1                      aw_done     <= 1'b1;
+94         1/1                      wr_addr_lat <= AWADDR;
+95         1/1                      wr_prot_lat <= AWPROT;
+96                      
+97                              end
+98         1/1                 else if (WVALID && WREADY) begin
+99         0/1     ==>              w_done      <= 1'b1;
+100        0/1     ==>              wr_data_lat <= WDATA;
+101        0/1     ==>              wr_strb_lat <= WSTRB;
+102                             end
+                        MISSING_ELSE
+103                         end
+104                     end
+105                     
+106                     
+107                     always @(posedge ACLK or negedge ARESETn) begin
+108        2/2              if (!ARESETn) wr_state <= W_IDLE;
+109        1/1              else          wr_state <= n_wr_state;
+110                     end
+111                     
+112                     
+113                     always @(*) begin
+114        1/1              n_wr_state = wr_state;
+115        1/1              case (wr_state)
+116        2/2                  W_IDLE: if (AWVALID || WVALID) n_wr_state = W_BOTH;
+                        MISSING_ELSE
+117                             W_BOTH: begin
+118        1/1                      if ((aw_done || (AWVALID && AWREADY)) &&
+119        1/1                          (w_done  || (WVALID  && WREADY ))) n_wr_state = W_RESP;
+120        0/2     ==>              else if (aw_done || (AWVALID && AWREADY)) n_wr_state = W_DATA;
+121        0/2     ==>              else if (w_done  || (WVALID  && WREADY))  n_wr_state = W_ADDR;
+                   ==>  MISSING_ELSE
+122                             end
+123        0/2     ==>          W_ADDR: if (AWVALID && AWREADY) n_wr_state = W_RESP;
+                   ==>  MISSING_ELSE
+124        0/2     ==>          W_DATA: if (WVALID  && WREADY)  n_wr_state = W_RESP;
+                   ==>  MISSING_ELSE
+125        2/2                  W_RESP: if (BVALID  && BREADY)  n_wr_state = W_IDLE;
+                        MISSING_ELSE
+126        0/1     ==>          default:                        n_wr_state = W_IDLE;
+127                         endcase
+128                     end
+129                     
+130                     
+131                     always @(posedge ACLK or negedge ARESETn) begin
+132        1/1              if (!ARESETn) begin
+133        1/1                  AWREADY <= 1'b0;
+134        1/1                  WREADY  <= 1'b0;
+135        1/1                  BVALID  <= 1'b0;
+136        1/1                  BRESP   <= RESP_OKAY;
+137        1/1                  for (i = 0; i < MEM_DEPTH; i = i + 1)
+138        1/1                      reg_file[i] <= {DATA_WIDTH{1'b0}};
+139                         end else begin
+140        1/1                  case (wr_state)
+141                                 W_IDLE: begin
+142        1/1                          AWREADY <= 1'b1;
+143        1/1                          WREADY  <= 1'b1;
+144        1/1                          BVALID  <= 1'b0;
+145                                 end
+146                                 W_BOTH: begin
+147        1/1                          if (aw_done || (AWVALID && AWREADY))
+148        1/1                               AWREADY <= 1'b0;
+                   ==>  MISSING_ELSE
+149        2/2                          if (w_done  || (WVALID  && WREADY ))  WREADY  <= 1'b0;
+                   ==>  MISSING_ELSE
+150                                 end
+151                                 W_ADDR: begin
+152        0/1     ==>                  AWREADY <= 1'b1;
+153        0/2     ==>                  if (AWVALID && AWREADY) AWREADY <= 1'b0;
+                   ==>  MISSING_ELSE
+154                                 end
+155                                 W_DATA: begin
+156        0/1     ==>                  WREADY <= 1'b1;
+157        0/2     ==>                  if (WVALID && WREADY) WREADY <= 1'b0;
+                   ==>  MISSING_ELSE
+158                                 end
+159                                 W_RESP: begin
+160        1/1                          if (!BVALID) begin
+161        1/1                              if (!wr_addr_ok) begin
+162        0/1     ==>                          BRESP  <= RESP_DECERR;
+163        0/1     ==>                          reg_file[AWADDR[$clog2(MEM_DEPTH)+1:2]] <= 0;
+164        1/1                              end else if (wr_addr_ro || wr_addr_unaligned) begin
+165        0/1     ==>                          BRESP  <= RESP_SLVERR;
+166        0/1     ==>                          reg_file[AWADDR[$clog2(MEM_DEPTH)+1:2]] <= 0;
+167                                         end else begin
+168        1/2     ==>                          if (wr_strb_lat[0]) reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][ 7: 0] <= wr_data_lat[ 7: 0];
+                        MISSING_ELSE
+169        1/2     ==>                          if (wr_strb_lat[1]) reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][15: 8] <= wr_data_lat[15: 8];
+                        MISSING_ELSE
+170        1/2     ==>                          if (wr_strb_lat[2]) reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][23:16] <= wr_data_lat[23:16];
+                        MISSING_ELSE
+171        1/2     ==>                          if (wr_strb_lat[3]) reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][31:24] <= wr_data_lat[31:24];
+                        MISSING_ELSE
+172        1/1                                  BRESP  <= RESP_OKAY;
+173                                         end
+174        1/1                              BVALID <= 1'b1;
+175                                     end
+176        2/2                         else if (BVALID && BREADY) BVALID <= 1'b0;
+177                                     else begin
+178        0/1     ==>                      reg_file[AWADDR[$clog2(MEM_DEPTH)+1:2]] <= reg_file[AWADDR[$clog2(MEM_DEPTH)+1:2]];
+179                                       // BVALID <= BVALID;
+180                     //                   reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][ 7: 0] <= reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][ 7: 0];
+181                     //                   reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][15: 8] <= reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][15: 8];
+182                     //                   reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][23:16] <= reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][23:16];
+183                     //                   reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][31:24] <= reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][31:24];
+184                                        //BRESP <= BRESP;
+185                                     end
+186                                 end
+                        MISSING_DEFAULT
+187                             endcase
+188                         end
+189                     end
+190                     
+191                     
+192                     localparam
+193                         R_IDLE = 1'd0,
+194                         R_DATA = 1'd1;
+195                     
+196                     reg  rd_state, n_rd_state;
+197                     reg [ADDR_WIDTH-1:0] rd_addr_lat;
+198                     reg [2:0]            rd_prot_lat;
+199                     
+200                     
+201                     wire [$clog2(MEM_DEPTH)-1:0] rd_word_idx = rd_addr_lat[$clog2(MEM_DEPTH)+1:2];
+202                     
+203                     wire [$clog2(MEM_DEPTH)-1:0] rd_word_addr;
+204                     assign rd_word_addr = ARADDR[2 + $clog2(MEM_DEPTH)-1 : 2];
+205                     
+206                     wire rd_addr_unaligned;
+207                     assign rd_addr_unaligned = |ARADDR[1:0];
+208                     
+209                     wire rd_addr_ok;
+210                     assign rd_addr_ok = (rd_word_addr < MEM_DEPTH) && (ARADDR < (MEM_DEPTH * 4));
+211                     
+212                     wire rd_addr_wo;
+213                     assign rd_addr_wo = (rd_word_addr >= 13) && (rd_word_addr <= 14);
+214                     
+215                     always @(posedge ACLK or negedge ARESETn) begin
+216        2/2              if (!ARESETn) rd_state <= R_IDLE;
+217        1/1              else          rd_state <= n_rd_state;
+218                     end
+219                     
+220                     
+221                     always @(*) begin
+222        1/1              n_rd_state = rd_state;
+223                     
+224        1/1              case (rd_state)
+225        2/2                  R_IDLE:  if (ARVALID && ARREADY)   n_rd_state = R_DATA;
+                        MISSING_ELSE
+226        2/2                  R_DATA:  if (RVALID && RREADY)     n_rd_state = R_IDLE;
+                        MISSING_ELSE
+227        0/1     ==>          default:                           n_rd_state = R_IDLE;
+228                         endcase
+229                     end
+230                     
+231                     
+232                     always @(posedge ACLK or negedge ARESETn) begin
+233        1/1              if (!ARESETn) begin
+234        1/1                  ARREADY     <= 1'b0;
+235        1/1                  RVALID      <= 1'b0;
+236        1/1                  RDATA       <= {DATA_WIDTH{1'b0}};
+237        1/1                  RRESP       <= RESP_OKAY;
+238        1/1                  rd_addr_lat <= {ADDR_WIDTH{1'b0}};
+239        1/1                  rd_prot_lat <= 3'b000;
+240                         end else begin
+241        1/1                  case (rd_state)
+242                     
+243                                 R_IDLE: begin
+244        1/1                          ARREADY <= 1'b1;
+245        1/1                          RVALID  <= 1'b0;
+246                     
+247        1/1                          if (ARVALID && ARREADY) begin
+248        1/1                              rd_addr_lat <= ARADDR;
+249        1/1                              rd_prot_lat <= ARPROT;
+250                     
+251                     
+252        1/1                              if (!rd_addr_ok)begin
+253        0/1     ==>                          RRESP <= RESP_DECERR;
+254        0/1     ==>                          RDATA <= 0;
+255                                         end
+256        1/1                              else if (rd_addr_wo || rd_addr_unaligned) begin
+257        1/1                                  RRESP <= RESP_SLVERR;
+258        1/1                                  RDATA <= 0;
+259                                         end
+260                                         else begin
+261        0/1     ==>                          RRESP <= RESP_OKAY;
+262        0/1     ==>                          RDATA <= reg_file[ARADDR[$clog2(MEM_DEPTH)+1:2]];
+263                                             
+264                                         end
+265        1/1                              RVALID <= 1'b1;
+266        1/1                              ARREADY <= 1'b0;
+267                                     end
+                        MISSING_ELSE
+268                                 end
+269                     
+270                     
+271                                 R_DATA: begin
+272        1/1                          if (RVALID && RREADY)
+273        1/1                              RVALID <= 1'b0;
+                   ==>  MISSING_ELSE
+274                                 end
+                        MISSING_DEFAULT
+
+-------------------------------------------------------------------------------
+Cond Coverage for Module : axi4_lite_slave
+
+               Total   Covered  Percent
+Conditions        100       35    35.00
+Logical           100       35    35.00
+Non-Logical         0        0
+Event               0        0
+
+ LINE       87
+ EXPRESSION ((wr_state == W_RESP) && BVALID && BREADY)
+             ----------1---------    ---2--    ---3--
+
+-1- -2- -3- Status
+ 0   1   1  Not Covered
+ 1   0   1  Covered
+ 1   1   0  Not Covered
+ 1   1   1  Covered
+
+ LINE       92
+ EXPRESSION (AWVALID && AWREADY)
+             ---1---    ---2---
+
+-1- -2- Status
+ 0   1  Covered
+ 1   0  Covered
+ 1   1  Covered
+
+ LINE       98
+ EXPRESSION (WVALID && WREADY)
+             ---1--    ---2--
+
+-1- -2- Status
+ 0   1  Covered
+ 1   0  Covered
+ 1   1  Not Covered
+
+ LINE       116
+ EXPRESSION (AWVALID || WVALID)
+             ---1---    ---2--
+
+-1- -2- Status
+ 0   0  Covered
+ 0   1  Not Covered
+ 1   0  Not Covered
+
+ LINE       118
+ EXPRESSION ((aw_done || (AWVALID && AWREADY)) && (w_done || (WVALID && WREADY)))
+             ----------------1----------------    ---------------2--------------
+
+-1- -2- Status
+ 0   1  Not Covered
+ 1   0  Not Covered
+ 1   1  Covered
+
+ LINE       118
+ SUB-EXPRESSION (aw_done || (AWVALID && AWREADY))
+                 ---1---    ----------2---------
+
+-1- -2- Status
+ 0   0  Not Covered
+ 0   1  Covered
+ 1   0  Not Covered
+
+ LINE       118
+ SUB-EXPRESSION (AWVALID && AWREADY)
+                 ---1---    ---2---
+
+-1- -2- Status
+ 0   1  Not Covered
+ 1   0  Not Covered
+ 1   1  Covered
+
+ LINE       118
+ SUB-EXPRESSION (w_done || (WVALID && WREADY))
+                 ---1--    ---------2--------
+
+-1- -2- Status
+ 0   0  Not Covered
+ 0   1  Covered
+ 1   0  Not Covered
+
+ LINE       118
+ SUB-EXPRESSION (WVALID && WREADY)
+                 ---1--    ---2--
+
+-1- -2- Status
+ 0   1  Not Covered
+ 1   0  Not Covered
+ 1   1  Covered
+
+ LINE       120
+ EXPRESSION (aw_done || (AWVALID && AWREADY))
+             ---1---    ----------2---------
+
+-1- -2- Status
+ 0   0  Not Covered
+ 0   1  Not Covered
+ 1   0  Not Covered
+
+ LINE       120
+ SUB-EXPRESSION (AWVALID && AWREADY)
+                 ---1---    ---2---
+
+-1- -2- Status
+ 0   1  Not Covered
+ 1   0  Not Covered
+ 1   1  Not Covered
+
+ LINE       121
+ EXPRESSION (w_done || (WVALID && WREADY))
+             ---1--    ---------2--------
+
+-1- -2- Status
+ 0   0  Not Covered
+ 0   1  Not Covered
+ 1   0  Not Covered
+
+ LINE       121
+ SUB-EXPRESSION (WVALID && WREADY)
+                 ---1--    ---2--
+
+-1- -2- Status
+ 0   1  Not Covered
+ 1   0  Not Covered
+ 1   1  Not Covered
+
+ LINE       123
+ EXPRESSION (AWVALID && AWREADY)
+             ---1---    ---2---
+
+-1- -2- Status
+ 0   1  Not Covered
+ 1   0  Not Covered
+ 1   1  Not Covered
+
+ LINE       124
+ EXPRESSION (WVALID && WREADY)
+             ---1--    ---2--
+
+-1- -2- Status
+ 0   1  Not Covered
+ 1   0  Not Covered
+ 1   1  Not Covered
+
+ LINE       125
+ EXPRESSION (BVALID && BREADY)
+             ---1--    ---2--
+
+-1- -2- Status
+ 0   1  Covered
+ 1   0  Not Covered
+ 1   1  Covered
+
+ LINE       147
+ EXPRESSION (aw_done || (AWVALID && AWREADY))
+             ---1---    ----------2---------
+
+-1- -2- Status
+ 0   0  Not Covered
+ 0   1  Covered
+ 1   0  Not Covered
+
+ LINE       147
+ SUB-EXPRESSION (AWVALID && AWREADY)
+                 ---1---    ---2---
+
+-1- -2- Status
+ 0   1  Not Covered
+ 1   0  Not Covered
+ 1   1  Covered
+
+ LINE       149
+ EXPRESSION (w_done || (WVALID && WREADY))
+             ---1--    ---------2--------
+
+-1- -2- Status
+ 0   0  Not Covered
+ 0   1  Covered
+ 1   0  Not Covered
+
+ LINE       149
+ SUB-EXPRESSION (WVALID && WREADY)
+                 ---1--    ---2--
+
+-1- -2- Status
+ 0   1  Not Covered
+ 1   0  Not Covered
+ 1   1  Covered
+
+ LINE       153
+ EXPRESSION (AWVALID && AWREADY)
+             ---1---    ---2---
+
+-1- -2- Status
+ 0   1  Not Covered
+ 1   0  Not Covered
+ 1   1  Not Covered
+
+ LINE       157
+ EXPRESSION (WVALID && WREADY)
+             ---1--    ---2--
+
+-1- -2- Status
+ 0   1  Not Covered
+ 1   0  Not Covered
+ 1   1  Not Covered
+
+ LINE       164
+ EXPRESSION (wr_addr_ro || wr_addr_unaligned)
+             -----1----    --------2--------
+
+-1- -2- Status
+ 0   0  Covered
+ 0   1  Not Covered
+ 1   0  Not Covered
+
+ LINE       176
+ EXPRESSION (BVALID && BREADY)
+             ---1--    ---2--
+
+-1- -2- Status
+ 0   1  Not Covered
+ 1   0  Not Covered
+ 1   1  Covered
+
+ LINE       225
+ EXPRESSION (ARVALID && ARREADY)
+             ---1---    ---2---
+
+-1- -2- Status
+ 0   1  Covered
+ 1   0  Not Covered
+ 1   1  Covered
+
+ LINE       226
+ EXPRESSION (RVALID && RREADY)
+             ---1--    ---2--
+
+-1- -2- Status
+ 0   1  Not Covered
+ 1   0  Covered
+ 1   1  Covered
+
+ LINE       247
+ EXPRESSION (ARVALID && ARREADY)
+             ---1---    ---2---
+
+-1- -2- Status
+ 0   1  Covered
+ 1   0  Not Covered
+ 1   1  Covered
+
+ LINE       256
+ EXPRESSION (rd_addr_wo || rd_addr_unaligned)
+             -----1----    --------2--------
+
+-1- -2- Status
+ 0   0  Not Covered
+ 0   1  Not Covered
+ 1   0  Covered
+
+ LINE       272
+ EXPRESSION (RVALID && RREADY)
+             ---1--    ---2--
+
+-1- -2- Status
+ 0   1  Not Covered
+ 1   0  Not Covered
+ 1   1  Covered
+
+ LINE       71
+ EXPRESSION ((wr_word_addr < MEM_DEPTH) && (AWADDR < (MEM_DEPTH * 4)))
+             -------------1------------    -------------2------------
+
+-1- -2- Status
+ 0   1  Not Covered
+ 1   0  Not Covered
+ 1   1  Covered
+
+ LINE       74
+ EXPRESSION ((wr_word_addr >= 4'ha) && (wr_word_addr <= 4'hc))
+             -----------1----------    -----------2----------
+
+-1- -2- Status
+ 0   1  Covered
+ 1   0  Covered
+ 1   1  Not Covered
+
+ LINE       210
+ EXPRESSION ((rd_word_addr < MEM_DEPTH) && (ARADDR < (MEM_DEPTH * 4)))
+             -------------1------------    -------------2------------
+
+-1- -2- Status
+ 0   1  Not Covered
+ 1   0  Not Covered
+ 1   1  Covered
+
+ LINE       213
+ EXPRESSION ((rd_word_addr >= 4'hd) && (rd_word_addr <= 4'he))
+             -----------1----------    -----------2----------
+
+-1- -2- Status
+ 0   1  Covered
+ 1   0  Not Covered
+ 1   1  Covered
+
+-------------------------------------------------------------------------------
+Toggle Coverage for Module : axi4_lite_slave
+                Total Covered Percent 
+Totals          43    20      46.51   
+Total Bits      582   168     28.87   
+Total Bits 0->1 291   89      30.58   
+Total Bits 1->0 291   79      27.15   
+
+                              
+Ports          21  14  66.67  
+Port Bits      308 117 37.99  
+Port Bits 0->1 154 60  38.96  
+Port Bits 1->0 154 57  37.01  
+
+                               
+Signals          22  6  27.27  
+Signal Bits      274 51 18.61  
+Signal Bits 0->1 137 29 21.17  
+Signal Bits 1->0 137 22 16.06  
+
+Port Details
+             Toggle Toggle 1->0 Toggle 0->1 Direction 
+ACLK         Yes    Yes         Yes         INPUT     
+ARESETn      No     No          Yes         INPUT     
+AWADDR[1:0]  No     No          No          INPUT     
+AWADDR[5:2]  Yes    Yes         Yes         INPUT     
+AWADDR[31:6] No     No          No          INPUT     
+AWPROT[2:0]  Yes    Yes         Yes         INPUT     
+AWVALID      Yes    Yes         Yes         INPUT     
+AWREADY      Yes    Yes         Yes         OUTPUT    
+WDATA[31:0]  Yes    Yes         Yes         INPUT     
+WSTRB[3:0]   Yes    Yes         Yes         INPUT     
+WVALID       Yes    Yes         Yes         INPUT     
+WREADY       Yes    Yes         Yes         OUTPUT    
+BRESP[1:0]   No     No          No          OUTPUT    
+BVALID       Yes    Yes         Yes         OUTPUT    
+BREADY       Yes    Yes         Yes         INPUT     
+ARADDR[2:0]  No     No          No          INPUT     
+ARADDR[5:3]  Yes    Yes         Yes         INPUT     
+ARADDR[31:6] No     No          No          INPUT     
+ARPROT[0]    No     No          Yes         INPUT     
+ARPROT[2:1]  No     No          No          INPUT     
+ARVALID      Yes    Yes         Yes         INPUT     
+ARREADY      Yes    Yes         Yes         OUTPUT    
+RDATA[31:0]  No     No          No          OUTPUT    
+RRESP[0]     No     No          No          OUTPUT    
+RRESP[1]     No     No          Yes         OUTPUT    
+RVALID       Yes    Yes         Yes         OUTPUT    
+RREADY       Yes    Yes         Yes         INPUT     
+
+Signal Details
+                  Toggle Toggle 1->0 Toggle 0->1 
+slave_prot[2:0]   No     No          No          
+wr_state[0]       Yes    Yes         Yes         
+wr_state[1]       No     No          No          
+wr_state[2]       Yes    Yes         Yes         
+n_wr_state[0]     Yes    Yes         Yes         
+n_wr_state[1]     No     No          No          
+n_wr_state[2]     Yes    Yes         Yes         
+aw_done           Yes    Yes         Yes         
+w_done            No     No          No          
+wr_addr_lat[1:0]  No     No          No          
+wr_addr_lat[5:2]  Yes    Yes         Yes         
+wr_addr_lat[31:6] No     No          No          
+wr_data_lat[31:0] No     No          No          
+wr_strb_lat[3:0]  No     No          No          
+wr_prot_lat[2:0]  Yes    Yes         Yes         
+wr_word_addr[3:0] Yes    Yes         Yes         
+wr_addr_unaligned No     No          No          
+wr_addr_ok        No     No          No          
+wr_addr_ro        No     No          No          
+rd_state          Yes    Yes         Yes         
+n_rd_state        Yes    Yes         Yes         
+rd_addr_lat[2:0]  No     No          No          
+rd_addr_lat[5:3]  No     No          Yes         
+rd_addr_lat[31:6] No     No          No          
+rd_prot_lat[0]    No     No          Yes         
+rd_prot_lat[2:1]  No     No          No          
+rd_word_idx[0]    No     No          No          
+rd_word_idx[3:1]  No     No          Yes         
+rd_word_addr[0]   No     No          No          
+rd_word_addr[3:1] Yes    Yes         Yes         
+rd_addr_unaligned No     No          No          
+rd_addr_ok        No     No          No          
+rd_addr_wo        Yes    Yes         Yes         
+
+
+-------------------------------------------------------------------------------
+FSM Coverage for Module : axi4_lite_slave
+Summary for FSM :: wr_state
+            Total Covered Percent                         
+States      5     3       60.00   (Not included in score) 
+Transitions 10    3       30.00                           
+Sequences   0     0                                       
+
+State, Transition and Sequence Details for FSM :: wr_state
+-------------------------------------------------------------------------------
+states Line No. Covered     
+W_ADDR 121      Not Covered 
+W_BOTH 116      Covered     
+W_DATA 120      Not Covered 
+W_IDLE 108      Covered     
+W_RESP 119      Covered     
+
+transitions    Line No. Covered     
+W_ADDR->W_IDLE 108      Not Covered 
+W_ADDR->W_RESP 123      Not Covered 
+W_BOTH->W_ADDR 121      Not Covered 
+W_BOTH->W_DATA 120      Not Covered 
+W_BOTH->W_IDLE 108      Not Covered 
+W_BOTH->W_RESP 119      Covered     
+W_DATA->W_IDLE 108      Not Covered 
+W_DATA->W_RESP 124      Not Covered 
+W_IDLE->W_BOTH 116      Covered     
+W_RESP->W_IDLE 108      Covered     
+
+
+-------------------------------------------------------------------------------
+Branch Coverage for Module : axi4_lite_slave
+         Line No. Total Covered Percent 
+Branches          58    32      55.17   
+IF       78       5     4       80.00   
+IF       108      2     2       100.00  
+CASE     115      13    5       38.46   
+IF       132      23    10      43.48   
+IF       216      2     2       100.00  
+CASE     224      5     4       80.00   
+IF       233      8     5       62.50   
+
+
+78             if (!ARESETn) begin
+               -1-  
+79                 aw_done     <= 1'b0;
+                   ==>
+80                 w_done      <= 1'b0;
+81                 wr_addr_lat <= {ADDR_WIDTH{1'b0}};
+82                 wr_data_lat <= {DATA_WIDTH{1'b0}};
+83                 wr_strb_lat <= {(DATA_WIDTH/8){1'b0}};
+84         
+85                 wr_prot_lat <= 3'b000;
+86             end else begin
+87                 if (wr_state == W_RESP && BVALID && BREADY) begin
+                   -2-  
+88                     aw_done <= 1'b0;
+                       ==>
+89                     w_done  <= 1'b0;
+90                 end
+91         
+92                else if (AWVALID && AWREADY) begin
+                       -3-  
+93                     aw_done     <= 1'b1;
+                       ==>
+94                     wr_addr_lat <= AWADDR;
+95                     wr_prot_lat <= AWPROT;
+96         
+97                 end
+98                else if (WVALID && WREADY) begin
+                       -4-  
+99                     w_done      <= 1'b1;
+                       ==>
+100                    wr_data_lat <= WDATA;
+101                    wr_strb_lat <= WSTRB;
+102                end
+                   MISSING_ELSE
+                   ==>
+
+Branches:
+
+-1- -2- -3- -4- Status      
+1   -   -   -   Covered     
+0   1   -   -   Covered     
+0   0   1   -   Covered     
+0   0   0   1   Not Covered 
+0   0   0   0   Covered     
+
+
+108            if (!ARESETn) wr_state <= W_IDLE;
+               -1-  
+               ==>
+109            else          wr_state <= n_wr_state;
+               ==>
+
+Branches:
+
+-1- Status  
+1   Covered 
+0   Covered 
+
+
+115            case (wr_state)
+               -1-  
+116                W_IDLE: if (AWVALID || WVALID) n_wr_state = W_BOTH;
+                           -2-  
+                   ==>
+                   MISSING_ELSE
+                   ==>
+117                W_BOTH: begin
+118                    if ((aw_done || (AWVALID && AWREADY)) &&
+                       -3-  
+119                        (w_done  || (WVALID  && WREADY ))) n_wr_state = W_RESP;
+                           ==>
+120                    else if (aw_done || (AWVALID && AWREADY)) n_wr_state = W_DATA;
+                            -4-  
+                       ==>
+121                    else if (w_done  || (WVALID  && WREADY))  n_wr_state = W_ADDR;
+                            -5-  
+                       ==>
+                       MISSING_ELSE
+                       ==>
+122                end
+123                W_ADDR: if (AWVALID && AWREADY) n_wr_state = W_RESP;
+                           -6-  
+                   ==>
+                   MISSING_ELSE
+                   ==>
+124                W_DATA: if (WVALID  && WREADY)  n_wr_state = W_RESP;
+                           -7-  
+                   ==>
+                   MISSING_ELSE
+                   ==>
+125                W_RESP: if (BVALID  && BREADY)  n_wr_state = W_IDLE;
+                           -8-  
+                   ==>
+                   MISSING_ELSE
+                   ==>
+126                default:                        n_wr_state = W_IDLE;
+                   ==>
+
+Branches:
+
+-1-     -2- -3- -4- -5- -6- -7- -8- Status      
+W_IDLE  1   -   -   -   -   -   -   Covered     
+W_IDLE  0   -   -   -   -   -   -   Covered     
+W_BOTH  -   1   -   -   -   -   -   Covered     
+W_BOTH  -   0   1   -   -   -   -   Not Covered 
+W_BOTH  -   0   0   1   -   -   -   Not Covered 
+W_BOTH  -   0   0   0   -   -   -   Not Covered 
+W_ADDR  -   -   -   -   1   -   -   Not Covered 
+W_ADDR  -   -   -   -   0   -   -   Not Covered 
+W_DATA  -   -   -   -   -   1   -   Not Covered 
+W_DATA  -   -   -   -   -   0   -   Not Covered 
+W_RESP  -   -   -   -   -   -   1   Covered     
+W_RESP  -   -   -   -   -   -   0   Covered     
+default -   -   -   -   -   -   -   Not Covered 
+
+
+132            if (!ARESETn) begin
+               -1-  
+133                AWREADY <= 1'b0;
+                   ==>
+134                WREADY  <= 1'b0;
+135                BVALID  <= 1'b0;
+136                BRESP   <= RESP_OKAY;
+137                for (i = 0; i < MEM_DEPTH; i = i + 1)
+138                    reg_file[i] <= {DATA_WIDTH{1'b0}};
+139            end else begin
+140                case (wr_state)
+                   -2-  
+141                    W_IDLE: begin
+142                        AWREADY <= 1'b1;
+                           ==>
+143                        WREADY  <= 1'b1;
+144                        BVALID  <= 1'b0;
+145                    end
+146                    W_BOTH: begin
+147                        if (aw_done || (AWVALID && AWREADY))
+                           -3-  
+148                             AWREADY <= 1'b0;
+                                ==>
+                                MISSING_ELSE
+                                ==>
+149                        if (w_done  || (WVALID  && WREADY ))  WREADY  <= 1'b0;
+                           -4-  
+                           ==>
+                           MISSING_ELSE
+                           ==>
+150                    end
+151                    W_ADDR: begin
+152                        AWREADY <= 1'b1;
+153                        if (AWVALID && AWREADY) AWREADY <= 1'b0;
+                           -5-  
+                           ==>
+                           MISSING_ELSE
+                           ==>
+154                    end
+155                    W_DATA: begin
+156                        WREADY <= 1'b1;
+157                        if (WVALID && WREADY) WREADY <= 1'b0;
+                           -6-  
+                           ==>
+                           MISSING_ELSE
+                           ==>
+158                    end
+159                    W_RESP: begin
+160                        if (!BVALID) begin
+                           -7-  
+161                            if (!wr_addr_ok) begin
+                               -8-  
+162                                BRESP  <= RESP_DECERR;
+                                   ==>
+163                                reg_file[AWADDR[$clog2(MEM_DEPTH)+1:2]] <= 0;
+164                            end else if (wr_addr_ro || wr_addr_unaligned) begin
+                                        -9-  
+165                                BRESP  <= RESP_SLVERR;
+                                   ==>
+166                                reg_file[AWADDR[$clog2(MEM_DEPTH)+1:2]] <= 0;
+167                            end else begin
+168                                if (wr_strb_lat[0]) reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][ 7: 0] <= wr_data_lat[ 7: 0];
+                                   -10-  
+                                   ==>
+                                   MISSING_ELSE
+                                   ==>
+169                                if (wr_strb_lat[1]) reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][15: 8] <= wr_data_lat[15: 8];
+                                   -11-  
+                                   ==>
+                                   MISSING_ELSE
+                                   ==>
+170                                if (wr_strb_lat[2]) reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][23:16] <= wr_data_lat[23:16];
+                                   -12-  
+                                   ==>
+                                   MISSING_ELSE
+                                   ==>
+171                                if (wr_strb_lat[3]) reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][31:24] <= wr_data_lat[31:24];
+                                   -13-  
+                                   ==>
+                                   MISSING_ELSE
+                                   ==>
+172                                BRESP  <= RESP_OKAY;
+173                            end
+174                            BVALID <= 1'b1;
+175                        end
+176                       else if (BVALID && BREADY) BVALID <= 1'b0;
+                               -14-  
+                          ==>
+177                        else begin
+178                            reg_file[AWADDR[$clog2(MEM_DEPTH)+1:2]] <= reg_file[AWADDR[$clog2(MEM_DEPTH)+1:2]];
+                               ==>
+179                          // BVALID <= BVALID;
+180        //                   reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][ 7: 0] <= reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][ 7: 0];
+181        //                   reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][15: 8] <= reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][15: 8];
+182        //                   reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][23:16] <= reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][23:16];
+183        //                   reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][31:24] <= reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][31:24];
+184                           //BRESP <= BRESP;
+185                        end
+186                    end
+                       MISSING_DEFAULT
+                       ==>
+
+Branches:
+
+-1- -2-             -3- -4- -5- -6- -7- -8- -9- -10- -11- -12- -13- -14- Status      
+1   -               -   -   -   -   -   -   -   -    -    -    -    -    Covered     
+0   W_IDLE          -   -   -   -   -   -   -   -    -    -    -    -    Covered     
+0   W_BOTH          1   -   -   -   -   -   -   -    -    -    -    -    Covered     
+0   W_BOTH          0   -   -   -   -   -   -   -    -    -    -    -    Not Covered 
+0   W_BOTH          -   1   -   -   -   -   -   -    -    -    -    -    Covered     
+0   W_BOTH          -   0   -   -   -   -   -   -    -    -    -    -    Not Covered 
+0   W_ADDR          -   -   1   -   -   -   -   -    -    -    -    -    Not Covered 
+0   W_ADDR          -   -   0   -   -   -   -   -    -    -    -    -    Not Covered 
+0   W_DATA          -   -   -   1   -   -   -   -    -    -    -    -    Not Covered 
+0   W_DATA          -   -   -   0   -   -   -   -    -    -    -    -    Not Covered 
+0   W_RESP          -   -   -   -   1   1   -   -    -    -    -    -    Not Covered 
+0   W_RESP          -   -   -   -   1   0   1   -    -    -    -    -    Not Covered 
+0   W_RESP          -   -   -   -   1   0   0   1    -    -    -    -    Not Covered 
+0   W_RESP          -   -   -   -   1   0   0   0    -    -    -    -    Covered     
+0   W_RESP          -   -   -   -   1   0   0   -    1    -    -    -    Not Covered 
+0   W_RESP          -   -   -   -   1   0   0   -    0    -    -    -    Covered     
+0   W_RESP          -   -   -   -   1   0   0   -    -    1    -    -    Not Covered 
+0   W_RESP          -   -   -   -   1   0   0   -    -    0    -    -    Covered     
+0   W_RESP          -   -   -   -   1   0   0   -    -    -    1    -    Not Covered 
+0   W_RESP          -   -   -   -   1   0   0   -    -    -    0    -    Covered     
+0   W_RESP          -   -   -   -   0   -   -   -    -    -    -    1    Covered     
+0   W_RESP          -   -   -   -   0   -   -   -    -    -    -    0    Not Covered 
+0   MISSING_DEFAULT -   -   -   -   -   -   -   -    -    -    -    -    Covered     
+
+
+216            if (!ARESETn) rd_state <= R_IDLE;
+               -1-  
+               ==>
+217            else          rd_state <= n_rd_state;
+               ==>
+
+Branches:
+
+-1- Status  
+1   Covered 
+0   Covered 
+
+
+224            case (rd_state)
+               -1-  
+225                R_IDLE:  if (ARVALID && ARREADY)   n_rd_state = R_DATA;
+                            -2-  
+                   ==>
+                   MISSING_ELSE
+                   ==>
+226                R_DATA:  if (RVALID && RREADY)     n_rd_state = R_IDLE;
+                            -3-  
+                   ==>
+                   MISSING_ELSE
+                   ==>
+227                default:                           n_rd_state = R_IDLE;
+                   ==>
+
+Branches:
+
+-1-     -2- -3- Status      
+R_IDLE  1   -   Covered     
+R_IDLE  0   -   Covered     
+R_DATA  -   1   Covered     
+R_DATA  -   0   Covered     
+default -   -   Not Covered 
+
+
+233            if (!ARESETn) begin
+               -1-  
+234                ARREADY     <= 1'b0;
+                   ==>
+235                RVALID      <= 1'b0;
+236                RDATA       <= {DATA_WIDTH{1'b0}};
+237                RRESP       <= RESP_OKAY;
+238                rd_addr_lat <= {ADDR_WIDTH{1'b0}};
+239                rd_prot_lat <= 3'b000;
+240            end else begin
+241                case (rd_state)
+                   -2-  
+242        
+243                    R_IDLE: begin
+244                        ARREADY <= 1'b1;
+245                        RVALID  <= 1'b0;
+246        
+247                        if (ARVALID && ARREADY) begin
+                           -3-  
+248                            rd_addr_lat <= ARADDR;
+249                            rd_prot_lat <= ARPROT;
+250        
+251        
+252                            if (!rd_addr_ok)begin
+                               -4-  
+253                                RRESP <= RESP_DECERR;
+                                   ==>
+254                                RDATA <= 0;
+255                            end
+256                            else if (rd_addr_wo || rd_addr_unaligned) begin
+                                    -5-  
+257                                RRESP <= RESP_SLVERR;
+                                   ==>
+258                                RDATA <= 0;
+259                            end
+260                            else begin
+261                                RRESP <= RESP_OKAY;
+                                   ==>
+262                                RDATA <= reg_file[ARADDR[$clog2(MEM_DEPTH)+1:2]];
+263                                
+264                            end
+265                            RVALID <= 1'b1;
+266                            ARREADY <= 1'b0;
+267                        end
+                           MISSING_ELSE
+                           ==>
+268                    end
+269        
+270        
+271                    R_DATA: begin
+272                        if (RVALID && RREADY)
+                           -6-  
+273                            RVALID <= 1'b0;
+                               ==>
+                               MISSING_ELSE
+                               ==>
+274                    end
+                       MISSING_DEFAULT
+                       ==>
+
+Branches:
+
+-1- -2-             -3- -4- -5- -6- Status      
+1   -               -   -   -   -   Covered     
+0   R_IDLE          1   1   -   -   Not Covered 
+0   R_IDLE          1   0   1   -   Covered     
+0   R_IDLE          1   0   0   -   Not Covered 
+0   R_IDLE          0   -   -   -   Covered     
+0   R_DATA          -   -   -   1   Covered     
+0   R_DATA          -   -   -   0   Not Covered 
+0   MISSING_DEFAULT -   -   -   -   Covered     
+
+
+-------------------------------------------------------------------------------
+===============================================================================
+Module Instance : top.dut
+===============================================================================
+
+Instance :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 44.19  71.93  35.00  28.87  30.00  55.17 --     
+
+
+Instance's subtree :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 45.60  71.93  35.00  31.52  30.00  55.17  50.00 
+
+
+Module : 
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME            
+ 44.19  71.93  35.00  28.87  30.00  55.17 --     axi4_lite_slave 
+
+
+Parent : 
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME 
+ 83.33 100.00 --     100.00 --      50.00 --     top  
+
+
+Subtrees :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME 
+ 72.92 --     --      95.83 --     --      50.00 sva  
+
+
+
+-------------------------------------------------------------------------------
+Since this is the module's only instance, the coverage report is the same as for the module.
+===============================================================================
+Module : axi4_lite_assertions
+===============================================================================
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 72.92 --     --      95.83 --     --      50.00 
+
+Source File(s) : 
+
+/fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_assertions.sv
+
+Module self-instances :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME        
+ 72.92 --     --      95.83 --     --      50.00 top.dut.sva 
+
+
+
+-------------------------------------------------------------------------------
+Toggle Coverage for Module : axi4_lite_assertions
+                Total Covered Percent 
+Totals          12    11      91.67   
+Total Bits      24    23      95.83   
+Total Bits 0->1 12    12      100.00  
+Total Bits 1->0 12    11      91.67   
+
+                            
+Ports          12 11 91.67  
+Port Bits      24 23 95.83  
+Port Bits 0->1 12 12 100.00 
+Port Bits 1->0 12 11 91.67  
+
+Port Details
+        Toggle Toggle 1->0 Toggle 0->1 Direction 
+ACLK    Yes    Yes         Yes         INPUT     
+ARESETn No     No          Yes         INPUT     
+AWVALID Yes    Yes         Yes         INPUT     
+AWREADY Yes    Yes         Yes         INPUT     
+WVALID  Yes    Yes         Yes         INPUT     
+WREADY  Yes    Yes         Yes         INPUT     
+BVALID  Yes    Yes         Yes         INPUT     
+BREADY  Yes    Yes         Yes         INPUT     
+ARVALID Yes    Yes         Yes         INPUT     
+ARREADY Yes    Yes         Yes         INPUT     
+RVALID  Yes    Yes         Yes         INPUT     
+RREADY  Yes    Yes         Yes         INPUT     
+
+
+-------------------------------------------------------------------------------
+Assert Coverage for Module : axi4_lite_assertions
+                 Total Attempted Percent Succeeded/Matched Percent 
+Assertions       6     6         100.00  3                 50.00   
+Cover properties 0     0                 0                         
+Cover sequences  0     0                 0                         
+Total            6     6         100.00  3                 50.00   
+
+
+
+-------------------------------------------------------------------------------
+
+Assertion Details
+
+Name  Attempts Real Successes Failures Incomplete 
+a_ar  98       0              0        0          
+a_aw  98       21             0        0          
+a_b   98       0              0        0          
+a_r   98       0              0        0          
+a_rst 98       2              0        0          
+a_w   98       21             0        0          
+
+
+-------------------------------------------------------------------------------
+===============================================================================
+Module Instance : top.dut.sva
+===============================================================================
+
+Instance :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 72.92 --     --      95.83 --     --      50.00 
+
+
+Instance's subtree :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 72.92 --     --      95.83 --     --      50.00 
+
+
+Module : 
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME                 
+ 72.92 --     --      95.83 --     --      50.00 axi4_lite_assertions 
+
+
+Parent : 
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME 
+ 44.19  71.93  35.00  28.87  30.00  55.17 --     dut  
+
+
+Subtrees :
+
+
+no children
+----------------
+
+
+-------------------------------------------------------------------------------
+Since this is the module's only instance, the coverage report is the same as for the module.
+===============================================================================
+Module : top
+===============================================================================
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 83.33 100.00 --     100.00 --      50.00 --     
+
+Source File(s) : 
+
+/fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/top.sv
+
+Module self-instances :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME 
+ 83.33 100.00 --     100.00 --      50.00 --     top  
+
+
+
+-------------------------------------------------------------------------------
+Line Coverage for Module : top
+
+             Line No.   Total   Covered  Percent
+TOTAL                       15       15   100.00
+INITIAL            12        4        4   100.00
+INITIAL            65        9        9   100.00
+INITIAL            73        2        2   100.00
+
+11                      	initial begin
+12         1/1          		ACLK = 0;
+13         1/1          		forever begin
+14         2/2          			#5 ACLK = ~ACLK;
+15                      		end
+16                      	end
+17                      
+18                      	axi4_lite_interface vif(ACLK);
+19                      
+20                      	axi4_lite_slave #(
+21                      		.DATA_WIDTH(`DATA_WIDTH),
+22                      		.ADDR_WIDTH(`ADDR_WIDTH),
+23                      		.MEM_DEPTH(`MEM_DEPTH),
+24                      		.DEFAULT_PROT(`DEFAULT_PROT))
+25                      	dut (
+26                      		.ACLK(ACLK),
+27                      		.ARESETn(vif.ARESETn),
+28                      		.AWADDR(vif.AWADDR),
+29                      		.AWPROT(vif.AWPROT),
+30                      		.AWVALID(vif.AWVALID),
+31                      		.AWREADY(vif.AWREADY),
+32                      		.WDATA(vif.WDATA),
+33                      		.WSTRB(vif.WSTRB),
+34                      		.WVALID(vif.WVALID),
+35                      		.WREADY(vif.WREADY),
+36                      		.BRESP(vif.BRESP),
+37                      		.BVALID(vif.BVALID),
+38                      		.BREADY(vif.BREADY),
+39                      		.ARADDR(vif.ARADDR),
+40                      		.ARPROT(vif.ARPROT),
+41                      		.ARVALID(vif.ARVALID),
+42                      		.ARREADY(vif.ARREADY),
+43                      		.RDATA(vif.RDATA),
+44                      		.RRESP(vif.RRESP),
+45                      		.RVALID(vif.RVALID),
+46                      		.RREADY(vif.RREADY)
+47                      	);
+48                      
+49                      	bind axi4_lite_slave axi4_lite_assertions sva (
+50                      		.ACLK(ACLK),
+51                      		.ARESETn(ARESETn),
+52                      		.AWVALID(AWVALID),
+53                      		.AWREADY(AWREADY),
+54                      		.WVALID(WVALID),
+55                      		.WREADY(WREADY),
+56                      		.BVALID(BVALID),
+57                      		.BREADY(BREADY),
+58                      		.ARVALID(ARVALID),
+59                      		.ARREADY(ARREADY),
+60                      		.RVALID(RVALID),
+61                      		.RREADY(RREADY)
+62                      	);
+63                      
+64                      	initial begin
+65         2/2          		@(posedge ACLK);
+66         1/1          		vif.ARESETn = 0;
+67         3/3          		repeat (2) @(posedge ACLK);
+                        REPEAT_FALSE
+68         1/1          		vif.ARESETn = 1;
+69         2/2          		`uvm_info("TOP",$sformatf("Initial Reset Released"), UVM_LOW)
+uvm_info("TOP",$sformatf("Initial Reset Released"), UVM_LOW):
+69.1                    `ifdef ZEMI4UVM 
+69.2                          (* zemi4_uvm_attribute=1 *) 
+69.3                       `endif 
+69.4                       begin 
+69.5       1/1               if (uvm_report_enabled(UVM_LOW,UVM_INFO,"TOP")) 
+69.6       1/1                 uvm_report_info ("TOP", $sformatf("Initial Reset Released"), UVM_LOW, "top.sv", 69); 
+69.7                       end
+                   ==>  MISSING_ELSE
+70                      	end
+71                      
+72                      	initial begin
+73         1/1          		uvm_config_db#(virtual axi4_lite_interface)::set(null,"*","vif",vif);
+74         1/1          		run_test();
+
+-------------------------------------------------------------------------------
+Toggle Coverage for Module : top
+                Total Covered Percent 
+Totals          1     1       100.00  
+Total Bits      2     2       100.00  
+Total Bits 0->1 1     1       100.00  
+Total Bits 1->0 1     1       100.00  
+
+                            
+Signals          1 1 100.00 
+Signal Bits      2 2 100.00 
+Signal Bits 0->1 1 1 100.00 
+Signal Bits 1->0 1 1 100.00 
+
+Signal Details
+     Toggle Toggle 1->0 Toggle 0->1 
+ACLK Yes    Yes         Yes         
+
+
+-------------------------------------------------------------------------------
+Branch Coverage for Module : top
+         Line No. Total Covered Percent 
+Branches          2     1       50.00   
+IF       69       2     1       50.00   
+
+
+69         		`uvm_info("TOP",$sformatf("Initial Reset Released"), UVM_LOW)
+           		-1-                                                             
+           		==>
+           		MISSING_ELSE
+           		==>
+
+Branches:
+
+-1- Status      
+1   Covered     
+0   Not Covered 
+
+
+-------------------------------------------------------------------------------
+===============================================================================
+Module Instance : top
+===============================================================================
+
+Instance :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 83.33 100.00 --     100.00 --      50.00 --     
+
+
+Instance's subtree :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 46.51  75.19  35.00  33.84  30.00  55.00  50.00 
+
+
+Module : 
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME 
+ 83.33 100.00 --     100.00 --      50.00 --     top  
+
+
+Parent : 
+
+none
+----------------
+
+
+Subtrees :
+
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME 
+ 45.60  71.93  35.00  31.52  30.00  55.17  50.00 dut  
+ 37.99 --     --      37.99 --     --     --     vif  
+
+
+
+-------------------------------------------------------------------------------
+Since this is the module's only instance, the coverage report is the same as for the module.
+===============================================================================
+Module : axi4_lite_pkg
+===============================================================================
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+100.00 --     --     --     --     --     100.00 
+
+Source File(s) : 
+
+/fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_pkg.sv
+
+Module self-instances :
+
+SCORE LINE COND TOGGLE FSM BRANCH ASSERT NAME 
+
+
+
+-------------------------------------------------------------------------------
+Assert Coverage for Module : axi4_lite_pkg
+                 Total Attempted Percent Succeeded/Matched Percent 
+Assertions       3     3         100.00  3                 100.00  
+Cover properties 0     0                 0                         
+Cover sequences  0     0                 0                         
+Total            3     3         100.00  3                 100.00  
+
+
+
+-------------------------------------------------------------------------------
+
+Assertion Details
+
+Name                                                Attempts Real Successes Failures Incomplete 
+\axi4_lite_read_seq::body .unnamed$$_0              1        1              0        0          
+\axi4_lite_write_seq::body .unnamed$$_0             1        1              0        0          
+\axi4_lite_write_seq::body .unnamed$$_1.unnamed$$_2 20       20             0        0          
+
+

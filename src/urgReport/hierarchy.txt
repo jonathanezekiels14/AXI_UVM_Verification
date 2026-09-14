@@ -1,0 +1,24 @@
+Design Hierarchy
+
+
+----------------
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT     
+ 46.51  75.19  35.00  33.84  30.00  55.00  50.00 top 
+  
+  ----------------
+  SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT     
+   45.60  71.93  35.00  31.52  30.00  55.17  50.00 dut 
+    
+    ----------------
+    SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT     
+     72.92 --     --      95.83 --     --      50.00 sva 
+  
+  ----------------
+  SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT     
+   37.99 --     --      37.99 --     --     --     vif 
+
+----------------
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT                                    
+ 30.22  30.43 --     --     --      30.00 --     uvm_custom_install_recording       
+  8.41   4.76 --       0.00 --      20.45 --     uvm_custom_install_verdi_recording 
+

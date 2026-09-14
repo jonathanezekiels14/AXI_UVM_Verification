@@ -1,0 +1,35 @@
+Dashboard
+
+Date: Mon Sep 14 23:33:22 2026
+
+User: jonathanezekiels
+
+Version: Q-2020.03-SP2-8
+Command line: urg -dir simv.vdb -format both
+Number of tests: 2
+
+-------------------------------------------------------------------------------
+Total Coverage Summary 
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT GROUP  
+ 37.17  22.32  35.00  33.41  30.00  39.47  50.00  50.00 
+
+
+-------------------------------------------------------------------------------
+Hierarchical coverage data for top-level instances 
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME                               
+ 46.51  75.19  35.00  33.84  30.00  55.00  50.00 top                                
+ 30.22  30.43 --     --     --      30.00 --     uvm_custom_install_recording       
+  8.41   4.76 --       0.00 --      20.45 --     uvm_custom_install_verdi_recording 
+
+
+-------------------------------------------------------------------------------
+Total Module Definition Coverage Summary 
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 35.79  22.32  35.00  33.41  30.00  39.47  54.55 
+
+
+-------------------------------------------------------------------------------
+Total Groups Coverage Summary 
+SCORE  INST SCORE WEIGHT 
+ 50.00  50.00     1      
+

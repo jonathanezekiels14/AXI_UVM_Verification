@@ -25,7 +25,7 @@ class axi4_lite_environment extends uvm_env;
 	function void connect_phase(uvm_phase phase);
 		super.connect_phase(phase);
 		agt.ap.connect(scb.ap_imp);
-		agt.ap.connect(scb.analysis_export);
+		agt.ap.connect(sub.analysis_export);
 		vsqr.rd_sqr = agt.sqr_rd;
 		vsqr.wr_sqr = agt.sqr_wr;
 	endfunction

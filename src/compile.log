@@ -1,7 +1,8 @@
 Command: vcs -full64 -sverilog -ntb_opts uvm +incdir+. -timescale=1ns/1ps -debug_access+all \
-axi4_lite_interface.sv axi4_lite_pkg.sv top.sv -l compile.log
++cover=bce -cm line+cond+fsm+tgl+branch+assert axi4_lite_interface.sv axi4_lite_pkg.sv \
+top.sv -l compile.log
                          Chronologic VCS (TM)
-      Version Q-2020.03-SP2-8_Full64 -- Mon Sep 14 20:48:22 2026
+      Version Q-2020.03-SP2-8_Full64 -- Mon Sep 14 23:31:03 2026
                Copyright (c) 1991-2020 by Synopsys Inc.
                          ALL RIGHTS RESERVED
 
@@ -9,6 +10,12 @@ This program is proprietary and confidential information of Synopsys Inc.
 and may be used and disclosed only as authorized in a license agreement
 controlling such use and disclosure.
 
+
+Warning-[UNK_COMP_ARG] Unknown compile time plus argument used
+  Unknown compile time plus argument 'cover=bce' is ignored.
+
+ + use `+plusarg_save' to bind in runtime plusargs;
+ + use `+plusarg_ignore' to suppress this message.
 Parsing design file '/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/uvm_pkg.sv'
 Parsing included file '/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/uvm_macros.svh'.
 Parsing included file '/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/macros/uvm_version_defines.svh'.
@@ -347,6 +354,8 @@ Parsing included file 'axi4_lite_agent.sv'.
 Back to file 'axi4_lite_pkg.sv'.
 Parsing included file 'axi4_lite_scoreboard.sv'.
 Back to file 'axi4_lite_pkg.sv'.
+Parsing included file 'axi4_lite_subscriber.sv'.
+Back to file 'axi4_lite_pkg.sv'.
 Parsing included file 'axi4_lite_environment.sv'.
 Back to file 'axi4_lite_pkg.sv'.
 Parsing included file 'axi4_lite_sanity_test.sv'.
@@ -356,36 +365,39 @@ Parsing included file 'axi4_lite.v'.
 Back to file 'top.sv'.
 Parsing included file 'defines.svh'.
 Back to file 'top.sv'.
+Parsing included file 'axi4_lite_assertions.sv'.
+Back to file 'top.sv'.
 Top Level Modules:
        uvm_custom_install_recording
        uvm_custom_install_verdi_recording
        top
 TimeScale is 1 ns / 1 ps
+VCS Coverage Metrics Release Q-2020.03-SP2-8_Full64 Copyright (c) 1991-2020 by Synopsys Inc.
 Starting vcs inline pass...
-
 10 modules and 0 UDP read.
 recompiling package vcs_paramclassrepository
+recompiling package _vcs_DPI_package
 recompiling package uvm_pkg
+recompiling package _vcs_msglog
 recompiling module uvm_custom_install_recording
 recompiling module uvm_custom_install_verdi_recording
+recompiling module axi4_lite_interface
 recompiling package axi4_lite_pkg
+recompiling module axi4_lite_slave
 recompiling module top
-6 of 10 modules done
-	However, due to incremental compilation, only 6 modules need to be compiled. 
+All of 10 modules done
 rm -f _cuarc*.so _csrc*.so pre_vcsobj_*.so share_vcsobj_*.so
-ld -shared  -Bsymbolic   -o .//../simv.daidir//_cuarc0.so objs/amcQw_d.o 
-rm -f _cuarc0.so
 if [ -x ../simv ]; then chmod a-x ../simv; fi
 g++  -o ../simv      -rdynamic  -Wl,-rpath='$ORIGIN'/simv.daidir -Wl,-rpath=./simv.daidir \
 -Wl,-rpath=/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/linux64/lib \
 -L/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/linux64/lib  -Wl,-rpath-link=./ \
-/usr/lib64/libnuma.so.1 uvm_dpi.o uvm_verdi_dpi.o     _136439_archive_1.so _prev_archive_1.so \
-_cuarc0.so  SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o \
-rmar_llvm_0_0.o          -lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile \
+/usr/lib64/libnuma.so.1 uvm_dpi.o uvm_verdi_dpi.o   objs/amcQw_d.o   _55011_archive_1.so \
+SIM_l.o      rmapats_mop.o rmapats.o rmar.o rmar_nd.o  rmar_llvm_0_1.o rmar_llvm_0_0.o \
+-lvirsim -lerrorinf -lsnpsmalloc -lvfs    -lvcsnew -lsimprofile -lreader_common /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/linux64/lib/libBA.a \
 -luclinative /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/linux64/lib/vcs_tls.o \
 -Wl,-whole-archive  -lvcsucli    -Wl,-no-whole-archive       ./../simv.daidir/vc_hdrs.o \
 _vcs_pli_stub_.o   /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/linux64/lib/vcs_save_restore_new.o \
 /fetools/synopsys/installed_tools/verdi/verdi/Q-2020.03-SP2-8/share/PLI/VCS/LINUX64/pli.a \
 -ldl  -lc -lm -lpthread -ldl 
 ../simv up to date
-CPU time: 14.399 seconds to compile + .435 seconds to elab + .692 seconds to link
+CPU time: 13.121 seconds to compile + .472 seconds to elab + .652 seconds to link

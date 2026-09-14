@@ -1,0 +1,19 @@
+Design Module List
+
+Total Module Definition Coverage Summary 
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT 
+ 35.79  22.32  35.00  33.41  30.00  39.47  54.55 
+
+
+Total modules in report: 8
+-------------------------------------------------------------------------------
+SCORE  LINE   COND   TOGGLE FSM    BRANCH ASSERT NAME                               
+  0.00 --     --     --     --     --       0.00 uvm_pkg                            
+  8.41   4.76 --       0.00 --      20.45 --     uvm_custom_install_verdi_recording 
+ 30.22  30.43 --     --     --      30.00 --     uvm_custom_install_recording       
+ 37.99 --     --      37.99 --     --     --     axi4_lite_interface                
+ 44.19  71.93  35.00  28.87  30.00  55.17 --     axi4_lite_slave                    
+ 72.92 --     --      95.83 --     --      50.00 axi4_lite_assertions               
+ 83.33 100.00 --     100.00 --      50.00 --     top                                
+100.00 --     --     --     --     --     100.00 axi4_lite_pkg                      
+

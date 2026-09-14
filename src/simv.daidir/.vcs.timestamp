@@ -568,7 +568,7 @@
 0 uvm_verdi_pli.svh
 0 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/systemverilog/uvm_verdi_pli.svh
 0 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/vcs/uvm_verdi_pli.svh
-47
+49
 +define+UVM_DIRECTC_OPTS
 +define+UVM_VCS_RECORD
 +define+UVM_VERDI_VIF_RECORD
@@ -597,6 +597,7 @@
 -Mxcflags= -pipe -DVCS -DUVM_DPI_DO_TYPE_CHECK -fPIC -I/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/include
 -Mxllcflags=
 -P
+-cm
 -debug_access+all
 -fsdb
 -full64
@@ -612,12 +613,13 @@ compile.log
 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/vcs/uvm_custom_install_vcs_recorder.sv
 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/verdi/uvm_custom_install_verdi_recorder.sv
 uvm
+line+cond+fsm+tgl+branch+assert
 /fetools/synopsys/installed_tools/verdi/verdi/Q-2020.03-SP2-8/share/PLI/VCS/LINUX64/verdi.tab
 axi4_lite_interface.sv
 axi4_lite_pkg.sv
 top.sv
 41
-XDG_SESSION_ID=88199
+XDG_SESSION_ID=88267
 XDG_RUNTIME_DIR=/run/user/6897
 XDG_DATA_DIRS=/home/jonathanezekiels/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
 VMR_MODE_FLAG=64
@@ -634,9 +636,9 @@ VCS_ARG_ADDED_FOR_TMP=1
 VCS_ARCH=linux64
 UNAME=/bin/uname
 TOOL_HOME=/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/linux64
-SSH_TTY=/dev/pts/370
-SSH_CONNECTION=157.50.189.7 49368 192.168.1.16 22
-SSH_CLIENT=157.50.189.7 49368 22
+SSH_TTY=/dev/pts/428
+SSH_CONNECTION=157.50.189.7 49382 192.168.1.16 22
+SSH_CLIENT=157.50.189.7 49382 22
 SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass
 SPYGLASS_HOME=/fetools/synopsys/installed_tools/spyglass/S-2021.09-SP1/SPYGLASS_HOME
 SNPSLMD_QUEUE=true
@@ -659,17 +661,19 @@ GROUP=jonathanezekiels
 FORMALITY=/fetools/synopsys/installed_tools/Formality/fm/S-2021.06-SP2
 DC_HOME=/fetools/synopsys/installed_tools/syn/S-2021.06-SP4
 0
-172
+175
+1789405514 axi4_lite_assertions.sv
 1789299530 axi4_lite.v
 1789399092 axi4_lite_sanity_test.sv
-1789303061 axi4_lite_environment.sv
+1789407665 axi4_lite_environment.sv
+1789405404 axi4_lite_subscriber.sv
 1789398844 axi4_lite_scoreboard.sv
 1789303674 axi4_lite_agent.sv
 1789398235 axi4_lite_monitor.sv
 1789371297 axi4_lite_driver.sv
 1789397346 axi4_lite_sanity_vseq.sv
-1789396449 axi4_lite_read_sequence.sv
-1789396432 axi4_lite_write_seq.sv
+1789407058 axi4_lite_read_sequence.sv
+1789407591 axi4_lite_write_seq.sv
 1789030282 axi4_lite_base_sequence.sv
 1789209817 axi4_lite_virtual_sequencer.sv
 1788200432 axi4_lite_sequencer.sv
@@ -823,13 +827,14 @@ DC_HOME=/fetools/synopsys/installed_tools/syn/S-2021.06-SP4
 1631418289 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/macros/snps_macros.svp
 1631418289 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/macros/uvm_version_defines.svh
 1631418293 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/uvm_macros.svh
-1789371107 top.sv
-1789397049 axi4_lite_pkg.sv
+1789405703 top.sv
+1789405650 axi4_lite_pkg.sv
 1789370087 axi4_lite_interface.sv
 1631418293 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/verdi/uvm_custom_install_verdi_recorder.sv
 1631418293 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/verdi/uvm_custom_install_verdi_recorder.sv
 1631418292 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/vcs/uvm_custom_install_vcs_recorder.sv
 1631418293 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/uvm_pkg.sv
+1631416236 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/include/cm_vcsd.tab
 1630405584 /fetools/synopsys/installed_tools/verdi/verdi/Q-2020.03-SP2-8/share/PLI/VCS/LINUX64/verdi.tab
 1631416234 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/linux64/lib/vcsdp_lite.tab
 6
@@ -839,5 +844,5 @@ DC_HOME=/fetools/synopsys/installed_tools/syn/S-2021.06-SP4
 1631416743 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/linux64/lib/liberrorinf.so
 1631416702 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/linux64/lib/libsnpsmalloc.so
 1631416739 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/linux64/lib/libvfs.so
-1789399121 simv.daidir
+1789408880 simv.daidir
 -1 partitionlib

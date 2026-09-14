@@ -150,6 +150,7 @@
 /fetools/synopsys/installed_tools/verdi/verdi/Q-2020.03-SP2-8/share/PLI/VCS/include/verdi_trans_recorder_dpi.svh
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite.v
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_agent.sv
+/fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_assertions.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_base_sequence.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_config.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_driver.sv
@@ -162,6 +163,7 @@
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_sanity_vseq.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_scoreboard.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_sequencer.sv
+/fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_subscriber.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_transaction.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_virtual_sequencer.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_write_seq.sv

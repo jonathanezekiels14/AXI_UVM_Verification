@@ -1,0 +1,53 @@
+Assertions
+
+
+Assertions by Category
+           ASSERT PROPERTIES SEQUENCES
+Total          11          0         0
+Category 0     11          0         0
+
+-------------------------------------------------------------------------------
+
+Assertions by Severity
+           ASSERT PROPERTIES SEQUENCES
+Total          11          0         0
+Severity 0     11          0         0
+
+-------------------------------------------------------------------------------
+
+Summary for Assertions
+                 NUMBER PERCENT
+Total Number         11  100.00
+Uncovered             5   45.45
+Success               6   54.55
+Failure               0    0.00
+Incomplete            0    0.00
+Without Attempts      2   18.18
+
+-------------------------------------------------------------------------------
+
+Detail Report for Assertions
+
+Assertions Uncovered:
+                       ASSERTIONS                       CATEGORY SEVERITY ATTEMPTS REAL SUCCESSES FAILURES INCOMPLETE
+top.dut.sva.a_ar                                               0        0       98              0        0          0
+top.dut.sva.a_b                                                0        0       98              0        0          0
+top.dut.sva.a_r                                                0        0       98              0        0          0
+uvm_pkg.\uvm_reg_map::do_read .unnamed$$_0.unnamed$$_1         0        0        0              0        0          0
+uvm_pkg.\uvm_reg_map::do_write .unnamed$$_0.unnamed$$_1        0        0        0              0        0          0
+
+Assertions Success:
+                            ASSERTIONS                            CATEGORY SEVERITY ATTEMPTS REAL SUCCESSES FAILURES INCOMPLETE
+axi4_lite_pkg.\axi4_lite_read_seq::body .unnamed$$_0                     0        0        1              1        0          0
+axi4_lite_pkg.\axi4_lite_write_seq::body .unnamed$$_0                    0        0        1              1        0          0
+axi4_lite_pkg.\axi4_lite_write_seq::body .unnamed$$_1.unnamed$$_2        0        0       20             20        0          0
+top.dut.sva.a_aw                                                         0        0       98             21        0          0
+top.dut.sva.a_rst                                                        0        0       98              2        0          0
+top.dut.sva.a_w                                                          0        0       98             21        0          0
+
+Assertions Without Attempts:
+                       ASSERTIONS                       CATEGORY SEVERITY ATTEMPTS REAL SUCCESSES FAILURES INCOMPLETE
+uvm_pkg.\uvm_reg_map::do_read .unnamed$$_0.unnamed$$_1         0        0        0              0        0          0
+uvm_pkg.\uvm_reg_map::do_write .unnamed$$_0.unnamed$$_1        0        0        0              0        0          0
+
+

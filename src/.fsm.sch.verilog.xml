@@ -1,0 +1,8 @@
+<Command name="schRTLInfo"  delimiter="."  >
+<RTLBlock >
+<RTLInfo   name="wr_state_0"  type="2"  fileName="axi4_lite.v"  >
+    <Seg beginLine="108"  endLine="121"  />
+  </RTLInfo>
+<Instance name="top.dut"  />
+</RTLBlock>
+</Command>

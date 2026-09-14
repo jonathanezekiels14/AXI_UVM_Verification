@@ -1,0 +1,51 @@
+<session version="1.1" release="Q-2020.03-SP2-8" timestp="2026-09-14 18:02:39 GMT">
+  <info>
+    <attr name="datetime" value="Mon Sep 14 23:33:22 2026
+"/>
+    <attr name="command" value="urg -dir simv.vdb -format both"/>
+    <attr name="top_instance" value="uvm_custom_install_recording,uvm_custom_install_verdi_recording,top"/>
+  </info>
+  <hvp>
+    <datadef>
+      <metdef name="Line" type="ratio" aggregator="average" builtin="1" />
+      <metdef name="Cond" type="ratio" aggregator="average" builtin="1" />
+      <metdef name="Toggle" type="ratio" aggregator="average" builtin="1" />
+      <metdef name="FSM" type="ratio" aggregator="average" builtin="1" />
+      <metdef name="Branch" type="ratio" aggregator="average" builtin="1" />
+      <metdef name="Assert" type="ratio" aggregator="average" builtin="1" />
+      <metdef name="Group" type="percent" aggregator="average" builtin="1" />
+    </datadef>
+  </hvp>
+  <old_coverage>
+  <scope type="top" name="top">
+    <metric name="Line" value="123/551" />
+    <metric name="Cond" value="35/100" />
+    <metric name="Toggle" value="310/928" />
+    <metric name="FSM" value="3/10" />
+    <metric name="Branch" value="45/114" />
+    <metric name="Assert" value="3/6" />
+    <metric name="Group" value="50%" />
+  </scope>
+  <scope type="instance" name="top">
+  </scope>
+  <scope type="group" name="top">
+    <scope type="group" name="axi4_lite_pkg::axi4_lite_subscriber::cg">
+      <metric name="Group" value="50%" />
+    </scope>
+  </scope>
+  <scope type="assert" name="Statistics">
+    <scorelist type="total" name="Design Hierarchy Assert">
+      <score name="Assert" value="3/6" />
+      <score name="Score" value="50.00" />
+    </scorelist>
+    <scorelist type="total" name="Module List Assert">
+      <score name="Assert" value="6/11" />
+      <score name="Score" value="54.55" />
+    </scorelist>
+    <scorelist type="total" name="Assertion">
+      <score name="Assert" value="6/11" />
+      <score name="Score" value="54.55" />
+    </scorelist>
+  </scope>
+  </old_coverage>
+</session>
