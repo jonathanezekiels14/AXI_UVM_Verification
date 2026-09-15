@@ -176,11 +176,11 @@ always @(posedge ACLK or negedge ARESETn) begin
                else if (BVALID && BREADY) BVALID <= 1'b0;
                 else begin
                     reg_file[AWADDR[$clog2(MEM_DEPTH)+1:2]] <= reg_file[AWADDR[$clog2(MEM_DEPTH)+1:2]];
-                  // BVALID <= BVALID;
-//                   reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][ 7: 0] <= reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][ 7: 0];
-//                   reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][15: 8] <= reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][15: 8];
-//                   reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][23:16] <= reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][23:16];
-//                   reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][31:24] <= reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][31:24];
+                   // BVALID <= BVALID;
+                   //reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][ 7: 0] <= reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][ 7: 0];
+                   //reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][15: 8] <= reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][15: 8];
+                   //reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][23:16] <= reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][23:16];
+                   //reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][31:24] <= reg_file[wr_addr_lat[$clog2(MEM_DEPTH)+1:2]][31:24];
                    //BRESP <= BRESP;
                 end
             end

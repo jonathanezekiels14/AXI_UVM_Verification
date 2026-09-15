@@ -19,7 +19,7 @@ class axi4_lite_transaction extends uvm_sequence_item;
 	// Response Channel
 	logic [1:0] BRESP;
 	logic BVALID;
-	rand logic BREADY;
+	logic BREADY;
 
 	// Read Address
 	rand logic [`ADDR_WIDTH-1:0] ARADDR;
@@ -31,7 +31,7 @@ class axi4_lite_transaction extends uvm_sequence_item;
 	logic [`DATA_WIDTH-1:0] RDATA;
 	logic [1:0] RRESP;
 	logic RVALID;
-	rand logic RREADY;
+	logic RREADY;
 
 	rand int unsigned aw_delay, w_delay, bready_delay;
 	rand int unsigned ar_delay, rready_delay;
@@ -54,7 +54,7 @@ class axi4_lite_transaction extends uvm_sequence_item;
 		`uvm_field_int(AWREADY, UVM_ALL_ON | UVM_BIN)
 
 		// Write Data
-		`uvm_field_int(WDATA, UVM_ALL_ON | UVM_DEC)
+		`uvm_field_int(WDATA, UVM_ALL_ON | UVM_HEX)
 		`uvm_field_int(WSTRB, UVM_ALL_ON | UVM_BIN)
 		`uvm_field_int(WVALID, UVM_ALL_ON | UVM_BIN)
 		`uvm_field_int(WREADY, UVM_ALL_ON | UVM_BIN)
@@ -71,7 +71,7 @@ class axi4_lite_transaction extends uvm_sequence_item;
 		`uvm_field_int(ARREADY, UVM_ALL_ON | UVM_BIN)
 
 		// Read Data
-		`uvm_field_int(RDATA, UVM_ALL_ON | UVM_DEC)
+		`uvm_field_int(RDATA, UVM_ALL_ON | UVM_HEX)
 		`uvm_field_int(RRESP, UVM_ALL_ON | UVM_BIN)
 		`uvm_field_int(RVALID, UVM_ALL_ON | UVM_BIN)
 		`uvm_field_int(RREADY, UVM_ALL_ON | UVM_BIN)
@@ -89,7 +89,7 @@ class axi4_lite_transaction extends uvm_sequence_item;
 	endfunction
 
 	virtual function string convert2string();
-		return $sformatf("[%s] AW[A:'h%0h P:'b%0b V:%0b R:%0b] W[D:'d%0d S:'b%0b V:%0b R:%0b] B[Rsp:'b%0b V:%0b R:%0b] | AR[A:'h%0h P:'b%0b V:%0b R:%0b] R[D:'d%0d Rsp:'b%0b V:%0b R:%0b]",
+		return $sformatf("[%s] AW[A:'h%0h P:'b%0b V:%0b R:%0b] W[D:'h%0h S:'b%0b V:%0b R:%0b] B[Rsp:'b%0b V:%0b R:%0b] | AR[A:'h%0h P:'b%0b V:%0b R:%0b] R[D:'h%0h Rsp:'b%0b V:%0b R:%0b]",
 			direction.name(),
 			AWADDR, AWPROT, AWVALID, AWREADY,
 			WDATA, WSTRB, WVALID, WREADY,

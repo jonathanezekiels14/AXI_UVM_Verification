@@ -113,6 +113,8 @@ class axi4_lite_monitor extends uvm_monitor;
 
 			tx.ARADDR = vif.mon_cb.ARADDR;
 			tx.ARPROT = vif.mon_cb.ARPROT;
+			tx.ARVALID = vif.mon_cb.ARVALID;
+			tx.ARREADY = vif.mon_cb.ARREADY;
 
 			r_timer = 0;
 			do begin
@@ -126,6 +128,8 @@ class axi4_lite_monitor extends uvm_monitor;
 
 			tx.RDATA = vif.mon_cb.RDATA;
 			tx.RRESP = vif.mon_cb.RRESP;
+			tx.RVALID = vif.mon_cb.RVALID;
+			tx.RREADY = vif.mon_cb.RREADY;
 
 			`uvm_info("MON_READ",$sformatf("Captured: %s ",tx.convert2string()),UVM_HIGH);
 			mon_ap.write(tx);
