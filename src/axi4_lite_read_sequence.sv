@@ -28,6 +28,7 @@ class axi4_lite_read_seq extends axi4_lite_base_sequence;
 		assert(tx.randomize() with {
 			direction == READ;
 			ARADDR inside {['h28:'h30]};
+			ARADDR % 4 == 0;
 			ar_delay == 0; rready_delay == 0;
 		});
 		finish_item(tx);
