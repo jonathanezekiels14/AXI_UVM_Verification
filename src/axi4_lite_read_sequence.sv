@@ -21,5 +21,16 @@ class axi4_lite_read_seq extends axi4_lite_base_sequence;
 			});
 			finish_item(tx);
 		end
+
+		`uvm_info("[READ_SEQ]",$sformatf("Reading from STATUS Register"),UVM_LOW)
+		tx = axi4_lite_transaction::type_id::create("tx");
+		start_item(tx);
+		assert(tx.randomize() with {
+			direction == READ;
+			ARADDR inside {['h28:'h30]};
+			ar_delay == 0; rready_delay == 0;
+		});
+		finish_item(tx);
+
 	endtask
 endclass

@@ -1,7 +1,7 @@
 Command: /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/./simv -cm line+cond+fsm+tgl+branch+assert +UVM_TESTNAME=axi4_lite_sanity_test +UVM_VERBOSITY=UVM_HIGH -cm_name sanity_run -l sim.log
 Chronologic VCS simulator copyright 1991-2020
 Contains Synopsys proprietary information.
-Compiler version Q-2020.03-SP2-8_Full64; Runtime version Q-2020.03-SP2-8_Full64;  Sep 15 12:35 2026
+Compiler version Q-2020.03-SP2-8_Full64; Runtime version Q-2020.03-SP2-8_Full64;  Sep 16 14:22 2026
 ----------------------------------------------------------------
 UVM-1.1d.Synopsys
 (C) 2007-2013 Mentor Graphics Corporation
@@ -78,7 +78,7 @@ UVM_INFO axi4_lite_monitor.sv(92) @ 575000: uvm_test_top.env.agt.mon [MON_WRITE]
 UVM_INFO axi4_lite_monitor.sv(92) @ 655000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h24 P:'b0 V:1 R:1] W[D:'h7a3254d8 S:'b1111 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
 UVM_INFO axi4_lite_monitor.sv(92) @ 735000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h1c P:'b0 V:1 R:1] W[D:'hbcc8c37a S:'b1111 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
 UVM_INFO axi4_lite_monitor.sv(92) @ 815000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h14 P:'b10 V:1 R:1] W[D:'haacfa785 S:'b1111 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
-UVM_INFO axi4_lite_monitor.sv(92) @ 865000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h34 P:'b101 V:1 R:1] W[D:'he5b56e53 S:'b1010 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
+UVM_INFO axi4_lite_monitor.sv(92) @ 865000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h3c P:'b101 V:1 R:1] W[D:'he5b56e53 S:'b1010 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
 UVM_INFO axi4_lite_monitor.sv(92) @ 915000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h1c P:'b100 V:1 R:1] W[D:'h8cb4bb2a S:'b101 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
 UVM_INFO axi4_lite_monitor.sv(92) @ 965000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'hc P:'b101 V:1 R:1] W[D:'h774cfec S:'b1010 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
 UVM_INFO axi4_lite_monitor.sv(92) @ 1015000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'hc P:'b1 V:1 R:1] W[D:'he2014d52 S:'b101 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
@@ -88,72 +88,103 @@ UVM_INFO axi4_lite_monitor.sv(92) @ 1165000: uvm_test_top.env.agt.mon [MON_WRITE
 UVM_INFO axi4_lite_monitor.sv(92) @ 1215000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h8 P:'b10 V:1 R:1] W[D:'h9a310fe5 S:'b101 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
 UVM_INFO axi4_lite_monitor.sv(92) @ 1265000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h24 P:'b110 V:1 R:1] W[D:'h8cb13a30 S:'b1010 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
 UVM_INFO axi4_lite_monitor.sv(92) @ 1315000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h20 P:'b1 V:1 R:1] W[D:'ha83043d5 S:'b1010 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
-UVM_INFO axi4_lite_monitor.sv(130) @ 1335000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h1c P:'b101 V:x R:x] R[D:'hbcb4c32a Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1335000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 0000001c | Data: bcb4c32a
-UVM_INFO axi4_lite_monitor.sv(130) @ 1365000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h24 P:'b11 V:x R:x] R[D:'h8c323ad8 Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1365000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000024 | Data: 8c323ad8
-UVM_INFO axi4_lite_monitor.sv(130) @ 1395000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h0 P:'b11 V:x R:x] R[D:'hbeabcdda Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1395000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000000 | Data: beabcdda
-UVM_INFO axi4_lite_monitor.sv(130) @ 1425000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h10 P:'b1 V:x R:x] R[D:'h1afb9f32 Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1425000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000010 | Data: 1afb9f32
-UVM_INFO axi4_lite_monitor.sv(130) @ 1455000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h0 P:'b110 V:x R:x] R[D:'hbeabcdda Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1455000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000000 | Data: beabcdda
-UVM_INFO axi4_lite_monitor.sv(130) @ 1485000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h4 P:'b1 V:x R:x] R[D:'h2dbd0e31 Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1485000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000004 | Data: 2dbd0e31
-UVM_INFO axi4_lite_monitor.sv(130) @ 1515000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h4 P:'b100 V:x R:x] R[D:'h2dbd0e31 Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1515000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000004 | Data: 2dbd0e31
-UVM_INFO axi4_lite_monitor.sv(130) @ 1545000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h24 P:'b0 V:x R:x] R[D:'h8c323ad8 Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1545000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000024 | Data: 8c323ad8
-UVM_INFO axi4_lite_monitor.sv(130) @ 1575000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h1c P:'b100 V:x R:x] R[D:'hbcb4c32a Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1575000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 0000001c | Data: bcb4c32a
-UVM_INFO axi4_lite_monitor.sv(130) @ 1605000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h14 P:'b1 V:x R:x] R[D:'haacfa785 Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1605000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000014 | Data: aacfa785
-UVM_INFO axi4_lite_monitor.sv(130) @ 1635000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h34 P:'b1 V:x R:x] R[D:'h0 Rsp:'b10 V:x R:x] 
-UVM_INFO axi4_lite_monitor.sv(130) @ 1665000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h1c P:'b1 V:x R:x] R[D:'hbcb4c32a Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1665000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 0000001c | Data: bcb4c32a
-UVM_INFO axi4_lite_monitor.sv(130) @ 1695000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'hc P:'b0 V:x R:x] R[D:'h701cf52 Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1695000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 0000000c | Data: 0701cf52
-UVM_INFO axi4_lite_monitor.sv(130) @ 1725000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'hc P:'b10 V:x R:x] R[D:'h701cf52 Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1725000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 0000000c | Data: 0701cf52
-UVM_INFO axi4_lite_monitor.sv(130) @ 1755000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h0 P:'b111 V:x R:x] R[D:'hbeabcdda Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1755000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000000 | Data: beabcdda
-UVM_INFO axi4_lite_monitor.sv(130) @ 1785000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h8 P:'b0 V:x R:x] R[D:'h3100e5 Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1785000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000008 | Data: 003100e5
-UVM_INFO axi4_lite_monitor.sv(130) @ 1815000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h18 P:'b1 V:x R:x] R[D:'hd100b600 Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1815000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000018 | Data: d100b600
-UVM_INFO axi4_lite_monitor.sv(130) @ 1845000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h8 P:'b1 V:x R:x] R[D:'h3100e5 Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1845000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000008 | Data: 003100e5
-UVM_INFO axi4_lite_monitor.sv(130) @ 1875000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h24 P:'b11 V:x R:x] R[D:'h8c323ad8 Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1875000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000024 | Data: 8c323ad8
-UVM_INFO axi4_lite_monitor.sv(130) @ 1905000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h20 P:'b0 V:x R:x] R[D:'ha8004300 Rsp:'b0 V:x R:x] 
-UVM_INFO axi4_lite_scoreboard.sv(77) @ 1905000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000020 | Data: a8004300
-UVM_INFO axi4_lite_sanity_vseq.sv(21) @ 1905000: uvm_test_top.env.vsqr@@vseq [VSEQ] Sanity Sequence Complete!
-UVM_INFO /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/base/uvm_objection.svh(1274) @ 2005000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+UVM_INFO axi4_lite_monitor.sv(92) @ 1395000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'hc P:'b101 V:1 R:1] W[D:'h525a1bd9 S:'b1111 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
+UVM_INFO axi4_lite_monitor.sv(92) @ 1475000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h24 P:'b110 V:1 R:1] W[D:'h67b8de3e S:'b1010 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
+UVM_INFO axi4_lite_monitor.sv(92) @ 1555000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h24 P:'b0 V:1 R:1] W[D:'hed0304ce S:'b11 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
+UVM_INFO axi4_lite_monitor.sv(92) @ 1635000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h14 P:'b100 V:1 R:1] W[D:'he0f449c0 S:'b0 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
+UVM_INFO axi4_lite_monitor.sv(92) @ 1715000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h3c P:'b110 V:1 R:1] W[D:'h7015776c S:'b1111 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
+UVM_INFO axi4_lite_monitor.sv(92) @ 1795000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h0 P:'b1 V:1 R:1] W[D:'hd3ed0e0d S:'b110 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
+UVM_INFO axi4_lite_monitor.sv(92) @ 1875000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h8 P:'b100 V:1 R:1] W[D:'hc9375997 S:'b10 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
+UVM_INFO axi4_lite_monitor.sv(92) @ 1955000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h0 P:'b100 V:1 R:1] W[D:'hbd7b6781 S:'b110 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
+UVM_INFO axi4_lite_monitor.sv(92) @ 2035000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h14 P:'b10 V:1 R:1] W[D:'h13571474 S:'b111 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
+UVM_INFO axi4_lite_monitor.sv(92) @ 2115000: uvm_test_top.env.agt.mon [MON_WRITE] Captured: [WRITE] AW[A:'h14 P:'b1 V:1 R:1] W[D:'h7d5926cc S:'b10 V:1 R:1] B[Rsp:'b0 V:1 R:1] | AR[A:'hxxxxxxxx P:'bxxx V:x R:x] R[D:'hxxxxxxxx Rsp:'bxx V:x R:x]
+UVM_INFO axi4_lite_monitor.sv(134) @ 2135000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h1c P:'b101 V:1 R:1] R[D:'hbcb4c32a Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2135000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 0000001c | Data: bcb4c32a
+UVM_INFO axi4_lite_monitor.sv(134) @ 2165000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h24 P:'b11 V:1 R:1] R[D:'h673204ce Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2165000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000024 | Data: 673204ce
+UVM_INFO axi4_lite_monitor.sv(134) @ 2195000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h0 P:'b11 V:1 R:1] R[D:'hbe7b67da Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2195000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000000 | Data: be7b67da
+UVM_INFO axi4_lite_monitor.sv(134) @ 2225000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h10 P:'b1 V:1 R:1] R[D:'h1afb9f32 Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2225000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000010 | Data: 1afb9f32
+UVM_INFO axi4_lite_monitor.sv(134) @ 2255000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h0 P:'b110 V:1 R:1] R[D:'hbe7b67da Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2255000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000000 | Data: be7b67da
+UVM_INFO axi4_lite_monitor.sv(134) @ 2285000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h4 P:'b1 V:1 R:1] R[D:'h2dbd0e31 Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2285000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000004 | Data: 2dbd0e31
+UVM_INFO axi4_lite_monitor.sv(134) @ 2315000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h4 P:'b100 V:1 R:1] R[D:'h2dbd0e31 Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2315000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000004 | Data: 2dbd0e31
+UVM_INFO axi4_lite_monitor.sv(134) @ 2345000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h24 P:'b0 V:1 R:1] R[D:'h673204ce Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2345000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000024 | Data: 673204ce
+UVM_INFO axi4_lite_monitor.sv(134) @ 2375000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h1c P:'b100 V:1 R:1] R[D:'hbcb4c32a Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2375000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 0000001c | Data: bcb4c32a
+UVM_INFO axi4_lite_monitor.sv(134) @ 2405000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h14 P:'b1 V:1 R:1] R[D:'haa572674 Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2405000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000014 | Data: aa572674
+UVM_INFO axi4_lite_monitor.sv(134) @ 2435000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h3c P:'b1 V:1 R:1] R[D:'h7015776c Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2435000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 0000003c | Data: 7015776c
+UVM_INFO axi4_lite_monitor.sv(134) @ 2465000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h1c P:'b1 V:1 R:1] R[D:'hbcb4c32a Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2465000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 0000001c | Data: bcb4c32a
+UVM_INFO axi4_lite_monitor.sv(134) @ 2495000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'hc P:'b0 V:1 R:1] R[D:'h525a1bd9 Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2495000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 0000000c | Data: 525a1bd9
+UVM_INFO axi4_lite_monitor.sv(134) @ 2525000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'hc P:'b10 V:1 R:1] R[D:'h525a1bd9 Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2525000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 0000000c | Data: 525a1bd9
+UVM_INFO axi4_lite_monitor.sv(134) @ 2555000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h0 P:'b111 V:1 R:1] R[D:'hbe7b67da Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2555000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000000 | Data: be7b67da
+UVM_INFO axi4_lite_monitor.sv(134) @ 2585000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h8 P:'b0 V:1 R:1] R[D:'h3159e5 Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2585000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000008 | Data: 003159e5
+UVM_INFO axi4_lite_monitor.sv(134) @ 2615000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h18 P:'b1 V:1 R:1] R[D:'hd100b600 Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2615000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000018 | Data: d100b600
+UVM_INFO axi4_lite_monitor.sv(134) @ 2645000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h8 P:'b1 V:1 R:1] R[D:'h3159e5 Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2645000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000008 | Data: 003159e5
+UVM_INFO axi4_lite_monitor.sv(134) @ 2675000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h24 P:'b11 V:1 R:1] R[D:'h673204ce Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2675000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000024 | Data: 673204ce
+UVM_INFO axi4_lite_monitor.sv(134) @ 2705000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h20 P:'b0 V:1 R:1] R[D:'ha8004300 Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2705000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000020 | Data: a8004300
+UVM_INFO axi4_lite_monitor.sv(134) @ 2735000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'hc P:'b100 V:1 R:1] R[D:'h525a1bd9 Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2735000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 0000000c | Data: 525a1bd9
+UVM_INFO axi4_lite_monitor.sv(134) @ 2765000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h24 P:'b11 V:1 R:1] R[D:'h673204ce Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2765000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000024 | Data: 673204ce
+UVM_INFO axi4_lite_monitor.sv(134) @ 2795000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h24 P:'b111 V:1 R:1] R[D:'h673204ce Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2795000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000024 | Data: 673204ce
+UVM_INFO axi4_lite_monitor.sv(134) @ 2825000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h14 P:'b110 V:1 R:1] R[D:'haa572674 Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2825000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000014 | Data: aa572674
+UVM_INFO axi4_lite_monitor.sv(134) @ 2855000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h3c P:'b10 V:1 R:1] R[D:'h7015776c Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2855000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 0000003c | Data: 7015776c
+UVM_INFO axi4_lite_monitor.sv(134) @ 2885000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h0 P:'b1 V:1 R:1] R[D:'hbe7b67da Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2885000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000000 | Data: be7b67da
+UVM_INFO axi4_lite_monitor.sv(134) @ 2915000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h8 P:'b1 V:1 R:1] R[D:'h3159e5 Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2915000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000008 | Data: 003159e5
+UVM_INFO axi4_lite_monitor.sv(134) @ 2945000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h0 P:'b101 V:1 R:1] R[D:'hbe7b67da Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2945000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000000 | Data: be7b67da
+UVM_INFO axi4_lite_monitor.sv(134) @ 2975000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h14 P:'b1 V:1 R:1] R[D:'haa572674 Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 2975000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000014 | Data: aa572674
+UVM_INFO axi4_lite_monitor.sv(134) @ 3005000: uvm_test_top.env.agt.mon [MON_READ] Captured: [READ] AW[A:'hxxxxxxxx P:'bxxx V:x R:x] W[D:'hxxxxxxxx S:'bxxxx V:x R:x] B[Rsp:'bxx V:x R:x] | AR[A:'h14 P:'b110 V:1 R:1] R[D:'haa572674 Rsp:'b0 V:1 R:1] 
+UVM_INFO axi4_lite_scoreboard.sv(77) @ 3005000: uvm_test_top.env.scb [SCB_PASS] Data Match at Addr: 00000014 | Data: aa572674
+UVM_INFO axi4_lite_sanity_vseq.sv(21) @ 3005000: uvm_test_top.env.vsqr@@vseq [VSEQ] Sanity Sequence Complete!
+UVM_INFO /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/base/uvm_objection.svh(1274) @ 3105000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
 
 --- UVM Report Summary ---
 
 ** Report counts by severity
-UVM_INFO :   66
+UVM_INFO :   97
 UVM_WARNING :    0
 UVM_ERROR :    0
 UVM_FATAL :    0
 ** Report counts by id
 [BASE_TEST]     1
-[MON_READ]    20
-[MON_WRITE]    20
+[MON_READ]    30
+[MON_WRITE]    30
 [RNTST]     1
-[SCB_PASS]    19
+[SCB_PASS]    30
 [TEST_DONE]     1
 [TOP]     1
 [UVMTOP]     1
 [VSEQ]     2
 $finish called from file "/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/base/uvm_root.svh", line 437.
-$finish at simulation time              2005000
+$finish at simulation time              3105000
 
 ---------------------------------------------------------------------------
 VCS Coverage Metrics: during simulation line, cond, FSM, branch, tgl was monitored
 ---------------------------------------------------------------------------
            V C S   S i m u l a t i o n   R e p o r t 
-Time: 2005000 ps
-CPU Time:      0.640 seconds;       Data structure size:   0.6Mb
-Tue Sep 15 12:35:12 2026
+Time: 3105000 ps
+CPU Time:      0.720 seconds;       Data structure size:   0.6Mb
+Wed Sep 16 14:22:59 2026
