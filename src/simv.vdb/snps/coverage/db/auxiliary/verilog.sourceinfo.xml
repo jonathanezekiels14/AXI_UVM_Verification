@@ -164,16 +164,17 @@
       <fileinfo name="axi4_lite_read_sequence.sv"  id="159"  />
       <fileinfo name="axi4_lite_sanity_vseq.sv"  id="160"  />
       <fileinfo name="axi4_lite_corner_write_seq.sv"  id="161"  />
-      <fileinfo name="axi4_lite_driver.sv"  id="162"  />
-      <fileinfo name="axi4_lite_monitor.sv"  id="163"  />
-      <fileinfo name="axi4_lite_agent.sv"  id="164"  />
-      <fileinfo name="axi4_lite_scoreboard.sv"  id="165"  />
-      <fileinfo name="axi4_lite_subscriber.sv"  id="166"  />
-      <fileinfo name="axi4_lite_environment.sv"  id="167"  />
-      <fileinfo name="axi4_lite_sanity_test.sv"  id="168"  />
-      <fileinfo name="axi4_lite_corner_test.sv"  id="169"  />
-      <fileinfo name="top.sv"  id="170"  />
-      <fileinfo name="axi4_lite.v"  id="171"  />
-      <fileinfo name="axi4_lite_assertions.sv"  id="172"  />
-      <fileinfo name=""  id="173"  />
+      <fileinfo name="axi4_lite_corner_vseq.sv"  id="162"  />
+      <fileinfo name="axi4_lite_driver.sv"  id="163"  />
+      <fileinfo name="axi4_lite_monitor.sv"  id="164"  />
+      <fileinfo name="axi4_lite_agent.sv"  id="165"  />
+      <fileinfo name="axi4_lite_scoreboard.sv"  id="166"  />
+      <fileinfo name="axi4_lite_subscriber.sv"  id="167"  />
+      <fileinfo name="axi4_lite_environment.sv"  id="168"  />
+      <fileinfo name="axi4_lite_sanity_test.sv"  id="169"  />
+      <fileinfo name="axi4_lite_corner_test.sv"  id="170"  />
+      <fileinfo name="top.sv"  id="171"  />
+      <fileinfo name="axi4_lite.v"  id="172"  />
+      <fileinfo name="axi4_lite_assertions.sv"  id="173"  />
+      <fileinfo name=""  id="174"  />
     </srcinfo>

@@ -14,6 +14,7 @@ package axi4_lite_pkg;
 	`include "axi4_lite_read_sequence.sv"
 	`include "axi4_lite_sanity_vseq.sv"
 	`include "axi4_lite_corner_write_seq.sv"
+	`include "axi4_lite_corner_vseq.sv"
 	
 	`include "axi4_lite_driver.sv"
 	`include "axi4_lite_monitor.sv"

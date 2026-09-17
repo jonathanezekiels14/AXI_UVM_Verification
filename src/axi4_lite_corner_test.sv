@@ -21,18 +21,18 @@ class axi4_lite_corner_test extends uvm_test;
 
 	virtual function void end_of_elaboration_phase(uvm_phase phase);
 		super.end_of_elaboration_phase(phase);
-		`uvm_info("BASE_TEST", "Printing UVM Topology:", UVM_NONE)
+		`uvm_info("CORNER_TEST", "Printing UVM Topology:", UVM_NONE)
 		uvm_top.print_topology();
 	endfunction
 
 	virtual task run_phase(uvm_phase phase);
-		axi4_lite_corner_write_seq wseq;
+		axi4_lite_corner_vseq cvseq;
 		
 		phase.phase_done.set_drain_time(this, 500ns);
 		phase.raise_objection(this);
 		
-		wseq = axi4_lite_corner_write_seq::type_id::create("wseq");
-		wseq.start(env.agt.sqr_wr);
+		cvseq = axi4_lite_corner_vseq::type_id::create("cvseq");
+		cvseq.start(env.vsqr);
 		
 		phase.drop_objection(this);
 	endtask

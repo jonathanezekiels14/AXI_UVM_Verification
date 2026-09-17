@@ -59,6 +59,13 @@ module top;
 		.ARREADY(ARREADY),
 		.RVALID(RVALID),
 		.RREADY(RREADY)
+		/*
+		.AWADDR(AWADDR),
+		.AWPROT(AWPROT),
+		.WDATA(WDATA),
+		.WSTRB(WSTRB),
+		.ARADDR(ARADDR),
+		.ARPROT(ARPROT)*/
 	);
 
 	initial begin

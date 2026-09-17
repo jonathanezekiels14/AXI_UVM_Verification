@@ -13,9 +13,7 @@ COV_FLAGS = -cm line+cond+fsm+tgl+branch+assert
 # List of tests to run in the regression suite
 REGRESSION_TESTS = \
 	axi4_lite_sanity_test \
-	axi4_lite_write_all_test \
-	axi4_lite_read_all_test \
-	axi4_lite_write_test
+	axi4_lite_corner_test 
 
 # --- Targets ---
 .PHONY: all compile run regression coverage clean

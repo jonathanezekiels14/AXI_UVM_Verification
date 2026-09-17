@@ -154,6 +154,7 @@
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_base_sequence.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_config.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_corner_test.sv
+/fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_corner_vseq.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_corner_write_seq.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_driver.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_environment.sv
