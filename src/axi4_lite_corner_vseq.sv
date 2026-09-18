@@ -18,8 +18,9 @@ class axi4_lite_corner_vseq extends axi4_lite_base_sequence;
 
 		`uvm_info("CORNER_VSEQ","Starting Paralell Read/Write",UVM_LOW)
 		fork
-			wr_seq.start(p_sequencer.wr_sqr);
-			rd_seq.start(p_sequencer.rd_sqr);
+			#1 wr_seq.start(p_sequencer.wr_sqr);
+			wr_seq.target_addrs = rd_seq.target_addrs;
+			#2 rd_seq.start(p_sequencer.rd_sqr);
 		join
 	endtask
 endclass	
