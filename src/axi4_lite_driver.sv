@@ -7,6 +7,13 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 	uvm_seq_item_pull_port #(axi4_lite_transaction) wr_seq_item_port;
 	uvm_seq_item_pull_port #(axi4_lite_transaction) rd_seq_item_port;
 
+	// Independant Channel Queues
+	axi4_lite_transaction aw_q[$];
+	axi4_lite_transaction w_q[$];
+	axi4_lite_transaction b_q[$];
+	axi4_lite_transaction ar_q[$];
+	axi4_lite_transaction r_q[$];
+
 	function new(string name = "axi4_lite_driver", uvm_component parent = null);
 		super.new(name,parent);
 		wr_seq_item_port = new("wr_seq_item_port",this);
@@ -30,8 +37,15 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 		wait(vif.ARESETn == 1); 
 
 		fork
-			write();
-			read();
+			get_write();
+			get_read();
+
+			drive_aw();
+			drive_w();
+			wait_b();
+			
+			drive_ar();
+			wait_r();
 		join
 	endtask
 
@@ -49,89 +63,117 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 		vif.drv_cb.RREADY <= 0;
 	endtask
 
-	virtual task write();
+	virtual task get_write();
 		axi4_lite_transaction req; 
 		forever begin
 			wr_seq_item_port.get_next_item(req);
-			drive_write(req);
+			aw_q.push_front(req);
+			w_q.push_front(req);
+			b_q.push_front(req);
 			wr_seq_item_port.item_done();
 		end
 	endtask
 
-	virtual task drive_write(axi4_lite_transaction req);
-		fork
-			begin
-				repeat(req.aw_delay) @(vif.drv_cb);
-				vif.drv_cb.AWADDR <= req.AWADDR;
-				vif.drv_cb.AWPROT <= req.AWPROT;
-				vif.drv_cb.AWVALID <= 1;
-
-				do begin
-					@(vif.drv_cb);
-				end while (!vif.drv_cb.AWREADY);
-
-				vif.drv_cb.AWVALID <= 0;
-				vif.drv_cb.AWADDR <= 0;
-			end
-
-			begin
-				repeat (req.w_delay) @(vif.drv_cb);
-				vif.drv_cb.WDATA <= req.WDATA;
-				vif.drv_cb.WSTRB <= req.WSTRB;
-				vif.drv_cb.WVALID <= 1;
-
-				do begin
-					@(vif.drv_cb);
-				end while (!vif.drv_cb.WREADY);
-
-				vif.drv_cb.WVALID <= 0;
-				vif.drv_cb.WDATA <= 0;
-			end
-		join
-
-		repeat (req.bready_delay) @(vif.drv_cb);
-		vif.drv_cb.BREADY <= 1;
-		
-		do begin
-			@(vif.drv_cb);
-		end while (!vif.drv_cb.BVALID);
-
-		req.BRESP = vif.drv_cb.BRESP;
-		vif.drv_cb.BREADY <= 0;
-	endtask
 
 	virtual task read();
 		axi4_lite_transaction req; 
 		forever begin
 			rd_seq_item_port.get_next_item(req);
-			drive_read(req);
+			ar_q.push_front(req);
+			r_q.push_front(req);
 			rd_seq_item_port.item_done();
 		end
 	endtask
 
-	virtual task drive_read(axi4_lite_transaction req);
-		repeat (req.ar_delay) @(vif.drv_cb);
+	virtual task drive_aw();
 
-		vif.drv_cb.ARADDR <= req.ARADDR;
-		vif.drv_cb.ARPROT <= req.ARPROT;
-		vif.drv_cb.ARVALID <= 1;
+		axi4_lite_transaction tx;
+		forever begin
+			wait (aw_q.size() > 0);
+			tx = aw_q.pop_back();
 
-		do begin
-			@(vif.drv_cb);
-		end while (!vif.drv_cb.ARREADY);
+			repeat(tx.aw_delay) @(vif.drv_cb);
 
-		vif.drv_cb.ARVALID <= 0;
-		vif.drv_cb.ARADDR <= 0;
+			vif.drv_cb.AWADDR <= tx.AWADDR;
+			vif.drv_cb.AWPROT <= tx.AWPROT;
+			vif.drv_cb.AWVALID <= 1;
 
-		repeat (req.rready_delay) @(vif.drv_cb);
-		vif.drv_cb.RREADY <= 1; 
+			do
+				@(vif.drv_cb);
+			while (!vif.drv_cb.AWREADY);
+			
+			vif.drv_cb.AWVALID <= 0;
+		end
+	endtask
 
-		do begin
-			@(vif.drv_cb);
-		end while (!vif.drv_cb.RVALID);
-		
-		req.RDATA = vif.drv_cb.RDATA;
-		req.RRESP = vif.drv_cb.RRESP;
-		vif.drv_cb.RREADY <= 0;
+	virtual task drive_w();
+		axi4_lite_transaction tx;
+		forever begin
+			wait (w_q.size() > 0);
+			tx = w_q.pop_back();
+
+			repeat(tx.w_delay) @(vif.drv_cb);
+
+			vif.drv_cb.WDATA <= tx.WDATA;
+			vif.drv_cb.WSTRB <= tx.WSTRB;
+			vif.drv_cb.WVALID <= 1;
+
+			do
+				@(vif.drv_cb);
+			while (!vif.drv_cb.WREADY);
+			
+			vif.drv_cb.WVALID <= 0;
+		end
+	endtask
+
+	virtual task wait_b();
+		axi4_lite_transaction tx;
+
+		forever begin
+			wait (b_q.size() > 0);
+			tx = b_q.pop_back();
+
+			repeat(tx.bready_delay) @(vif.drv_cb);
+			vif.drv_cb.BREADY <= 1;
+
+			do
+				@(vif.drv_cb);
+			while (!vif.BVALID);
+			vif.drv_cb.BREADY <= 0;
+		end
+	endtask
+
+	virtual task drive_ar();
+		axi4_lite_transaction tx;
+		forever begin
+			wait (ar_q.size() > 0);
+			tx = ar_q.pop_back();
+
+			repeat(tx.ar_delay) @(vif.drv_cb);
+
+			vif.drv_cb.ARADDR <= tx.ARADDR;
+			vif.drv_cb.ARPROT <= tx.ARPROT;
+			vif.drv_cb.ARVALID <= 1;
+
+			do
+				@(vif.drv_cb);
+			while (!vif.ARREADY);
+			vif.drv_cb.ARVALID <= 0;
+		end
+	endtask
+                        
+	virtual task wait_r();
+		axi4_lite_transaction tx;
+		forever begin
+			wait(r_q.size() > 0);
+			tx = r_q.pop_back();
+
+			repeat (tx.rready_delay) @(vif.drv_cb);
+			vif.drv_cb.RREADY <= 1;
+
+			do
+				@(vif.drv_cb);
+			while (!vif.drv_cb.RVALID);
+			vif.drv_cb.RREADY <= 0;
 	endtask
 endclass
