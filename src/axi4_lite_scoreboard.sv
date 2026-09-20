@@ -18,20 +18,21 @@ class axi4_lite_scoreboard extends uvm_scoreboard;
 	endfunction
 
 	virtual function reg_access access_type(bit [31:0] addr);
+		// 1. Highest Priority: Unaligned accesses are always invalid
+		if (addr % 4 != 0)
+			return INVALID;
+		
+		// 2. Range Checks
 		if (addr >= 32'h00 && addr <= 32'h24)
-			return RW; 
+			return RW;
 		else if (addr >= 32'h28 && addr <= 32'h30)
-			return RO; 
+			return RO;
 		else if (addr >= 32'h34 && addr <= 32'h38)
-			return WO; 
+			return WO;
 		else if (addr == 32'h3C)
-			return RW; 
-		else if (addr > 32'h3F)
-			return OUT_OF_BOUND; 
-		else if (addr % 4 != 0)
-			return INVALID; 
-		else
-			return INVALID; 
+			return RW;
+		else 
+			return OUT_OF_BOUND; // Anything > 32'h3C
 	endfunction
 
 	virtual function void write(axi4_lite_transaction tx);

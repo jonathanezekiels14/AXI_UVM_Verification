@@ -7,8 +7,7 @@ class axi4_lite_corner_vseq extends axi4_lite_base_sequence;
 	endfunction
 
 	virtual task body();
-
-		axi4_lite_corner_write_seq full_wr_seq = axi4_lite_corner_write_seq::type_id::create("full_wr_seq");
+		axi4_lite_full_write_seq full_wr_seq = axi4_lite_full_write_seq::type_id::create("full_wr_seq");
 		axi4_lite_write_seq wr_seq = axi4_lite_write_seq::type_id::create("wr_seq");
 		axi4_lite_read_seq rd_seq = axi4_lite_read_seq::type_id::create("rd_seq");
 
@@ -18,9 +17,8 @@ class axi4_lite_corner_vseq extends axi4_lite_base_sequence;
 
 		`uvm_info("CORNER_VSEQ","Starting Paralell Read/Write",UVM_LOW)
 		fork
-			#1 wr_seq.start(p_sequencer.wr_sqr);
-			wr_seq.target_addrs = rd_seq.target_addrs;
-			#2 rd_seq.start(p_sequencer.rd_sqr);
+			wr_seq.start(p_sequencer.wr_sqr);
+			rd_seq.start(p_sequencer.rd_sqr);
 		join
 	endtask
 endclass	

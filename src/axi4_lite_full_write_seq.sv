@@ -1,12 +1,12 @@
-class axi4_lite_corner_write_seq extends axi4_lite_base_sequence; 
-	`uvm_object_utils(axi4_lite_corner_write_seq)
+class axi4_lite_full_write_seq extends axi4_lite_base_sequence; 
+	`uvm_object_utils(axi4_lite_full_write_seq)
 
 	bit [31:0] start_addr = 32'h00;
 	bit [31:0] end_addr   = 32'h3C; 
 
 	bit [31:0] ro_addr[$] = '{32'h28, 32'h2C, 32'h30}; 
 
-	function new(string name = "axi4_lite_corner_write_seq");
+	function new(string name = "axi4_lite_full_write_seq");
 		super.new(name);
 	endfunction
 

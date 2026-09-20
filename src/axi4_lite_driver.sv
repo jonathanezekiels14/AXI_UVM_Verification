@@ -7,12 +7,14 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 	uvm_seq_item_pull_port #(axi4_lite_transaction) wr_seq_item_port;
 	uvm_seq_item_pull_port #(axi4_lite_transaction) rd_seq_item_port;
 
-	// Independant Channel Queues
 	axi4_lite_transaction aw_q[$];
 	axi4_lite_transaction w_q[$];
 	axi4_lite_transaction b_q[$];
 	axi4_lite_transaction ar_q[$];
 	axi4_lite_transaction r_q[$];
+
+	semaphore wr_pipeline;
+	semaphore rd_pipeline;
 
 	function new(string name = "axi4_lite_driver", uvm_component parent = null);
 		super.new(name,parent);
@@ -25,6 +27,8 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 		if (!uvm_config_db#(axi4_lite_config)::get(this,"","axi4_lite_config",cfg)) begin
 			`uvm_fatal("DRV", $sformatf("Driver Failed to get Config"));
 		end
+		wr_pipeline = new(cfg.max_writes);
+		rd_pipeline = new(cfg.max_reads);
 	endfunction
 
 	function void connect_phase(uvm_phase phase);
@@ -34,7 +38,7 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 
 	task run_phase(uvm_phase phase);
 		reset();
-		wait(vif.ARESETn == 1); 
+		wait(vif.ARESETn == 1);
 
 		fork
 			get_write();
@@ -43,7 +47,7 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 			drive_aw();
 			drive_w();
 			wait_b();
-			
+
 			drive_ar();
 			wait_r();
 		join
@@ -59,13 +63,14 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 		vif.drv_cb.BREADY <= 0;
 		vif.drv_cb.ARVALID <= 0;
 		vif.drv_cb.ARADDR <= 0;
-		vif.drv_cb.ARPROT <= 0; 
+		vif.drv_cb.ARPROT <= 0;
 		vif.drv_cb.RREADY <= 0;
 	endtask
 
 	virtual task get_write();
-		axi4_lite_transaction req; 
+		axi4_lite_transaction req;
 		forever begin
+			wr_pipeline.get(1);
 			wr_seq_item_port.get_next_item(req);
 			aw_q.push_front(req);
 			w_q.push_front(req);
@@ -74,10 +79,10 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 		end
 	endtask
 
-
-	virtual task read();
-		axi4_lite_transaction req; 
+	virtual task get_read();
+		axi4_lite_transaction req;
 		forever begin
+			rd_pipeline.get(1);
 			rd_seq_item_port.get_next_item(req);
 			ar_q.push_front(req);
 			r_q.push_front(req);
@@ -86,7 +91,6 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 	endtask
 
 	virtual task drive_aw();
-
 		axi4_lite_transaction tx;
 		forever begin
 			wait (aw_q.size() > 0);
@@ -101,7 +105,7 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 			do
 				@(vif.drv_cb);
 			while (!vif.drv_cb.AWREADY);
-			
+
 			vif.drv_cb.AWVALID <= 0;
 		end
 	endtask
@@ -121,14 +125,13 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 			do
 				@(vif.drv_cb);
 			while (!vif.drv_cb.WREADY);
-			
+
 			vif.drv_cb.WVALID <= 0;
 		end
 	endtask
 
 	virtual task wait_b();
 		axi4_lite_transaction tx;
-
 		forever begin
 			wait (b_q.size() > 0);
 			tx = b_q.pop_back();
@@ -138,8 +141,10 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 
 			do
 				@(vif.drv_cb);
-			while (!vif.BVALID);
+			while (!vif.drv_cb.BVALID);
 			vif.drv_cb.BREADY <= 0;
+
+			wr_pipeline.put(1);
 		end
 	endtask
 
@@ -157,11 +162,11 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 
 			do
 				@(vif.drv_cb);
-			while (!vif.ARREADY);
+			while (!vif.drv_cb.ARREADY);
 			vif.drv_cb.ARVALID <= 0;
 		end
 	endtask
-                        
+
 	virtual task wait_r();
 		axi4_lite_transaction tx;
 		forever begin
@@ -175,5 +180,8 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 				@(vif.drv_cb);
 			while (!vif.drv_cb.RVALID);
 			vif.drv_cb.RREADY <= 0;
+
+			rd_pipeline.put(1);
+		end
 	endtask
 endclass

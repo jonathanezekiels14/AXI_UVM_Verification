@@ -21,13 +21,13 @@ class axi4_lite_sanity_test extends uvm_test;
 	
 	virtual function void end_of_elaboration_phase(uvm_phase phase);
 		super.end_of_elaboration_phase(phase);
-		`uvm_info("BASE_TEST", "Printing UVM Topology:", UVM_NONE)
+		`uvm_info("SANITY_TEST", "Printing UVM Topology:", UVM_NONE)
 		uvm_top.print_topology();
 	endfunction
 	
 	task run_phase(uvm_phase phase);
 		axi4_lite_sanity_vseq vseq;
-		phase.phase_done.set_drain_time(this,100ns);
+		phase.phase_done.set_drain_time(this,1000ns);
 		phase.raise_objection(this);
 		vseq = axi4_lite_sanity_vseq::type_id::create("vseq");
 		
