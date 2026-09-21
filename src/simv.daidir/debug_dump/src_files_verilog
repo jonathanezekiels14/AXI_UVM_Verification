@@ -178,6 +178,9 @@
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_sanity_vseq.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_scoreboard.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_sequencer.sv
+/fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_strb_read_seq.sv
+/fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_strb_vseq.sv
+/fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_strb_write_seq.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_subscriber.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_transaction.sv
 /fetools/work_area/frontend/Batch_11/jonathanezekiels/AXI_UVM_Verification/src/axi4_lite_virtual_sequencer.sv

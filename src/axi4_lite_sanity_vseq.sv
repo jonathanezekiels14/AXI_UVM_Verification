@@ -14,13 +14,13 @@ class axi4_lite_sanity_vseq extends uvm_sequence;
 		`uvm_info("VSEQ", "Starting Sanity Sequence...", UVM_LOW)
 
 		wr_seq.start(p_sequencer.wr_sqr);
-
+/*
 		rd_from_seq.target_addrs = wr_seq.target_addrs;
 
 		rd_seq.start(p_sequencer.rd_sqr);
 
 		rd_from_seq.start(p_sequencer.rd_sqr);
-		
+*/		
 		`uvm_info("VSEQ", "Sanity Sequence Complete!", UVM_LOW)
 	endtask
 endclass

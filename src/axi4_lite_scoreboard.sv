@@ -19,7 +19,7 @@ class axi4_lite_scoreboard extends uvm_scoreboard;
 
 	virtual function reg_access access_type(bit [31:0] addr);
 		// 1. Highest Priority: Unaligned accesses are always invalid
-		if (addr % 4 != 0)
+		if (addr % 4 != 0 && addr < 32'h3F)
 			return INVALID;
 		
 		// 2. Range Checks

@@ -11,6 +11,8 @@ class axi4_lite_corner_vseq extends axi4_lite_base_sequence;
 		axi4_lite_write_seq wr_seq = axi4_lite_write_seq::type_id::create("wr_seq");
 		axi4_lite_read_seq rd_seq = axi4_lite_read_seq::type_id::create("rd_seq");
 
+		axi4_lite_strb_vseq strb_vseq = axi4_lite_strb_vseq::type_id::create("strb_vseq");
+
 		`uvm_info("CORNER_VSEQ","Starting Full Write",UVM_LOW)
 
 		full_wr_seq.start(p_sequencer.wr_sqr);
@@ -20,5 +22,7 @@ class axi4_lite_corner_vseq extends axi4_lite_base_sequence;
 			wr_seq.start(p_sequencer.wr_sqr);
 			rd_seq.start(p_sequencer.rd_sqr);
 		join
+		`uvm_info("CORNER_VSEQ","Starting WSTRB Corner Condition ",UVM_LOW)
+		strb_vseq.start(p_sequencer);
 	endtask
 endclass	

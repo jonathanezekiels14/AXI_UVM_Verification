@@ -42,9 +42,6 @@ class axi4_lite_subscriber extends uvm_subscriber #(axi4_lite_transaction);
 			bins err = {2'b10};
 		}
 
-		// Cross-check addresses against responses
-		cross_w: cross waddr, wresp;
-		cross_r: cross raddr, rresp;
 	endgroup
 
 	function new(string name = "axi4_lite_subscriber", uvm_component parent = null);

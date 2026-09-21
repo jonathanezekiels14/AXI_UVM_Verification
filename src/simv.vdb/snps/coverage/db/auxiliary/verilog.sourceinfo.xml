@@ -168,26 +168,29 @@
       <fileinfo name="axi4_lite_rand_write_seq.sv"  id="163"  />
       <fileinfo name="axi4_lite_rand_read_seq.sv"  id="164"  />
       <fileinfo name="axi4_lite_sanity_vseq.sv"  id="165"  />
-      <fileinfo name="axi4_lite_corner_vseq.sv"  id="166"  />
-      <fileinfo name="axi4_lite_rand_vseq.sv"  id="167"  />
-      <fileinfo name="axi4_lite_write_backpressure_seq.sv"  id="168"  />
-      <fileinfo name="axi4_lite_read_backpressure_seq.sv"  id="169"  />
-      <fileinfo name="axi4_lite_outstanding_vseq.sv"  id="170"  />
-      <fileinfo name="axi4_lite_error_write_seq.sv"  id="171"  />
-      <fileinfo name="axi4_lite_error_read_seq.sv"  id="172"  />
-      <fileinfo name="axi4_lite_error_vseq.sv"  id="173"  />
-      <fileinfo name="axi4_lite_driver.sv"  id="174"  />
-      <fileinfo name="axi4_lite_monitor.sv"  id="175"  />
-      <fileinfo name="axi4_lite_agent.sv"  id="176"  />
-      <fileinfo name="axi4_lite_scoreboard.sv"  id="177"  />
-      <fileinfo name="axi4_lite_subscriber.sv"  id="178"  />
-      <fileinfo name="axi4_lite_environment.sv"  id="179"  />
-      <fileinfo name="axi4_lite_sanity_test.sv"  id="180"  />
-      <fileinfo name="axi4_lite_corner_test.sv"  id="181"  />
-      <fileinfo name="axi4_lite_rand_test.sv"  id="182"  />
-      <fileinfo name="axi4_lite_error_test.sv"  id="183"  />
-      <fileinfo name="top.sv"  id="184"  />
-      <fileinfo name="axi4_lite.v"  id="185"  />
-      <fileinfo name="axi4_lite_assertions.sv"  id="186"  />
-      <fileinfo name=""  id="187"  />
+      <fileinfo name="axi4_lite_strb_write_seq.sv"  id="166"  />
+      <fileinfo name="axi4_lite_strb_read_seq.sv"  id="167"  />
+      <fileinfo name="axi4_lite_strb_vseq.sv"  id="168"  />
+      <fileinfo name="axi4_lite_corner_vseq.sv"  id="169"  />
+      <fileinfo name="axi4_lite_rand_vseq.sv"  id="170"  />
+      <fileinfo name="axi4_lite_write_backpressure_seq.sv"  id="171"  />
+      <fileinfo name="axi4_lite_read_backpressure_seq.sv"  id="172"  />
+      <fileinfo name="axi4_lite_outstanding_vseq.sv"  id="173"  />
+      <fileinfo name="axi4_lite_error_write_seq.sv"  id="174"  />
+      <fileinfo name="axi4_lite_error_read_seq.sv"  id="175"  />
+      <fileinfo name="axi4_lite_error_vseq.sv"  id="176"  />
+      <fileinfo name="axi4_lite_driver.sv"  id="177"  />
+      <fileinfo name="axi4_lite_monitor.sv"  id="178"  />
+      <fileinfo name="axi4_lite_agent.sv"  id="179"  />
+      <fileinfo name="axi4_lite_scoreboard.sv"  id="180"  />
+      <fileinfo name="axi4_lite_subscriber.sv"  id="181"  />
+      <fileinfo name="axi4_lite_environment.sv"  id="182"  />
+      <fileinfo name="axi4_lite_sanity_test.sv"  id="183"  />
+      <fileinfo name="axi4_lite_corner_test.sv"  id="184"  />
+      <fileinfo name="axi4_lite_rand_test.sv"  id="185"  />
+      <fileinfo name="axi4_lite_error_test.sv"  id="186"  />
+      <fileinfo name="top.sv"  id="187"  />
+      <fileinfo name="axi4_lite.v"  id="188"  />
+      <fileinfo name="axi4_lite_assertions.sv"  id="189"  />
+      <fileinfo name=""  id="190"  />
     </srcinfo>

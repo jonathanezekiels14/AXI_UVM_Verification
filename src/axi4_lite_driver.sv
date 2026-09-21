@@ -38,7 +38,7 @@ class axi4_lite_driver extends uvm_driver #(axi4_lite_transaction);
 
 	task run_phase(uvm_phase phase);
 		reset();
-		wait(vif.ARESETn == 1);
+		wait(vif.wait_reset == 1);
 
 		fork
 			get_write();

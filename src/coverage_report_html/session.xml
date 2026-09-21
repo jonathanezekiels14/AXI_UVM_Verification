@@ -1,6 +1,6 @@
-<session version="1.1" release="Q-2020.03-SP2-8" timestp="2026-09-20 15:17:45 GMT">
+<session version="1.1" release="Q-2020.03-SP2-8" timestp="2026-09-21 11:22:33 GMT">
   <info>
-    <attr name="datetime" value="Sun Sep 20 20:47:48 2026
+    <attr name="datetime" value="Mon Sep 21 16:52:36 2026
 "/>
     <attr name="command" value="urg -dir simv.vdb -report coverage_report_html"/>
     <attr name="top_instance" value="uvm_custom_install_recording,uvm_custom_install_verdi_recording,top"/>
@@ -18,19 +18,19 @@
   </hvp>
   <old_coverage>
   <scope type="top" name="top">
-    <metric name="Line" value="152/551" />
+    <metric name="Line" value="159/558" />
     <metric name="Cond" value="80/100" />
-    <metric name="Toggle" value="790/928" />
+    <metric name="Toggle" value="911/930" />
     <metric name="FSM" value="7/10" />
     <metric name="Branch" value="67/114" />
     <metric name="Assert" value="5/6" />
-    <metric name="Group" value="89.2857%" />
+    <metric name="Group" value="100%" />
   </scope>
   <scope type="instance" name="top">
   </scope>
   <scope type="group" name="top">
     <scope type="group" name="axi4_lite_pkg::axi4_lite_subscriber::cg">
-      <metric name="Group" value="89.2857%" />
+      <metric name="Group" value="100%" />
     </scope>
   </scope>
   <scope type="assert" name="Statistics">
@@ -39,12 +39,12 @@
       <score name="Score" value="83.33" />
     </scorelist>
     <scorelist type="total" name="Module List Assert">
-      <score name="Assert" value="28/32" />
-      <score name="Score" value="87.50" />
+      <score name="Assert" value="31/36" />
+      <score name="Score" value="86.11" />
     </scorelist>
     <scorelist type="total" name="Assertion">
-      <score name="Assert" value="28/32" />
-      <score name="Score" value="87.50" />
+      <score name="Assert" value="31/36" />
+      <score name="Score" value="86.11" />
     </scorelist>
   </scope>
   </old_coverage>

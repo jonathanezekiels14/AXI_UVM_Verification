@@ -34,7 +34,7 @@ global coverage_group 0 axi4_lite_pkg::axi4_lite_subscriber::cg __coverage_axi4_
 
 5
 0
-2
+0
 0
  3 dir 10 0 0 0 0 0 126 axi4_lite_pkg_axi4_lite_subscriber_11_0::axi4_lite_pkg_axi4_lite_subscriber_11_0_axi4_lite_pkg_axi4_lite_subscriber_11_0_cg_fn 126 axi4_lite_pkg_axi4_lite_subscriber_11_0::axi4_lite_pkg_axi4_lite_subscriber_11_0_axi4_lite_pkg_axi4_lite_subscriber_11_0_cg_fn 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 7 1 1 22 axi4_lite_pkg::axi_dir 1 0 0 1 0 0 0
  0
@@ -146,30 +146,4 @@ global coverage_group 0 axi4_lite_pkg::axi4_lite_subscriber::cg __coverage_axi4_
  1 1 0 0 1 1 3 err 42 0 0 1 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 1 1 1 128 axi4_lite_pkg_axi4_lite_subscriber_11_0::axi4_lite_pkg_axi4_lite_subscriber_11_0_axi4_lite_pkg_axi4_lite_subscriber_11_0_cg_fn_f 0 0 0 0 0 0 0
  0
 
- 7 cross_w 0 46 0 0 0 0 0 2 1 3 -1 0 0 0
- 0
- 0
- 0
- 0 0
- 0 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
- 7 cross_r 0 47 0 0 0 0 0 2 2 4 -1 0 0 0
- 0
- 0
- 0
- 0 0
- 0 0
- 0
- 0
- 0
- 0
- 0
- 0
- 0
 end_coverage_group

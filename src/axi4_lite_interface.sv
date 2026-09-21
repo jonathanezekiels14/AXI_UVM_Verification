@@ -2,6 +2,7 @@
 interface axi4_lite_interface(input bit ACLK);
 
 	logic ARESETn;
+	bit wait_reset;
 
 	// Write Address Channel
 	logic [`ADDR_WIDTH-1:0] AWADDR;
@@ -60,8 +61,8 @@ interface axi4_lite_interface(input bit ACLK);
 	endclocking
 
 
-	modport DRV (clocking drv_cb, input ARESETn);
-	modport MON (clocking mon_cb, input ARESETn);
+	modport DRV (clocking drv_cb, input ARESETn, input wait_reset);
+	modport MON (clocking mon_cb, input ARESETn, input wait_reset);
 endinterface
 
 

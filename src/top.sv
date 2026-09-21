@@ -21,7 +21,8 @@ module top;
 		.DATA_WIDTH(`DATA_WIDTH),
 		.ADDR_WIDTH(`ADDR_WIDTH),
 		.MEM_DEPTH(`MEM_DEPTH),
-		.DEFAULT_PROT(`DEFAULT_PROT))
+		.DEFAULT_PROT(`DEFAULT_PROT)
+	)
 	dut (
 		.ACLK(ACLK),
 		.ARESETn(vif.ARESETn),
@@ -59,8 +60,7 @@ module top;
 		.ARREADY(ARREADY),
 		.RVALID(RVALID),
 		.RREADY(RREADY)
-		/*
-		.AWADDR(AWADDR),
+		/*.AWADDR(AWADDR),
 		.AWPROT(AWPROT),
 		.WDATA(WDATA),
 		.WSTRB(WSTRB),
@@ -69,11 +69,17 @@ module top;
 	);
 
 	initial begin
+		vif.wait_reset = 0;
 		@(posedge ACLK);
 		vif.ARESETn = 0;
-		repeat (2) @(posedge ACLK);
+		@(posedge ACLK);
+		vif.ARESETn = 1;
+		@(posedge ACLK);
+		vif.ARESETn = 0;
+		@(posedge ACLK);
 		vif.ARESETn = 1;
 		`uvm_info("TOP",$sformatf("Initial Reset Released"), UVM_LOW)
+		vif.wait_reset = 1;
 	end
 
 	initial begin

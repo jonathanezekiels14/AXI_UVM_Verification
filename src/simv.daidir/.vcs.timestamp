@@ -619,7 +619,7 @@ axi4_lite_interface.sv
 axi4_lite_pkg.sv
 top.sv
 44
-XDG_SESSION_ID=90500
+XDG_SESSION_ID=90833
 XDG_RUNTIME_DIR=/run/user/6897
 XDG_DATA_DIRS=/home/jonathanezekiels/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
 VMR_MODE_FLAG=64
@@ -636,15 +636,15 @@ VCS_ARG_ADDED_FOR_TMP=1
 VCS_ARCH=linux64
 UNAME=/bin/uname
 TOOL_HOME=/fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/linux64
-SSH_TTY=/dev/pts/37
-SSH_CONNECTION=106.192.247.48 63804 192.168.1.16 22
-SSH_CLIENT=106.192.247.48 63804 22
+SSH_TTY=/dev/pts/464
+SSH_CONNECTION=171.76.107.224 5443 192.168.1.16 22
+SSH_CLIENT=171.76.107.224 5443 22
 SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass
 SPYGLASS_HOME=/fetools/synopsys/installed_tools/spyglass/S-2021.09-SP1/SPYGLASS_HOME
 SNPSLMD_QUEUE=true
 SCRNAME=vcs
 SCRIPT_NAME=vcs
-REMOTEHOST=106.192.247.48
+REMOTEHOST=171.76.107.224
 QT_GRAPHICSSYSTEM_CHECKED=1
 QTLIB=/usr/lib64/qt-3.3/lib
 QTINC=/usr/lib64/qt-3.3/include
@@ -664,7 +664,7 @@ GROUP=jonathanezekiels
 FORMALITY=/fetools/synopsys/installed_tools/Formality/fm/S-2021.06-SP2
 DC_HOME=/fetools/synopsys/installed_tools/syn/S-2021.06-SP4
 0
-191
+194
 1789637206 axi4_lite_assertions.sv
 1789494752 axi4_lite.v
 1789916912 axi4_lite_error_test.sv
@@ -672,11 +672,11 @@ DC_HOME=/fetools/synopsys/installed_tools/syn/S-2021.06-SP4
 1789635502 axi4_lite_corner_test.sv
 1789916555 axi4_lite_sanity_test.sv
 1789407665 axi4_lite_environment.sv
-1789405404 axi4_lite_subscriber.sv
-1789917218 axi4_lite_scoreboard.sv
+1789987162 axi4_lite_subscriber.sv
+1789989713 axi4_lite_scoreboard.sv
 1789303674 axi4_lite_agent.sv
-1789494959 axi4_lite_monitor.sv
-1789914846 axi4_lite_driver.sv
+1789967336 axi4_lite_monitor.sv
+1789967324 axi4_lite_driver.sv
 1789916875 axi4_lite_error_vseq.sv
 1789916157 axi4_lite_error_read_seq.sv
 1789916129 axi4_lite_error_write_seq.sv
@@ -684,10 +684,13 @@ DC_HOME=/fetools/synopsys/installed_tools/syn/S-2021.06-SP4
 1789915806 axi4_lite_read_backpressure_seq.sv
 1789915570 axi4_lite_write_backpressure_seq.sv
 1789912961 axi4_lite_rand_vseq.sv
-1789910815 axi4_lite_corner_vseq.sv
-1789909053 axi4_lite_sanity_vseq.sv
-1789912862 axi4_lite_rand_read_seq.sv
-1789912522 axi4_lite_rand_write_seq.sv
+1789982712 axi4_lite_corner_vseq.sv
+1789982485 axi4_lite_strb_vseq.sv
+1789982784 axi4_lite_strb_read_seq.sv
+1789982746 axi4_lite_strb_write_seq.sv
+1789971232 axi4_lite_sanity_vseq.sv
+1789987345 axi4_lite_rand_read_seq.sv
+1789987292 axi4_lite_rand_write_seq.sv
 1789905448 axi4_lite_full_read_seq.sv
 1789904160 axi4_lite_full_write_seq.sv
 1789910263 axi4_lite_read_from_seq.sv
@@ -846,9 +849,9 @@ DC_HOME=/fetools/synopsys/installed_tools/syn/S-2021.06-SP4
 1631418289 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/macros/snps_macros.svp
 1631418289 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/macros/uvm_version_defines.svh
 1631418293 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/uvm_macros.svh
-1789637255 top.sv
-1789916707 axi4_lite_pkg.sv
-1789370087 axi4_lite_interface.sv
+1789971604 top.sv
+1789982889 axi4_lite_pkg.sv
+1789967378 axi4_lite_interface.sv
 1631418293 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/verdi/uvm_custom_install_verdi_recorder.sv
 1631418293 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/verdi/uvm_custom_install_verdi_recorder.sv
 1631418292 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/etc/uvm/vcs/uvm_custom_install_vcs_recorder.sv
@@ -863,5 +866,5 @@ DC_HOME=/fetools/synopsys/installed_tools/syn/S-2021.06-SP4
 1631416743 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/linux64/lib/liberrorinf.so
 1631416702 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/linux64/lib/libsnpsmalloc.so
 1631416739 /fetools/synopsys/installed_tools/vcs/vcs/Q-2020.03-SP2-8/linux64/lib/libvfs.so
-1789917448 simv.daidir
+1789989732 simv.daidir
 -1 partitionlib
